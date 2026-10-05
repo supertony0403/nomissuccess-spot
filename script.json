@@ -1,119 +1,525 @@
 {
   "_hinweis": "Einzige Quelle für alle Texte. Sprechertext aus brief/PROMPT.md §3 (freigegeben 05.10.2026). Jede Aussage ist auf nomissuccess.de belegt oder von Anthony vorgegeben. Bildtexte nur aus diesen Sätzen ableiten — nichts erfinden.",
   "stimme": {
-    "modell": "gemini-3.8-flash-lite-tts",
-    "voice": "de-de-techagent-6",
-    "voice_beschreibung": "Commercial Voiceover (Tech Support), 36 J., neutral/tief, 'professional yet approachable'",
-    "stil": "moderner Werbespot, klar, warm und selbstbewusst, zügiges natürliches Tempo",
-    "_probe": "05.10.2026 22:35: v01–v03 als Probe = 12,1 s, Whisper fehlerfrei, 2,37 Wörter/s"
+    "modell": "gemini-3.1-flash-tts-preview",
+    "voice": "Charon",
+    "voice_beschreibung": "Gemini-Standardstimme Charon (männlich, informativ); Deutsch per Text",
+    "stil": "Sprich als moderner Werbesprecher, klar, warm und selbstbewusst, in zügigem, natürlichem Tempo",
+    "stil_modus": "prefix",
+    "_stil_hinweis": "3.1 kennt kein speech_metadata: Stil als Präfix '<stil>: <text>' im Text, wird NICHT mitgesprochen (Probe 05.10. 23:08, Whisper fehlerfrei). Antwort ist rohes PCM (audio/l16; rate=24000), kein RIFF.",
+    "_wechsel": "05.10.2026 23:05: gemini-3.8-flash-lite-tts/de-de-techagent-6 nach Block A ins Tageskontingent gelaufen; de-de-*-Stimmen gibt es nur auf 3.8. Damit es EINE Stimme bleibt, wird der komplette Text (A, B, C) mit 3.1/Charon neu erzeugt. Alte Lite-Takes bleiben in work/vo/takes/ als Referenz.",
+    "_probe": "v01–v03 mit 3.1/Charon: 13,6 s, 2,06 Wörter/s, Whisper fehlerfrei, Peak −1,7 dBFS"
   },
   "bloecke": [
-    { "id": "A", "zeilen": ["v01", "v02", "v03", "v04", "v05", "v06", "v07", "v08"] },
-    { "id": "B", "zeilen": ["v09", "v10", "v11", "v12", "v13", "v14", "v15"] },
-    { "id": "C", "zeilen": ["v16", "v17", "v18", "v19", "v20", "v21", "v22", "v23"] }
+    {
+      "id": "A",
+      "zeilen": [
+        "v01",
+        "v02",
+        "v03",
+        "v04",
+        "v05",
+        "v06",
+        "v07",
+        "v08"
+      ]
+    },
+    {
+      "id": "B",
+      "zeilen": [
+        "v09",
+        "v10",
+        "v11",
+        "v12",
+        "v13",
+        "v14",
+        "v15"
+      ]
+    },
+    {
+      "id": "C",
+      "zeilen": [
+        "v16",
+        "v17",
+        "v18",
+        "v19",
+        "v20",
+        "v21",
+        "v22",
+        "v23"
+      ]
+    }
   ],
   "szenen": [
-    { "id": "s1_nacht",     "titel": "03:12",        "farbe": "nacht" },
-    { "id": "s2_website",   "titel": "Schaufenster", "farbe": "rosa" },
-    { "id": "s3_netz",      "titel": "Netzwerk",     "farbe": "blau" },
-    { "id": "s4_ernstfall", "titel": "Ernstfall",    "farbe": "blau" },
-    { "id": "s5_betrieb",   "titel": "Betrieb",      "farbe": "mint" },
-    { "id": "s6_beweis",    "titel": "Kein Mockup",  "farbe": "mint" },
-    { "id": "s7_team",      "titel": "Ein Team",     "farbe": "rosa" },
-    { "id": "s8_morgen",    "titel": "07:00",        "farbe": "spektrum" }
+    {
+      "id": "s1_nacht",
+      "titel": "03:12",
+      "farbe": "nacht"
+    },
+    {
+      "id": "s2_website",
+      "titel": "Schaufenster",
+      "farbe": "rosa"
+    },
+    {
+      "id": "s3_netz",
+      "titel": "Netzwerk",
+      "farbe": "blau"
+    },
+    {
+      "id": "s4_ernstfall",
+      "titel": "Ernstfall",
+      "farbe": "blau"
+    },
+    {
+      "id": "s5_betrieb",
+      "titel": "Betrieb",
+      "farbe": "mint"
+    },
+    {
+      "id": "s6_beweis",
+      "titel": "Kein Mockup",
+      "farbe": "mint"
+    },
+    {
+      "id": "s7_team",
+      "titel": "Ein Team",
+      "farbe": "rosa"
+    },
+    {
+      "id": "s8_morgen",
+      "titel": "07:00",
+      "farbe": "spektrum"
+    }
   ],
   "vo": [
-    { "id": "v01", "szene": "s1_nacht",     "text": "Drei Uhr zwölf. Die Stadt schläft. Ihr Büro ist dunkel." },
-    { "id": "v02", "szene": "s1_nacht",     "text": "Aber Ihre IT schläft nie: Website, Firewall, Server, Backups." },
-    { "id": "v03", "szene": "s1_nacht",     "text": "Die Frage ist nur: Weckt sie heute Nacht jemanden?" },
-    { "id": "v04", "szene": "s2_website",   "text": "Fangen wir vorne an, bei Ihrer Website. Sie ist Ihr Schaufenster, auch um drei Uhr nachts." },
-    { "id": "v05", "szene": "s2_website",   "text": "Wir bauen sie für Sie. Komplett programmiert. Kein Baukasten, keine Plugin-Sammlung, keine Vorlage von der Stange." },
-    { "id": "v06", "szene": "s2_website",   "text": "Sie lädt in unter einer Sekunde, liegt auf Servern in Deutschland und wird jeden Tag gesichert." },
-    { "id": "v07", "szene": "s2_website",   "text": "Und Sie zahlen monatlich: Hosting, Updates und Pflege für einen festen Betrag, ohne Überraschungen." },
-    { "id": "v08", "szene": "s2_website",   "text": "Der Quellcode gehört trotzdem Ihnen." },
-    { "id": "v09", "szene": "s3_netz",      "text": "Hinter der Website beginnt Ihr Netzwerk. Dort entscheidet sich, ob ein Angreifer draußen bleibt." },
-    { "id": "v10", "szene": "s3_netz",      "text": "Wir richten Ihre Firewall ein, mit FortiGate oder OPNsense, herstellerneutral und aus dem täglichen Betrieb." },
-    { "id": "v11", "szene": "s3_netz",      "text": "Und der Zugriff aus dem Homeoffice läuft ohne klassisches VPN. Mit Zero Trust ist Ihr Firmennetz im Internet schlicht unsichtbar. Es gibt keinen offenen Port, den man scannen könnte." },
-    { "id": "v12", "szene": "s4_ernstfall", "text": "Und wenn doch etwas passiert? Ransomware greift zuerst die Sicherungen an." },
-    { "id": "v13", "szene": "s4_ernstfall", "text": "Darum legen wir unveränderbare Kopien an und spielen sie regelmäßig zurück. Denn ein Backup, das nie getestet wurde, ist nur eine Hoffnung." },
-    { "id": "v14", "szene": "s5_betrieb",   "text": "Ihre VMware-Lizenz kostet plötzlich ein Vielfaches? Wir ziehen Ihre Server auf Proxmox um, planbar, mit Testlauf und Rückweg." },
-    { "id": "v15", "szene": "s5_betrieb",   "text": "Updates spielen wir im laufenden Betrieb ein, mit Dashboards, die man auch ohne IT-Studium lesen kann." },
-    { "id": "v16", "szene": "s6_beweis",    "text": "Klingt nach Prospekt? Ist es nicht. Wir betreiben selbst, was wir Ihnen empfehlen." },
-    { "id": "v17", "szene": "s6_beweis",    "text": "Was Sie hier sehen, ist kein Mockup. Das ist unser eigenes Monitoring, live und im Dauerbetrieb." },
-    { "id": "v18", "szene": "s7_team",      "text": "Und das alles kommt von einem Team, von der Website bis zur Firewall." },
-    { "id": "v19", "szene": "s7_team",      "text": "Kein Callcenter, kein Ticketstapel. Sie sprechen mit den Leuten, die Ihre Systeme bauen, und bekommen innerhalb eines Werktags eine Antwort." },
-    { "id": "v20", "szene": "s7_team",      "text": "Am Ende gehört Ihnen die komplette Dokumentation. Keine Black Box, keine Abhängigkeit." },
-    { "id": "v21", "szene": "s8_morgen",    "text": "Sieben Uhr. Alles läuft. Niemand wurde geweckt." },
-    { "id": "v22", "szene": "s8_morgen",    "text": "nomissuccess. Infrastruktur, die nachts niemanden weckt." },
-    { "id": "v23", "szene": "s8_morgen",    "text": "Das Erstgespräch dauert dreißig Minuten und kostet nichts. nomissuccess punkt de." }
+    {
+      "id": "v01",
+      "szene": "s1_nacht",
+      "text": "Drei Uhr zwölf. Die Stadt schläft. Ihr Büro ist dunkel."
+    },
+    {
+      "id": "v02",
+      "szene": "s1_nacht",
+      "text": "Aber Ihre IT schläft nie: Website, Firewall, Server, Backups."
+    },
+    {
+      "id": "v03",
+      "szene": "s1_nacht",
+      "text": "Die Frage ist nur: Weckt sie heute Nacht jemanden?"
+    },
+    {
+      "id": "v04",
+      "szene": "s2_website",
+      "text": "Fangen wir vorne an, bei Ihrer Website. Sie ist Ihr Schaufenster, auch um drei Uhr nachts."
+    },
+    {
+      "id": "v05",
+      "szene": "s2_website",
+      "text": "Wir bauen sie für Sie. Komplett programmiert. Kein Baukasten, keine Plugin-Sammlung, keine Vorlage von der Stange."
+    },
+    {
+      "id": "v06",
+      "szene": "s2_website",
+      "text": "Sie lädt in unter einer Sekunde, liegt auf Servern in Deutschland und wird jeden Tag gesichert."
+    },
+    {
+      "id": "v07",
+      "szene": "s2_website",
+      "text": "Und Sie zahlen monatlich: Hosting, Updates und Pflege für einen festen Betrag, ohne Überraschungen."
+    },
+    {
+      "id": "v08",
+      "szene": "s2_website",
+      "text": "Der Quellcode gehört trotzdem Ihnen."
+    },
+    {
+      "id": "v09",
+      "szene": "s3_netz",
+      "text": "Hinter der Website beginnt Ihr Netzwerk. Dort entscheidet sich, ob ein Angreifer draußen bleibt."
+    },
+    {
+      "id": "v10",
+      "szene": "s3_netz",
+      "text": "Wir richten Ihre Firewall ein, mit FortiGate oder OPNsense, herstellerneutral und aus dem täglichen Betrieb."
+    },
+    {
+      "id": "v11",
+      "szene": "s3_netz",
+      "text": "Und der Zugriff aus dem Homeoffice läuft ohne klassisches VPN. Mit Zero Trust ist Ihr Firmennetz im Internet schlicht unsichtbar. Es gibt keinen offenen Port, den man scannen könnte."
+    },
+    {
+      "id": "v12",
+      "szene": "s4_ernstfall",
+      "text": "Und wenn doch etwas passiert? Ransomware greift zuerst die Sicherungen an."
+    },
+    {
+      "id": "v13",
+      "szene": "s4_ernstfall",
+      "text": "Darum legen wir unveränderbare Kopien an und spielen sie regelmäßig zurück. Denn ein Backup, das nie getestet wurde, ist nur eine Hoffnung."
+    },
+    {
+      "id": "v14",
+      "szene": "s5_betrieb",
+      "text": "Ihre VMware-Lizenz kostet plötzlich ein Vielfaches? Wir ziehen Ihre Server auf Proxmox um, planbar, mit Testlauf und Rückweg."
+    },
+    {
+      "id": "v15",
+      "szene": "s5_betrieb",
+      "text": "Updates spielen wir im laufenden Betrieb ein, mit Dashboards, die man auch ohne IT-Studium lesen kann."
+    },
+    {
+      "id": "v16",
+      "szene": "s6_beweis",
+      "text": "Klingt nach Prospekt? Ist es nicht. Wir betreiben selbst, was wir Ihnen empfehlen."
+    },
+    {
+      "id": "v17",
+      "szene": "s6_beweis",
+      "text": "Was Sie hier sehen, ist kein Mockup. Das ist unser eigenes Monitoring, live und im Dauerbetrieb."
+    },
+    {
+      "id": "v18",
+      "szene": "s7_team",
+      "text": "Und das alles kommt von einem Team, von der Website bis zur Firewall."
+    },
+    {
+      "id": "v19",
+      "szene": "s7_team",
+      "text": "Kein Callcenter, kein Ticketstapel. Sie sprechen mit den Leuten, die Ihre Systeme bauen, und bekommen innerhalb eines Werktags eine Antwort."
+    },
+    {
+      "id": "v20",
+      "szene": "s7_team",
+      "text": "Am Ende gehört Ihnen die komplette Dokumentation. Keine Black Box, keine Abhängigkeit."
+    },
+    {
+      "id": "v21",
+      "szene": "s8_morgen",
+      "text": "Sieben Uhr. Alles läuft. Niemand wurde geweckt."
+    },
+    {
+      "id": "v22",
+      "szene": "s8_morgen",
+      "text": "nomissuccess. Infrastruktur, die nachts niemanden weckt."
+    },
+    {
+      "id": "v23",
+      "szene": "s8_morgen",
+      "text": "Das Erstgespräch dauert dreißig Minuten und kostet nichts. nomissuccess punkt de."
+    }
   ],
   "bildtexte": {
     "_regel": "Bildtexte = Fusion (Typo + flache UI-Elemente). 3D-Welt = Blender. Jeder Eintrag erscheint am genannten Event aus szenen/events.json.",
     "s1_nacht": [
-      { "id": "uhr",   "text": "03:12:00", "von": "03:11:57", "art": "rollzaehler", "event": "clock_roll" },
-      { "id": "t1",    "text": "Die Stadt schläft.", "art": "buchstaben_sacken", "event": "sleep_letters" },
-      { "id": "t2",    "text": "Ihr Büro ist dunkel.", "art": "licht_aus_je_buchstabe", "event": "lights_off" },
-      { "id": "leds",  "text": ["Website", "Firewall", "Server", "Backups"], "art": "led_spalte", "events": ["led_1", "led_2", "led_3", "led_4"] },
-      { "id": "frage", "text": "Weckt sie heute Nacht jemanden?", "art": "fragezeichen_wird_glocke", "event": "bell_morph" }
+      {
+        "id": "uhr",
+        "text": "03:12:00",
+        "von": "03:11:57",
+        "art": "rollzaehler",
+        "event": "clock_roll"
+      },
+      {
+        "id": "t1",
+        "text": "Die Stadt schläft.",
+        "art": "buchstaben_sacken",
+        "event": "sleep_letters"
+      },
+      {
+        "id": "t2",
+        "text": "Ihr Büro ist dunkel.",
+        "art": "licht_aus_je_buchstabe",
+        "event": "lights_off"
+      },
+      {
+        "id": "leds",
+        "text": [
+          "Website",
+          "Firewall",
+          "Server",
+          "Backups"
+        ],
+        "art": "led_spalte",
+        "events": [
+          "led_1",
+          "led_2",
+          "led_3",
+          "led_4"
+        ]
+      },
+      {
+        "id": "frage",
+        "text": "Weckt sie heute Nacht jemanden?",
+        "art": "fragezeichen_wird_glocke",
+        "event": "bell_morph"
+      }
     ],
     "s2_website": [
-      { "id": "kicker", "text": "WEB & BETRIEB", "art": "mono_label", "event": "window_reveal" },
-      { "id": "t1", "text": "Komplett programmiert.", "event": "layers_explode" },
-      { "id": "t2", "text": "Kein Baukasten.", "event": "tower_fall" },
-      { "id": "w1", "text": "< 1 s Ladezeit", "art": "wert", "event": "speed_line" },
-      { "id": "w2", "text": "Gehostet in Deutschland", "art": "wert", "event": "de_pin" },
-      { "id": "w3", "text": "Täglich gesichert", "art": "wert_kalender", "event": "calendar_ticks" },
-      { "id": "monat", "text": "Monatlich. Ein fester Betrag.", "monate": ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"], "art": "monatskarussell", "event": "month_carousel" },
-      { "id": "code", "text": "git clone — Ihr Repository", "art": "mono_label", "event": "key_turn" }
+      {
+        "id": "kicker",
+        "text": "WEB & BETRIEB",
+        "art": "mono_label",
+        "event": "window_reveal"
+      },
+      {
+        "id": "t1",
+        "text": "Komplett programmiert.",
+        "event": "layers_explode"
+      },
+      {
+        "id": "t2",
+        "text": "Kein Baukasten.",
+        "event": "tower_fall"
+      },
+      {
+        "id": "w1",
+        "text": "< 1 s Ladezeit",
+        "art": "wert",
+        "event": "speed_line"
+      },
+      {
+        "id": "w2",
+        "text": "Gehostet in Deutschland",
+        "art": "wert",
+        "event": "de_pin"
+      },
+      {
+        "id": "w3",
+        "text": "Täglich gesichert",
+        "art": "wert_kalender",
+        "event": "calendar_ticks"
+      },
+      {
+        "id": "monat",
+        "text": "Monatlich. Ein fester Betrag.",
+        "monate": [
+          "Jan",
+          "Feb",
+          "Mär",
+          "Apr",
+          "Mai",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Okt",
+          "Nov",
+          "Dez"
+        ],
+        "art": "monatskarussell",
+        "event": "month_carousel"
+      },
+      {
+        "id": "code",
+        "text": "git clone — Ihr Repository",
+        "art": "mono_label",
+        "event": "key_turn"
+      }
     ],
     "s3_netz": [
-      { "id": "kicker", "text": "NETZWERK & SICHERHEIT", "art": "mono_label", "event": "dive_into_pixels" },
-      { "id": "t1", "text": "Firewall", "unter": "FortiGate · OPNsense", "event": "firewall_wall" },
-      { "id": "t2", "text": "Zero Trust", "unter": "statt klassischem VPN", "event": "radar_sweep" },
-      { "id": "t3", "text": "Im Internet unsichtbar.", "event": "net_vanish" },
-      { "id": "zahl", "text": "0", "unter": "offene Ports", "art": "grosse_zahl", "event": "zero_ports" }
+      {
+        "id": "kicker",
+        "text": "NETZWERK & SICHERHEIT",
+        "art": "mono_label",
+        "event": "dive_into_pixels"
+      },
+      {
+        "id": "t1",
+        "text": "Firewall",
+        "unter": "FortiGate · OPNsense",
+        "event": "firewall_wall"
+      },
+      {
+        "id": "t2",
+        "text": "Zero Trust",
+        "unter": "statt klassischem VPN",
+        "event": "radar_sweep"
+      },
+      {
+        "id": "t3",
+        "text": "Im Internet unsichtbar.",
+        "event": "net_vanish"
+      },
+      {
+        "id": "zahl",
+        "text": "0",
+        "unter": "offene Ports",
+        "art": "grosse_zahl",
+        "event": "zero_ports"
+      }
     ],
     "s4_ernstfall": [
-      { "id": "kicker", "text": "BACKUP & WIEDERHERSTELLUNG", "art": "mono_label", "event": "red_tendrils" },
-      { "id": "t1", "text": "Unveränderbare Kopien.", "event": "immutable_lock" },
-      { "id": "t2", "text": "Regelmäßig zurückgespielt.", "event": "rewind" },
-      { "id": "hoffnung", "text": "Hoffnung", "ersatz": "getestet ✓", "art": "verblasst_und_ersetzt", "event": "hope_fade" }
+      {
+        "id": "kicker",
+        "text": "BACKUP & WIEDERHERSTELLUNG",
+        "art": "mono_label",
+        "event": "red_tendrils"
+      },
+      {
+        "id": "t1",
+        "text": "Unveränderbare Kopien.",
+        "event": "immutable_lock"
+      },
+      {
+        "id": "t2",
+        "text": "Regelmäßig zurückgespielt.",
+        "event": "rewind"
+      },
+      {
+        "id": "hoffnung",
+        "text": "Hoffnung",
+        "ersatz": "getestet ✓",
+        "art": "verblasst_und_ersetzt",
+        "event": "hope_fade"
+      }
     ],
     "s5_betrieb": [
-      { "id": "kicker", "text": "BETRIEB & MIGRATION", "art": "mono_label", "event": "invoice_spin" },
-      { "id": "t1", "text": "VMware → Proxmox", "event": "paper_plane" },
-      { "id": "t2", "text": "Mit Testlauf und Rückweg.", "event": "rollback_path" },
-      { "id": "t3", "text": "Updates im laufenden Betrieb.", "event": "rolling_update" }
+      {
+        "id": "kicker",
+        "text": "BETRIEB & MIGRATION",
+        "art": "mono_label",
+        "event": "invoice_spin"
+      },
+      {
+        "id": "t1",
+        "text": "VMware → Proxmox",
+        "event": "paper_plane"
+      },
+      {
+        "id": "t2",
+        "text": "Mit Testlauf und Rückweg.",
+        "event": "rollback_path"
+      },
+      {
+        "id": "t3",
+        "text": "Updates im laufenden Betrieb.",
+        "event": "rolling_update"
+      }
     ],
     "s6_beweis": [
-      { "id": "t1", "text": "Wir betreiben selbst, was wir empfehlen.", "event": "grafana_flyover" },
-      { "id": "stempel", "text": "KEIN MOCKUP · ECHTES MONITORING", "art": "stempel", "event": "stamp" }
+      {
+        "id": "t1",
+        "text": "Wir betreiben selbst, was wir empfehlen.",
+        "event": "grafana_flyover"
+      },
+      {
+        "id": "stempel",
+        "text": "KEIN MOCKUP · ECHTES MONITORING",
+        "art": "stempel",
+        "event": "stamp"
+      }
     ],
     "s7_team": [
-      { "id": "t1", "text": "Ein Team.", "event": "converge" },
-      { "id": "t2", "text": "Von der Website bis zur Firewall.", "event": "converge_sub" },
-      { "id": "t3", "text": "Kein Callcenter. Kein Ticketstapel.", "event": "tickets_fall" },
-      { "id": "t4", "text": "Antwort innerhalb eines Werktags.", "event": "workday" },
-      { "id": "t5", "text": "Keine Black Box.", "event": "blackbox_unfold" }
+      {
+        "id": "t1",
+        "text": "Ein Team.",
+        "event": "converge"
+      },
+      {
+        "id": "t2",
+        "text": "Von der Website bis zur Firewall.",
+        "event": "converge_sub"
+      },
+      {
+        "id": "t3",
+        "text": "Kein Callcenter. Kein Ticketstapel.",
+        "event": "tickets_fall"
+      },
+      {
+        "id": "t4",
+        "text": "Antwort innerhalb eines Werktags.",
+        "event": "workday"
+      },
+      {
+        "id": "t5",
+        "text": "Keine Black Box.",
+        "event": "blackbox_unfold"
+      }
     ],
     "s8_morgen": [
-      { "id": "uhr", "text": "07:00:00", "von": "06:59:58", "art": "rollzaehler", "event": "clock_roll_7" },
-      { "id": "t1", "text": "Niemand wurde geweckt.", "event": "bell_sleep" },
-      { "id": "wortmarke", "teile": [{ "text": "nomis", "gewicht": 600, "deckkraft": 1.0 }, { "text": "success", "gewicht": 400, "deckkraft": 0.55 }], "tracking_em": -0.015, "art": "wortmarke", "event": "logo_fold" },
-      { "id": "claim", "text": "Infrastruktur, die nachts niemanden weckt.", "event": "claim" },
-      { "id": "cta", "text": "Erstgespräch · 30 Minuten · kostenlos", "art": "pill", "event": "cta" },
-      { "id": "url", "text": "nomissuccess.de", "event": "url" }
+      {
+        "id": "uhr",
+        "text": "07:00:00",
+        "von": "06:59:58",
+        "art": "rollzaehler",
+        "event": "clock_roll_7"
+      },
+      {
+        "id": "t1",
+        "text": "Niemand wurde geweckt.",
+        "event": "bell_sleep"
+      },
+      {
+        "id": "wortmarke",
+        "teile": [
+          {
+            "text": "nomis",
+            "gewicht": 600,
+            "deckkraft": 1.0
+          },
+          {
+            "text": "success",
+            "gewicht": 400,
+            "deckkraft": 0.55
+          }
+        ],
+        "tracking_em": -0.015,
+        "art": "wortmarke",
+        "event": "logo_fold"
+      },
+      {
+        "id": "claim",
+        "text": "Infrastruktur, die nachts niemanden weckt.",
+        "event": "claim"
+      },
+      {
+        "id": "cta",
+        "text": "Erstgespräch · 30 Minuten · kostenlos",
+        "art": "pill",
+        "event": "cta"
+      },
+      {
+        "id": "url",
+        "text": "nomissuccess.de",
+        "event": "url"
+      }
     ],
     "abspann": [
-      { "id": "a", "text": "made by", "art": "mono_label" },
-      { "id": "b", "text": "nomissuccess", "art": "wortmarke_klein" }
+      {
+        "id": "a",
+        "text": "made by",
+        "art": "mono_label"
+      },
+      {
+        "id": "b",
+        "text": "nomissuccess",
+        "art": "wortmarke_klein"
+      }
     ]
   },
   "farben": {
-    "nacht": "#0b0c14", "nacht_flaeche": "#161826", "nacht_linie": "rgba(255,255,255,0.14)", "nacht_text_2": "#b6bacc",
-    "blau": "#145fe4", "violett": "#7c3aed", "rosa": "#e44b8d", "mint": "#10b981",
-    "tinte": "#101223", "papier": "#ffffff",
-    "signal": ["#145fe4", "#7c3aed", "#e44b8d", "#10b981"], "signal_stops": [0.0, 0.34, 0.66, 1.0],
+    "nacht": "#0b0c14",
+    "nacht_flaeche": "#161826",
+    "nacht_linie": "rgba(255,255,255,0.14)",
+    "nacht_text_2": "#b6bacc",
+    "blau": "#145fe4",
+    "violett": "#7c3aed",
+    "rosa": "#e44b8d",
+    "mint": "#10b981",
+    "tinte": "#101223",
+    "papier": "#ffffff",
+    "signal": [
+      "#145fe4",
+      "#7c3aed",
+      "#e44b8d",
+      "#10b981"
+    ],
+    "signal_stops": [
+      0.0,
+      0.34,
+      0.66,
+      1.0
+    ],
     "_quelle": "nomissuccess-website/src/styles/global.css (PRISMA)"
   }
 }
