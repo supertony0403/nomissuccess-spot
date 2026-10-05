@@ -1,0 +1,29 @@
+{
+ "_quelle": "synthetisch (von Hand): typische Whisper-Schreibweisen für v21-v23 — Ziffern statt Zahlwort, Marke getrennt, Marke + URL verschmolzen, ein Wort verschluckt ('kostet')",
+ "dauer_s": 14.2,
+ "woerter": [
+  {"wort": " 7", "start": 0.10, "ende": 0.48},
+  {"wort": " Uhr.", "start": 0.48, "ende": 0.86},
+  {"wort": " Alles", "start": 1.30, "ende": 1.62},
+  {"wort": " läuft.", "start": 1.62, "ende": 2.02},
+  {"wort": " Niemand", "start": 2.40, "ende": 2.82},
+  {"wort": " wurde", "start": 2.82, "ende": 3.04},
+  {"wort": " geweckt.", "start": 3.04, "ende": 3.58},
+  {"wort": " No", "start": 4.30, "ende": 4.48},
+  {"wort": " Miss", "start": 4.48, "ende": 4.70},
+  {"wort": " Success.", "start": 4.70, "ende": 5.20},
+  {"wort": " Infrastruktur,", "start": 5.60, "ende": 6.30},
+  {"wort": " die", "start": 6.30, "ende": 6.42},
+  {"wort": " nachts", "start": 6.42, "ende": 6.80},
+  {"wort": " niemanden", "start": 6.80, "ende": 7.30},
+  {"wort": " weckt.", "start": 7.30, "ende": 7.70},
+  {"wort": " Das", "start": 8.40, "ende": 8.56},
+  {"wort": " Erstgespräch", "start": 8.56, "ende": 9.20},
+  {"wort": " dauert", "start": 9.20, "ende": 9.52},
+  {"wort": " 30", "start": 9.52, "ende": 9.98},
+  {"wort": " Minuten", "start": 9.98, "ende": 10.40},
+  {"wort": " und", "start": 10.40, "ende": 10.52},
+  {"wort": " nichts.", "start": 10.90, "ende": 11.30},
+  {"wort": " Nomissuccess.de.", "start": 11.80, "ende": 13.30}
+ ]
+}

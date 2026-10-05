@@ -1,0 +1,146 @@
+{
+ "_quelle": "faster-whisper small int8, Probe v01-v03 (gemini-3.8-flash-lite-tts, de-de-techagent-6), 05.10.2026",
+ "dauer_s": 12.12,
+ "woerter": [
+  {
+   "wort": " 3",
+   "start": 0.0,
+   "ende": 0.44
+  },
+  {
+   "wort": ".12",
+   "start": 0.44,
+   "ende": 0.88
+  },
+  {
+   "wort": " Uhr.",
+   "start": 0.88,
+   "ende": 1.28
+  },
+  {
+   "wort": " Die",
+   "start": 1.4,
+   "ende": 1.52
+  },
+  {
+   "wort": " Stadt",
+   "start": 1.52,
+   "ende": 1.68
+  },
+  {
+   "wort": " schläft.",
+   "start": 1.68,
+   "ende": 2.1
+  },
+  {
+   "wort": " Ihr",
+   "start": 2.48,
+   "ende": 2.54
+  },
+  {
+   "wort": " Büro",
+   "start": 2.54,
+   "ende": 2.82
+  },
+  {
+   "wort": " ist",
+   "start": 2.82,
+   "ende": 2.96
+  },
+  {
+   "wort": " dunkel.",
+   "start": 2.96,
+   "ende": 3.32
+  },
+  {
+   "wort": " Aber",
+   "start": 3.92,
+   "ende": 4.1
+  },
+  {
+   "wort": " ihre",
+   "start": 4.1,
+   "ende": 4.34
+  },
+  {
+   "wort": " IT",
+   "start": 4.34,
+   "ende": 4.7
+  },
+  {
+   "wort": " schläft",
+   "start": 4.7,
+   "ende": 5.26
+  },
+  {
+   "wort": " nie.",
+   "start": 5.26,
+   "ende": 5.44
+  },
+  {
+   "wort": " Website,",
+   "start": 6.1,
+   "ende": 6.64
+  },
+  {
+   "wort": " Firewall,",
+   "start": 6.84,
+   "ende": 7.3
+  },
+  {
+   "wort": " Server,",
+   "start": 7.56,
+   "ende": 7.78
+  },
+  {
+   "wort": " Backups.",
+   "start": 8.12,
+   "ende": 8.46
+  },
+  {
+   "wort": " Die",
+   "start": 9.06,
+   "ende": 9.24
+  },
+  {
+   "wort": " Frage",
+   "start": 9.24,
+   "ende": 9.48
+  },
+  {
+   "wort": " ist",
+   "start": 9.48,
+   "ende": 9.74
+  },
+  {
+   "wort": " nur,",
+   "start": 9.74,
+   "ende": 9.96
+  },
+  {
+   "wort": " weckt",
+   "start": 10.44,
+   "ende": 10.78
+  },
+  {
+   "wort": " sie",
+   "start": 10.78,
+   "ende": 10.92
+  },
+  {
+   "wort": " heute",
+   "start": 10.92,
+   "ende": 11.12
+  },
+  {
+   "wort": " Nacht",
+   "start": 11.12,
+   "ende": 11.38
+  },
+  {
+   "wort": " jemanden?",
+   "start": 11.38,
+   "ende": 11.82
+  }
+ ]
+}

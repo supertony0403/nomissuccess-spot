@@ -1,0 +1,25 @@
+[project]
+name = "nomissuccess-spot"
+version = "0.1.0"
+description = "nomissuccess commercial 'Nachtschicht': voice, timeline contract, audio, Blender/Fusion/Resolve build"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy",
+    "scipy",
+    "soundfile",
+    "pyloudnorm",
+    "faster-whisper",
+    "fonttools",
+]
+
+[dependency-groups]
+dev = ["pytest", "pyflakes"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# audio/*.py are scripts that import their siblings directly (from gemeinsam import ...)
+pythonpath = ["audio"]
+markers = ["resolve: braucht laufendes Resolve"]

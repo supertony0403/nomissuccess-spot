@@ -1,0 +1,3181 @@
+{
+  "_hinweis": "erzeugt von audio/plan.py aus script.json + szenen/events.json + Sprachaufnahme — nicht von Hand ändern. VORLÄUFIG: v09, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23 haben noch keine Aufnahme (Dauer geschätzt, datei=null); alle Zeiten ab der ersten geschätzten Zeile verschieben sich mit der echten Stimme",
+  "vorlaeufig": [
+    "v09",
+    "v10",
+    "v11",
+    "v12",
+    "v13",
+    "v14",
+    "v15",
+    "v16",
+    "v17",
+    "v18",
+    "v19",
+    "v20",
+    "v21",
+    "v22",
+    "v23"
+  ],
+  "fps": 60,
+  "dauer_s": 132.383333,
+  "dauer_f": 7943,
+  "stimme": {
+    "modell": "gemini-3.8-flash-lite-tts",
+    "voice": "de-de-techagent-6"
+  },
+  "abspann": {
+    "start_s": 130.383333,
+    "ende_s": 132.383333,
+    "start_f": 7823,
+    "ende_f": 7943
+  },
+  "szenen": [
+    {
+      "id": "s1_nacht",
+      "titel": "03:12",
+      "farbe": "nacht",
+      "start_s": 0.0,
+      "ende_s": 13.55,
+      "start_f": 0,
+      "ende_f": 813
+    },
+    {
+      "id": "s2_website",
+      "titel": "Schaufenster",
+      "farbe": "rosa",
+      "start_s": 13.55,
+      "ende_s": 39.266667,
+      "start_f": 813,
+      "ende_f": 2356
+    },
+    {
+      "id": "s3_netz",
+      "titel": "Netzwerk",
+      "farbe": "blau",
+      "start_s": 39.266667,
+      "ende_s": 60.9,
+      "start_f": 2356,
+      "ende_f": 3654
+    },
+    {
+      "id": "s4_ernstfall",
+      "titel": "Ernstfall",
+      "farbe": "blau",
+      "start_s": 60.9,
+      "ende_s": 73.3,
+      "start_f": 3654,
+      "ende_f": 4398
+    },
+    {
+      "id": "s5_betrieb",
+      "titel": "Betrieb",
+      "farbe": "mint",
+      "start_s": 73.3,
+      "ende_s": 86.9,
+      "start_f": 4398,
+      "ende_f": 5214
+    },
+    {
+      "id": "s6_beweis",
+      "titel": "Kein Mockup",
+      "farbe": "mint",
+      "start_s": 86.9,
+      "ende_s": 98.566667,
+      "start_f": 5214,
+      "ende_f": 5914
+    },
+    {
+      "id": "s7_team",
+      "titel": "Ein Team",
+      "farbe": "rosa",
+      "start_s": 98.566667,
+      "ende_s": 116.35,
+      "start_f": 5914,
+      "ende_f": 6981
+    },
+    {
+      "id": "s8_morgen",
+      "titel": "07:00",
+      "farbe": "spektrum",
+      "start_s": 116.35,
+      "ende_s": 130.383333,
+      "start_f": 6981,
+      "ende_f": 7823
+    }
+  ],
+  "vo": [
+    {
+      "id": "v01",
+      "szene": "s1_nacht",
+      "text": "Drei Uhr zwölf. Die Stadt schläft. Ihr Büro ist dunkel.",
+      "start_s": 1.516667,
+      "ende_s": 5.1,
+      "start_f": 91,
+      "ende_f": 306,
+      "datei": "assets/audio/vo/v01.wav",
+      "vorlaeufig": false,
+      "woerter": [
+        {
+          "wort": "Drei",
+          "start_s": 1.5967,
+          "ende_s": 1.7367
+        },
+        {
+          "wort": "Uhr",
+          "start_s": 1.7367,
+          "ende_s": 1.8567
+        },
+        {
+          "wort": "zwölf",
+          "start_s": 1.8567,
+          "ende_s": 2.2767
+        },
+        {
+          "wort": "Die",
+          "start_s": 2.7767,
+          "ende_s": 2.8967
+        },
+        {
+          "wort": "Stadt",
+          "start_s": 2.8967,
+          "ende_s": 3.0367
+        },
+        {
+          "wort": "schläft",
+          "start_s": 3.0367,
+          "ende_s": 3.3967
+        },
+        {
+          "wort": "Ihr",
+          "start_s": 3.9367,
+          "ende_s": 4.0567
+        },
+        {
+          "wort": "Büro",
+          "start_s": 4.0567,
+          "ende_s": 4.3967
+        },
+        {
+          "wort": "ist",
+          "start_s": 4.3967,
+          "ende_s": 4.5767
+        },
+        {
+          "wort": "dunkel",
+          "start_s": 4.5767,
+          "ende_s": 4.9567
+        }
+      ]
+    },
+    {
+      "id": "v02",
+      "szene": "s1_nacht",
+      "text": "Aber Ihre IT schläft nie: Website, Firewall, Server, Backups.",
+      "start_s": 5.183333,
+      "ende_s": 10.333333,
+      "start_f": 311,
+      "ende_f": 620,
+      "datei": "assets/audio/vo/v02.wav",
+      "vorlaeufig": false,
+      "woerter": [
+        {
+          "wort": "Aber",
+          "start_s": 5.2633,
+          "ende_s": 5.4633
+        },
+        {
+          "wort": "Ihre",
+          "start_s": 5.4633,
+          "ende_s": 5.7833
+        },
+        {
+          "wort": "IT",
+          "start_s": 5.7833,
+          "ende_s": 6.1633
+        },
+        {
+          "wort": "schläft",
+          "start_s": 6.1633,
+          "ende_s": 6.6233
+        },
+        {
+          "wort": "nie",
+          "start_s": 6.6233,
+          "ende_s": 6.9033
+        },
+        {
+          "wort": "Website",
+          "start_s": 7.4833,
+          "ende_s": 8.0033
+        },
+        {
+          "wort": "Firewall",
+          "start_s": 8.3433,
+          "ende_s": 8.7833
+        },
+        {
+          "wort": "Server",
+          "start_s": 9.0833,
+          "ende_s": 9.3633
+        },
+        {
+          "wort": "Backups",
+          "start_s": 9.7233,
+          "ende_s": 10.1933
+        }
+      ]
+    },
+    {
+      "id": "v03",
+      "szene": "s1_nacht",
+      "text": "Die Frage ist nur: Weckt sie heute Nacht jemanden?",
+      "start_s": 10.416667,
+      "ende_s": 13.15,
+      "start_f": 625,
+      "ende_f": 789,
+      "datei": "assets/audio/vo/v03.wav",
+      "vorlaeufig": false,
+      "woerter": [
+        {
+          "wort": "Die",
+          "start_s": 10.4967,
+          "ende_s": 10.5967
+        },
+        {
+          "wort": "Frage",
+          "start_s": 10.5967,
+          "ende_s": 10.7767
+        },
+        {
+          "wort": "ist",
+          "start_s": 10.7767,
+          "ende_s": 10.9767
+        },
+        {
+          "wort": "nur",
+          "start_s": 10.9767,
+          "ende_s": 11.1567
+        },
+        {
+          "wort": "Weckt",
+          "start_s": 11.8367,
+          "ende_s": 11.9367
+        },
+        {
+          "wort": "sie",
+          "start_s": 11.9367,
+          "ende_s": 12.1167
+        },
+        {
+          "wort": "heute",
+          "start_s": 12.1167,
+          "ende_s": 12.3367
+        },
+        {
+          "wort": "Nacht",
+          "start_s": 12.3367,
+          "ende_s": 12.5567
+        },
+        {
+          "wort": "jemanden",
+          "start_s": 12.5567,
+          "ende_s": 13.0067
+        }
+      ]
+    },
+    {
+      "id": "v04",
+      "szene": "s2_website",
+      "text": "Fangen wir vorne an, bei Ihrer Website. Sie ist Ihr Schaufenster, auch um drei Uhr nachts.",
+      "start_s": 14.016667,
+      "ende_s": 18.966667,
+      "start_f": 841,
+      "ende_f": 1138,
+      "datei": "assets/audio/vo/v04.wav",
+      "vorlaeufig": false,
+      "woerter": [
+        {
+          "wort": "Fangen",
+          "start_s": 14.0967,
+          "ende_s": 14.2667
+        },
+        {
+          "wort": "wir",
+          "start_s": 14.2667,
+          "ende_s": 14.4067
+        },
+        {
+          "wort": "vorne",
+          "start_s": 14.4067,
+          "ende_s": 14.6667
+        },
+        {
+          "wort": "an",
+          "start_s": 14.6667,
+          "ende_s": 14.9067
+        },
+        {
+          "wort": "bei",
+          "start_s": 15.0867,
+          "ende_s": 15.1867
+        },
+        {
+          "wort": "Ihrer",
+          "start_s": 15.1867,
+          "ende_s": 15.3467
+        },
+        {
+          "wort": "Website",
+          "start_s": 15.3467,
+          "ende_s": 15.8667
+        },
+        {
+          "wort": "Sie",
+          "start_s": 16.4267,
+          "ende_s": 16.5467
+        },
+        {
+          "wort": "ist",
+          "start_s": 16.5467,
+          "ende_s": 16.6867
+        },
+        {
+          "wort": "Ihr",
+          "start_s": 16.6867,
+          "ende_s": 16.8267
+        },
+        {
+          "wort": "Schaufenster",
+          "start_s": 16.8267,
+          "ende_s": 17.4467
+        },
+        {
+          "wort": "auch",
+          "start_s": 17.7067,
+          "ende_s": 17.9067
+        },
+        {
+          "wort": "um",
+          "start_s": 17.9067,
+          "ende_s": 18.1067
+        },
+        {
+          "wort": "drei",
+          "start_s": 18.1067,
+          "ende_s": 18.3067
+        },
+        {
+          "wort": "Uhr",
+          "start_s": 18.3067,
+          "ende_s": 18.4467
+        },
+        {
+          "wort": "nachts",
+          "start_s": 18.4467,
+          "ende_s": 18.8267
+        }
+      ]
+    },
+    {
+      "id": "v05",
+      "szene": "s2_website",
+      "text": "Wir bauen sie für Sie. Komplett programmiert. Kein Baukasten, keine Plugin-Sammlung, keine Vorlage von der Stange.",
+      "start_s": 19.05,
+      "ende_s": 25.583333,
+      "start_f": 1143,
+      "ende_f": 1535,
+      "datei": "assets/audio/vo/v05.wav",
+      "vorlaeufig": false,
+      "woerter": [
+        {
+          "wort": "Wir",
+          "start_s": 19.13,
+          "ende_s": 19.23
+        },
+        {
+          "wort": "bauen",
+          "start_s": 19.23,
+          "ende_s": 19.45
+        },
+        {
+          "wort": "sie",
+          "start_s": 19.45,
+          "ende_s": 19.61
+        },
+        {
+          "wort": "für",
+          "start_s": 19.61,
+          "ende_s": 19.77
+        },
+        {
+          "wort": "Sie",
+          "start_s": 19.77,
+          "ende_s": 19.91
+        },
+        {
+          "wort": "Komplett",
+          "start_s": 20.29,
+          "ende_s": 20.73
+        },
+        {
+          "wort": "programmiert",
+          "start_s": 20.73,
+          "ende_s": 21.33
+        },
+        {
+          "wort": "Kein",
+          "start_s": 21.77,
+          "ende_s": 21.95
+        },
+        {
+          "wort": "Baukasten",
+          "start_s": 21.95,
+          "ende_s": 22.49
+        },
+        {
+          "wort": "keine",
+          "start_s": 22.77,
+          "ende_s": 22.97
+        },
+        {
+          "wort": "Plugin-Sammlung",
+          "start_s": 22.97,
+          "ende_s": 23.77
+        },
+        {
+          "wort": "keine",
+          "start_s": 24.15,
+          "ende_s": 24.35
+        },
+        {
+          "wort": "Vorlage",
+          "start_s": 24.35,
+          "ende_s": 24.85
+        },
+        {
+          "wort": "von",
+          "start_s": 24.85,
+          "ende_s": 25.07
+        },
+        {
+          "wort": "der",
+          "start_s": 25.07,
+          "ende_s": 25.19
+        },
+        {
+          "wort": "Stange",
+          "start_s": 25.19,
+          "ende_s": 25.44
+        }
+      ]
+    },
+    {
+      "id": "v06",
+      "szene": "s2_website",
+      "text": "Sie lädt in unter einer Sekunde, liegt auf Servern in Deutschland und wird jeden Tag gesichert.",
+      "start_s": 25.666667,
+      "ende_s": 30.75,
+      "start_f": 1540,
+      "ende_f": 1845,
+      "datei": "assets/audio/vo/v06.wav",
+      "vorlaeufig": false,
+      "woerter": [
+        {
+          "wort": "Sie",
+          "start_s": 25.7467,
+          "ende_s": 25.8767
+        },
+        {
+          "wort": "lädt",
+          "start_s": 25.8767,
+          "ende_s": 26.1167
+        },
+        {
+          "wort": "in",
+          "start_s": 26.1167,
+          "ende_s": 26.3167
+        },
+        {
+          "wort": "unter",
+          "start_s": 26.3167,
+          "ende_s": 26.6367
+        },
+        {
+          "wort": "einer",
+          "start_s": 26.6367,
+          "ende_s": 26.8967
+        },
+        {
+          "wort": "Sekunde",
+          "start_s": 26.8967,
+          "ende_s": 27.3767
+        },
+        {
+          "wort": "liegt",
+          "start_s": 27.7767,
+          "ende_s": 27.9567
+        },
+        {
+          "wort": "auf",
+          "start_s": 27.9567,
+          "ende_s": 28.1567
+        },
+        {
+          "wort": "Servern",
+          "start_s": 28.1567,
+          "ende_s": 28.5367
+        },
+        {
+          "wort": "in",
+          "start_s": 28.5367,
+          "ende_s": 28.6967
+        },
+        {
+          "wort": "Deutschland",
+          "start_s": 28.6967,
+          "ende_s": 29.0567
+        },
+        {
+          "wort": "und",
+          "start_s": 29.0567,
+          "ende_s": 29.4567
+        },
+        {
+          "wort": "wird",
+          "start_s": 29.4567,
+          "ende_s": 29.6367
+        },
+        {
+          "wort": "jeden",
+          "start_s": 29.6367,
+          "ende_s": 29.8767
+        },
+        {
+          "wort": "Tag",
+          "start_s": 29.8767,
+          "ende_s": 30.1367
+        },
+        {
+          "wort": "gesichert",
+          "start_s": 30.1367,
+          "ende_s": 30.5967
+        }
+      ]
+    },
+    {
+      "id": "v07",
+      "szene": "s2_website",
+      "text": "Und Sie zahlen monatlich: Hosting, Updates und Pflege für einen festen Betrag, ohne Überraschungen.",
+      "start_s": 30.816667,
+      "ende_s": 36.916667,
+      "start_f": 1849,
+      "ende_f": 2215,
+      "datei": "assets/audio/vo/v07.wav",
+      "vorlaeufig": false,
+      "woerter": [
+        {
+          "wort": "Und",
+          "start_s": 30.8967,
+          "ende_s": 30.9967
+        },
+        {
+          "wort": "Sie",
+          "start_s": 30.9967,
+          "ende_s": 31.1967
+        },
+        {
+          "wort": "zahlen",
+          "start_s": 31.1967,
+          "ende_s": 31.5367
+        },
+        {
+          "wort": "monatlich",
+          "start_s": 31.5367,
+          "ende_s": 32.1167
+        },
+        {
+          "wort": "Hosting",
+          "start_s": 32.5367,
+          "ende_s": 32.9967
+        },
+        {
+          "wort": "Updates",
+          "start_s": 33.2367,
+          "ende_s": 33.6767
+        },
+        {
+          "wort": "und",
+          "start_s": 33.6767,
+          "ende_s": 33.9367
+        },
+        {
+          "wort": "Pflege",
+          "start_s": 33.9367,
+          "ende_s": 34.3367
+        },
+        {
+          "wort": "für",
+          "start_s": 34.3367,
+          "ende_s": 34.6567
+        },
+        {
+          "wort": "einen",
+          "start_s": 34.6567,
+          "ende_s": 34.8367
+        },
+        {
+          "wort": "festen",
+          "start_s": 34.8367,
+          "ende_s": 35.3567
+        },
+        {
+          "wort": "Betrag",
+          "start_s": 35.3567,
+          "ende_s": 35.7367
+        },
+        {
+          "wort": "ohne",
+          "start_s": 35.7367,
+          "ende_s": 36.1567
+        },
+        {
+          "wort": "Überraschungen",
+          "start_s": 36.1567,
+          "ende_s": 36.7767
+        }
+      ]
+    },
+    {
+      "id": "v08",
+      "szene": "s2_website",
+      "text": "Der Quellcode gehört trotzdem Ihnen.",
+      "start_s": 37.0,
+      "ende_s": 38.85,
+      "start_f": 2220,
+      "ende_f": 2331,
+      "datei": "assets/audio/vo/v08.wav",
+      "vorlaeufig": false,
+      "woerter": [
+        {
+          "wort": "Der",
+          "start_s": 37.08,
+          "ende_s": 37.15
+        },
+        {
+          "wort": "Quellcode",
+          "start_s": 37.15,
+          "ende_s": 37.61
+        },
+        {
+          "wort": "gehört",
+          "start_s": 37.61,
+          "ende_s": 37.95
+        },
+        {
+          "wort": "trotzdem",
+          "start_s": 37.95,
+          "ende_s": 38.33
+        },
+        {
+          "wort": "Ihnen",
+          "start_s": 38.33,
+          "ende_s": 38.71
+        }
+      ]
+    },
+    {
+      "id": "v09",
+      "szene": "s3_netz",
+      "text": "Hinter der Website beginnt Ihr Netzwerk. Dort entscheidet sich, ob ein Angreifer draußen bleibt.",
+      "start_s": 39.733333,
+      "ende_s": 45.066667,
+      "start_f": 2384,
+      "ende_f": 2704,
+      "datei": null,
+      "vorlaeufig": true,
+      "woerter": [
+        {
+          "wort": "Hinter",
+          "start_s": 39.8133,
+          "ende_s": 40.1193
+        },
+        {
+          "wort": "der",
+          "start_s": 40.1193,
+          "ende_s": 40.2801
+        },
+        {
+          "wort": "Website",
+          "start_s": 40.2801,
+          "ende_s": 40.6345
+        },
+        {
+          "wort": "beginnt",
+          "start_s": 40.6345,
+          "ende_s": 40.9889
+        },
+        {
+          "wort": "Ihr",
+          "start_s": 40.9889,
+          "ende_s": 41.1497
+        },
+        {
+          "wort": "Netzwerk",
+          "start_s": 41.1497,
+          "ende_s": 41.5525
+        },
+        {
+          "wort": "Dort",
+          "start_s": 41.9517,
+          "ende_s": 42.1609
+        },
+        {
+          "wort": "entscheidet",
+          "start_s": 42.1609,
+          "ende_s": 42.7089
+        },
+        {
+          "wort": "sich",
+          "start_s": 42.7089,
+          "ende_s": 42.9181
+        },
+        {
+          "wort": "ob",
+          "start_s": 43.4833,
+          "ende_s": 43.5957
+        },
+        {
+          "wort": "ein",
+          "start_s": 43.5957,
+          "ende_s": 43.7565
+        },
+        {
+          "wort": "Angreifer",
+          "start_s": 43.7565,
+          "ende_s": 44.2077
+        },
+        {
+          "wort": "draußen",
+          "start_s": 44.2077,
+          "ende_s": 44.6105
+        },
+        {
+          "wort": "bleibt",
+          "start_s": 44.6105,
+          "ende_s": 44.9165
+        }
+      ]
+    },
+    {
+      "id": "v10",
+      "szene": "s3_netz",
+      "text": "Wir richten Ihre Firewall ein, mit FortiGate oder OPNsense, herstellerneutral und aus dem täglichen Betrieb.",
+      "start_s": 45.133333,
+      "ende_s": 51.133333,
+      "start_f": 2708,
+      "ende_f": 3068,
+      "datei": null,
+      "vorlaeufig": true,
+      "woerter": [
+        {
+          "wort": "Wir",
+          "start_s": 45.2133,
+          "ende_s": 45.3741
+        },
+        {
+          "wort": "richten",
+          "start_s": 45.3741,
+          "ende_s": 45.7285
+        },
+        {
+          "wort": "Ihre",
+          "start_s": 45.7285,
+          "ende_s": 45.9377
+        },
+        {
+          "wort": "Firewall",
+          "start_s": 45.9377,
+          "ende_s": 46.3405
+        },
+        {
+          "wort": "ein",
+          "start_s": 46.3405,
+          "ende_s": 46.5013
+        },
+        {
+          "wort": "mit",
+          "start_s": 47.0665,
+          "ende_s": 47.2273
+        },
+        {
+          "wort": "FortiGate",
+          "start_s": 47.2273,
+          "ende_s": 47.6785
+        },
+        {
+          "wort": "oder",
+          "start_s": 47.6785,
+          "ende_s": 47.8877
+        },
+        {
+          "wort": "OPNsense",
+          "start_s": 47.8877,
+          "ende_s": 48.2905
+        },
+        {
+          "wort": "herstellerneutral",
+          "start_s": 48.8557,
+          "ende_s": 49.6941
+        },
+        {
+          "wort": "und",
+          "start_s": 49.6941,
+          "ende_s": 49.8549
+        },
+        {
+          "wort": "aus",
+          "start_s": 49.8549,
+          "ende_s": 50.0157
+        },
+        {
+          "wort": "dem",
+          "start_s": 50.0157,
+          "ende_s": 50.1765
+        },
+        {
+          "wort": "täglichen",
+          "start_s": 50.1765,
+          "ende_s": 50.6277
+        },
+        {
+          "wort": "Betrieb",
+          "start_s": 50.6277,
+          "ende_s": 50.9821
+        }
+      ]
+    },
+    {
+      "id": "v11",
+      "szene": "s3_netz",
+      "text": "Und der Zugriff aus dem Homeoffice läuft ohne klassisches VPN. Mit Zero Trust ist Ihr Firmennetz im Internet schlicht unsichtbar. Es gibt keinen offenen Port, den man scannen könnte.",
+      "start_s": 51.2,
+      "ende_s": 60.5,
+      "start_f": 3072,
+      "ende_f": 3630,
+      "datei": null,
+      "vorlaeufig": true,
+      "woerter": [
+        {
+          "wort": "Und",
+          "start_s": 51.28,
+          "ende_s": 51.4408
+        },
+        {
+          "wort": "der",
+          "start_s": 51.4408,
+          "ende_s": 51.6016
+        },
+        {
+          "wort": "Zugriff",
+          "start_s": 51.6016,
+          "ende_s": 51.956
+        },
+        {
+          "wort": "aus",
+          "start_s": 51.956,
+          "ende_s": 52.1168
+        },
+        {
+          "wort": "dem",
+          "start_s": 52.1168,
+          "ende_s": 52.2776
+        },
+        {
+          "wort": "Homeoffice",
+          "start_s": 52.2776,
+          "ende_s": 52.7772
+        },
+        {
+          "wort": "läuft",
+          "start_s": 52.7772,
+          "ende_s": 53.0348
+        },
+        {
+          "wort": "ohne",
+          "start_s": 53.0348,
+          "ende_s": 53.244
+        },
+        {
+          "wort": "klassisches",
+          "start_s": 53.244,
+          "ende_s": 53.792
+        },
+        {
+          "wort": "VPN",
+          "start_s": 53.792,
+          "ende_s": 53.9528
+        },
+        {
+          "wort": "Mit",
+          "start_s": 54.352,
+          "ende_s": 54.5128
+        },
+        {
+          "wort": "Zero",
+          "start_s": 54.5128,
+          "ende_s": 54.722
+        },
+        {
+          "wort": "Trust",
+          "start_s": 54.722,
+          "ende_s": 54.9796
+        },
+        {
+          "wort": "ist",
+          "start_s": 54.9796,
+          "ende_s": 55.1404
+        },
+        {
+          "wort": "Ihr",
+          "start_s": 55.1404,
+          "ende_s": 55.3012
+        },
+        {
+          "wort": "Firmennetz",
+          "start_s": 55.3012,
+          "ende_s": 55.8008
+        },
+        {
+          "wort": "im",
+          "start_s": 55.8008,
+          "ende_s": 55.9132
+        },
+        {
+          "wort": "Internet",
+          "start_s": 55.9132,
+          "ende_s": 56.316
+        },
+        {
+          "wort": "schlicht",
+          "start_s": 56.316,
+          "ende_s": 56.7188
+        },
+        {
+          "wort": "unsichtbar",
+          "start_s": 56.7188,
+          "ende_s": 57.2184
+        },
+        {
+          "wort": "Es",
+          "start_s": 57.6176,
+          "ende_s": 57.73
+        },
+        {
+          "wort": "gibt",
+          "start_s": 57.73,
+          "ende_s": 57.9392
+        },
+        {
+          "wort": "keinen",
+          "start_s": 57.9392,
+          "ende_s": 58.2452
+        },
+        {
+          "wort": "offenen",
+          "start_s": 58.2452,
+          "ende_s": 58.5996
+        },
+        {
+          "wort": "Port",
+          "start_s": 58.5996,
+          "ende_s": 58.8088
+        },
+        {
+          "wort": "den",
+          "start_s": 59.374,
+          "ende_s": 59.5348
+        },
+        {
+          "wort": "man",
+          "start_s": 59.5348,
+          "ende_s": 59.6956
+        },
+        {
+          "wort": "scannen",
+          "start_s": 59.6956,
+          "ende_s": 60.05
+        },
+        {
+          "wort": "könnte",
+          "start_s": 60.05,
+          "ende_s": 60.356
+        }
+      ]
+    },
+    {
+      "id": "v12",
+      "szene": "s4_ernstfall",
+      "text": "Und wenn doch etwas passiert? Ransomware greift zuerst die Sicherungen an.",
+      "start_s": 61.366667,
+      "ende_s": 65.166667,
+      "start_f": 3682,
+      "ende_f": 3910,
+      "datei": null,
+      "vorlaeufig": true,
+      "woerter": [
+        {
+          "wort": "Und",
+          "start_s": 61.4467,
+          "ende_s": 61.6075
+        },
+        {
+          "wort": "wenn",
+          "start_s": 61.6075,
+          "ende_s": 61.8167
+        },
+        {
+          "wort": "doch",
+          "start_s": 61.8167,
+          "ende_s": 62.0259
+        },
+        {
+          "wort": "etwas",
+          "start_s": 62.0259,
+          "ende_s": 62.2835
+        },
+        {
+          "wort": "passiert",
+          "start_s": 62.2835,
+          "ende_s": 62.6863
+        },
+        {
+          "wort": "Ransomware",
+          "start_s": 63.0855,
+          "ende_s": 63.5851
+        },
+        {
+          "wort": "greift",
+          "start_s": 63.5851,
+          "ende_s": 63.8911
+        },
+        {
+          "wort": "zuerst",
+          "start_s": 63.8911,
+          "ende_s": 64.1971
+        },
+        {
+          "wort": "die",
+          "start_s": 64.1971,
+          "ende_s": 64.3579
+        },
+        {
+          "wort": "Sicherungen",
+          "start_s": 64.3579,
+          "ende_s": 64.9059
+        },
+        {
+          "wort": "an",
+          "start_s": 64.9059,
+          "ende_s": 65.0183
+        }
+      ]
+    },
+    {
+      "id": "v13",
+      "szene": "s4_ernstfall",
+      "text": "Darum legen wir unveränderbare Kopien an und spielen sie regelmäßig zurück. Denn ein Backup, das nie getestet wurde, ist nur eine Hoffnung.",
+      "start_s": 65.233333,
+      "ende_s": 72.916667,
+      "start_f": 3914,
+      "ende_f": 4375,
+      "datei": null,
+      "vorlaeufig": true,
+      "woerter": [
+        {
+          "wort": "Darum",
+          "start_s": 65.3133,
+          "ende_s": 65.5709
+        },
+        {
+          "wort": "legen",
+          "start_s": 65.5709,
+          "ende_s": 65.8285
+        },
+        {
+          "wort": "wir",
+          "start_s": 65.8285,
+          "ende_s": 65.9893
+        },
+        {
+          "wort": "unveränderbare",
+          "start_s": 65.9893,
+          "ende_s": 66.6825
+        },
+        {
+          "wort": "Kopien",
+          "start_s": 66.6825,
+          "ende_s": 66.9885
+        },
+        {
+          "wort": "an",
+          "start_s": 66.9885,
+          "ende_s": 67.1009
+        },
+        {
+          "wort": "und",
+          "start_s": 67.1009,
+          "ende_s": 67.2617
+        },
+        {
+          "wort": "spielen",
+          "start_s": 67.2617,
+          "ende_s": 67.6161
+        },
+        {
+          "wort": "sie",
+          "start_s": 67.6161,
+          "ende_s": 67.7769
+        },
+        {
+          "wort": "regelmäßig",
+          "start_s": 67.7769,
+          "ende_s": 68.3249
+        },
+        {
+          "wort": "zurück",
+          "start_s": 68.3249,
+          "ende_s": 68.6309
+        },
+        {
+          "wort": "Denn",
+          "start_s": 69.0301,
+          "ende_s": 69.2393
+        },
+        {
+          "wort": "ein",
+          "start_s": 69.2393,
+          "ende_s": 69.4001
+        },
+        {
+          "wort": "Backup",
+          "start_s": 69.4001,
+          "ende_s": 69.7061
+        },
+        {
+          "wort": "das",
+          "start_s": 70.2713,
+          "ende_s": 70.4321
+        },
+        {
+          "wort": "nie",
+          "start_s": 70.4321,
+          "ende_s": 70.5929
+        },
+        {
+          "wort": "getestet",
+          "start_s": 70.5929,
+          "ende_s": 70.9957
+        },
+        {
+          "wort": "wurde",
+          "start_s": 70.9957,
+          "ende_s": 71.2533
+        },
+        {
+          "wort": "ist",
+          "start_s": 71.8185,
+          "ende_s": 71.9793
+        },
+        {
+          "wort": "nur",
+          "start_s": 71.9793,
+          "ende_s": 72.1401
+        },
+        {
+          "wort": "eine",
+          "start_s": 72.1401,
+          "ende_s": 72.3493
+        },
+        {
+          "wort": "Hoffnung",
+          "start_s": 72.3493,
+          "ende_s": 72.7521
+        }
+      ]
+    },
+    {
+      "id": "v14",
+      "szene": "s5_betrieb",
+      "text": "Ihre VMware-Lizenz kostet plötzlich ein Vielfaches? Wir ziehen Ihre Server auf Proxmox um, planbar, mit Testlauf und Rückweg.",
+      "start_s": 73.766667,
+      "ende_s": 80.8,
+      "start_f": 4426,
+      "ende_f": 4848,
+      "datei": null,
+      "vorlaeufig": true,
+      "woerter": [
+        {
+          "wort": "Ihre",
+          "start_s": 73.8467,
+          "ende_s": 74.0559
+        },
+        {
+          "wort": "VMware-Lizenz",
+          "start_s": 74.0559,
+          "ende_s": 74.6523
+        },
+        {
+          "wort": "kostet",
+          "start_s": 74.6523,
+          "ende_s": 74.9583
+        },
+        {
+          "wort": "plötzlich",
+          "start_s": 74.9583,
+          "ende_s": 75.4095
+        },
+        {
+          "wort": "ein",
+          "start_s": 75.4095,
+          "ende_s": 75.5703
+        },
+        {
+          "wort": "Vielfaches",
+          "start_s": 75.5703,
+          "ende_s": 76.0699
+        },
+        {
+          "wort": "Wir",
+          "start_s": 76.4691,
+          "ende_s": 76.6299
+        },
+        {
+          "wort": "ziehen",
+          "start_s": 76.6299,
+          "ende_s": 76.9359
+        },
+        {
+          "wort": "Ihre",
+          "start_s": 76.9359,
+          "ende_s": 77.1451
+        },
+        {
+          "wort": "Server",
+          "start_s": 77.1451,
+          "ende_s": 77.4511
+        },
+        {
+          "wort": "auf",
+          "start_s": 77.4511,
+          "ende_s": 77.6119
+        },
+        {
+          "wort": "Proxmox",
+          "start_s": 77.6119,
+          "ende_s": 77.9663
+        },
+        {
+          "wort": "um",
+          "start_s": 77.9663,
+          "ende_s": 78.0787
+        },
+        {
+          "wort": "planbar",
+          "start_s": 78.6439,
+          "ende_s": 78.9983
+        },
+        {
+          "wort": "mit",
+          "start_s": 79.5635,
+          "ende_s": 79.7243
+        },
+        {
+          "wort": "Testlauf",
+          "start_s": 79.7243,
+          "ende_s": 80.1271
+        },
+        {
+          "wort": "und",
+          "start_s": 80.1271,
+          "ende_s": 80.2879
+        },
+        {
+          "wort": "Rückweg",
+          "start_s": 80.2879,
+          "ende_s": 80.6423
+        }
+      ]
+    },
+    {
+      "id": "v15",
+      "szene": "s5_betrieb",
+      "text": "Updates spielen wir im laufenden Betrieb ein, mit Dashboards, die man auch ohne IT-Studium lesen kann.",
+      "start_s": 80.866667,
+      "ende_s": 86.5,
+      "start_f": 4852,
+      "ende_f": 5190,
+      "datei": null,
+      "vorlaeufig": true,
+      "woerter": [
+        {
+          "wort": "Updates",
+          "start_s": 80.9467,
+          "ende_s": 81.3011
+        },
+        {
+          "wort": "spielen",
+          "start_s": 81.3011,
+          "ende_s": 81.6555
+        },
+        {
+          "wort": "wir",
+          "start_s": 81.6555,
+          "ende_s": 81.8163
+        },
+        {
+          "wort": "im",
+          "start_s": 81.8163,
+          "ende_s": 81.9287
+        },
+        {
+          "wort": "laufenden",
+          "start_s": 81.9287,
+          "ende_s": 82.3799
+        },
+        {
+          "wort": "Betrieb",
+          "start_s": 82.3799,
+          "ende_s": 82.7343
+        },
+        {
+          "wort": "ein",
+          "start_s": 82.7343,
+          "ende_s": 82.8951
+        },
+        {
+          "wort": "mit",
+          "start_s": 83.4603,
+          "ende_s": 83.6211
+        },
+        {
+          "wort": "Dashboards",
+          "start_s": 83.6211,
+          "ende_s": 84.1207
+        },
+        {
+          "wort": "die",
+          "start_s": 84.6859,
+          "ende_s": 84.8467
+        },
+        {
+          "wort": "man",
+          "start_s": 84.8467,
+          "ende_s": 85.0075
+        },
+        {
+          "wort": "auch",
+          "start_s": 85.0075,
+          "ende_s": 85.2167
+        },
+        {
+          "wort": "ohne",
+          "start_s": 85.2167,
+          "ende_s": 85.4259
+        },
+        {
+          "wort": "IT-Studium",
+          "start_s": 85.4259,
+          "ende_s": 85.8771
+        },
+        {
+          "wort": "lesen",
+          "start_s": 85.8771,
+          "ende_s": 86.1347
+        },
+        {
+          "wort": "kann",
+          "start_s": 86.1347,
+          "ende_s": 86.3439
+        }
+      ]
+    },
+    {
+      "id": "v16",
+      "szene": "s6_beweis",
+      "text": "Klingt nach Prospekt? Ist es nicht. Wir betreiben selbst, was wir Ihnen empfehlen.",
+      "start_s": 87.366667,
+      "ende_s": 92.35,
+      "start_f": 5242,
+      "ende_f": 5541,
+      "datei": null,
+      "vorlaeufig": true,
+      "woerter": [
+        {
+          "wort": "Klingt",
+          "start_s": 87.4467,
+          "ende_s": 87.7527
+        },
+        {
+          "wort": "nach",
+          "start_s": 87.7527,
+          "ende_s": 87.9619
+        },
+        {
+          "wort": "Prospekt",
+          "start_s": 87.9619,
+          "ende_s": 88.3647
+        },
+        {
+          "wort": "Ist",
+          "start_s": 88.7639,
+          "ende_s": 88.9247
+        },
+        {
+          "wort": "es",
+          "start_s": 88.9247,
+          "ende_s": 89.0371
+        },
+        {
+          "wort": "nicht",
+          "start_s": 89.0371,
+          "ende_s": 89.2947
+        },
+        {
+          "wort": "Wir",
+          "start_s": 89.6939,
+          "ende_s": 89.8547
+        },
+        {
+          "wort": "betreiben",
+          "start_s": 89.8547,
+          "ende_s": 90.3059
+        },
+        {
+          "wort": "selbst",
+          "start_s": 90.3059,
+          "ende_s": 90.6119
+        },
+        {
+          "wort": "was",
+          "start_s": 91.1771,
+          "ende_s": 91.3379
+        },
+        {
+          "wort": "wir",
+          "start_s": 91.3379,
+          "ende_s": 91.4987
+        },
+        {
+          "wort": "Ihnen",
+          "start_s": 91.4987,
+          "ende_s": 91.7563
+        },
+        {
+          "wort": "empfehlen",
+          "start_s": 91.7563,
+          "ende_s": 92.2075
+        }
+      ]
+    },
+    {
+      "id": "v17",
+      "szene": "s6_beweis",
+      "text": "Was Sie hier sehen, ist kein Mockup. Das ist unser eigenes Monitoring, live und im Dauerbetrieb.",
+      "start_s": 92.433333,
+      "ende_s": 98.166667,
+      "start_f": 5546,
+      "ende_f": 5890,
+      "datei": null,
+      "vorlaeufig": true,
+      "woerter": [
+        {
+          "wort": "Was",
+          "start_s": 92.5133,
+          "ende_s": 92.6741
+        },
+        {
+          "wort": "Sie",
+          "start_s": 92.6741,
+          "ende_s": 92.8349
+        },
+        {
+          "wort": "hier",
+          "start_s": 92.8349,
+          "ende_s": 93.0441
+        },
+        {
+          "wort": "sehen",
+          "start_s": 93.0441,
+          "ende_s": 93.3017
+        },
+        {
+          "wort": "ist",
+          "start_s": 93.8669,
+          "ende_s": 94.0277
+        },
+        {
+          "wort": "kein",
+          "start_s": 94.0277,
+          "ende_s": 94.2369
+        },
+        {
+          "wort": "Mockup",
+          "start_s": 94.2369,
+          "ende_s": 94.5429
+        },
+        {
+          "wort": "Das",
+          "start_s": 94.9421,
+          "ende_s": 95.1029
+        },
+        {
+          "wort": "ist",
+          "start_s": 95.1029,
+          "ende_s": 95.2637
+        },
+        {
+          "wort": "unser",
+          "start_s": 95.2637,
+          "ende_s": 95.5213
+        },
+        {
+          "wort": "eigenes",
+          "start_s": 95.5213,
+          "ende_s": 95.8757
+        },
+        {
+          "wort": "Monitoring",
+          "start_s": 95.8757,
+          "ende_s": 96.3753
+        },
+        {
+          "wort": "live",
+          "start_s": 96.9405,
+          "ende_s": 97.1497
+        },
+        {
+          "wort": "und",
+          "start_s": 97.1497,
+          "ende_s": 97.3105
+        },
+        {
+          "wort": "im",
+          "start_s": 97.3105,
+          "ende_s": 97.4229
+        },
+        {
+          "wort": "Dauerbetrieb",
+          "start_s": 97.4229,
+          "ende_s": 98.0193
+        }
+      ]
+    },
+    {
+      "id": "v18",
+      "szene": "s7_team",
+      "text": "Und das alles kommt von einem Team, von der Website bis zur Firewall.",
+      "start_s": 99.033333,
+      "ende_s": 102.683333,
+      "start_f": 5942,
+      "ende_f": 6161,
+      "datei": null,
+      "vorlaeufig": true,
+      "woerter": [
+        {
+          "wort": "Und",
+          "start_s": 99.1133,
+          "ende_s": 99.2741
+        },
+        {
+          "wort": "das",
+          "start_s": 99.2741,
+          "ende_s": 99.4349
+        },
+        {
+          "wort": "alles",
+          "start_s": 99.4349,
+          "ende_s": 99.6925
+        },
+        {
+          "wort": "kommt",
+          "start_s": 99.6925,
+          "ende_s": 99.9501
+        },
+        {
+          "wort": "von",
+          "start_s": 99.9501,
+          "ende_s": 100.1109
+        },
+        {
+          "wort": "einem",
+          "start_s": 100.1109,
+          "ende_s": 100.3685
+        },
+        {
+          "wort": "Team",
+          "start_s": 100.3685,
+          "ende_s": 100.5777
+        },
+        {
+          "wort": "von",
+          "start_s": 101.1429,
+          "ende_s": 101.3037
+        },
+        {
+          "wort": "der",
+          "start_s": 101.3037,
+          "ende_s": 101.4645
+        },
+        {
+          "wort": "Website",
+          "start_s": 101.4645,
+          "ende_s": 101.8189
+        },
+        {
+          "wort": "bis",
+          "start_s": 101.8189,
+          "ende_s": 101.9797
+        },
+        {
+          "wort": "zur",
+          "start_s": 101.9797,
+          "ende_s": 102.1405
+        },
+        {
+          "wort": "Firewall",
+          "start_s": 102.1405,
+          "ende_s": 102.5433
+        }
+      ]
+    },
+    {
+      "id": "v19",
+      "szene": "s7_team",
+      "text": "Kein Callcenter, kein Ticketstapel. Sie sprechen mit den Leuten, die Ihre Systeme bauen, und bekommen innerhalb eines Werktags eine Antwort.",
+      "start_s": 102.766667,
+      "ende_s": 111.016667,
+      "start_f": 6166,
+      "ende_f": 6661,
+      "datei": null,
+      "vorlaeufig": true,
+      "woerter": [
+        {
+          "wort": "Kein",
+          "start_s": 102.8467,
+          "ende_s": 103.0559
+        },
+        {
+          "wort": "Callcenter",
+          "start_s": 103.0559,
+          "ende_s": 103.5555
+        },
+        {
+          "wort": "kein",
+          "start_s": 104.1207,
+          "ende_s": 104.3299
+        },
+        {
+          "wort": "Ticketstapel",
+          "start_s": 104.3299,
+          "ende_s": 104.9263
+        },
+        {
+          "wort": "Sie",
+          "start_s": 105.3255,
+          "ende_s": 105.4863
+        },
+        {
+          "wort": "sprechen",
+          "start_s": 105.4863,
+          "ende_s": 105.8891
+        },
+        {
+          "wort": "mit",
+          "start_s": 105.8891,
+          "ende_s": 106.0499
+        },
+        {
+          "wort": "den",
+          "start_s": 106.0499,
+          "ende_s": 106.2107
+        },
+        {
+          "wort": "Leuten",
+          "start_s": 106.2107,
+          "ende_s": 106.5167
+        },
+        {
+          "wort": "die",
+          "start_s": 107.0819,
+          "ende_s": 107.2427
+        },
+        {
+          "wort": "Ihre",
+          "start_s": 107.2427,
+          "ende_s": 107.4519
+        },
+        {
+          "wort": "Systeme",
+          "start_s": 107.4519,
+          "ende_s": 107.8063
+        },
+        {
+          "wort": "bauen",
+          "start_s": 107.8063,
+          "ende_s": 108.0639
+        },
+        {
+          "wort": "und",
+          "start_s": 108.6291,
+          "ende_s": 108.7899
+        },
+        {
+          "wort": "bekommen",
+          "start_s": 108.7899,
+          "ende_s": 109.1927
+        },
+        {
+          "wort": "innerhalb",
+          "start_s": 109.1927,
+          "ende_s": 109.6439
+        },
+        {
+          "wort": "eines",
+          "start_s": 109.6439,
+          "ende_s": 109.9015
+        },
+        {
+          "wort": "Werktags",
+          "start_s": 109.9015,
+          "ende_s": 110.3043
+        },
+        {
+          "wort": "eine",
+          "start_s": 110.3043,
+          "ende_s": 110.5135
+        },
+        {
+          "wort": "Antwort",
+          "start_s": 110.5135,
+          "ende_s": 110.8679
+        }
+      ]
+    },
+    {
+      "id": "v20",
+      "szene": "s7_team",
+      "text": "Am Ende gehört Ihnen die komplette Dokumentation. Keine Black Box, keine Abhängigkeit.",
+      "start_s": 111.083333,
+      "ende_s": 115.966667,
+      "start_f": 6665,
+      "ende_f": 6958,
+      "datei": null,
+      "vorlaeufig": true,
+      "woerter": [
+        {
+          "wort": "Am",
+          "start_s": 111.1633,
+          "ende_s": 111.2757
+        },
+        {
+          "wort": "Ende",
+          "start_s": 111.2757,
+          "ende_s": 111.4849
+        },
+        {
+          "wort": "gehört",
+          "start_s": 111.4849,
+          "ende_s": 111.7909
+        },
+        {
+          "wort": "Ihnen",
+          "start_s": 111.7909,
+          "ende_s": 112.0485
+        },
+        {
+          "wort": "die",
+          "start_s": 112.0485,
+          "ende_s": 112.2093
+        },
+        {
+          "wort": "komplette",
+          "start_s": 112.2093,
+          "ende_s": 112.6605
+        },
+        {
+          "wort": "Dokumentation",
+          "start_s": 112.6605,
+          "ende_s": 113.3053
+        },
+        {
+          "wort": "Keine",
+          "start_s": 113.7045,
+          "ende_s": 113.9621
+        },
+        {
+          "wort": "Black",
+          "start_s": 113.9621,
+          "ende_s": 114.2197
+        },
+        {
+          "wort": "Box",
+          "start_s": 114.2197,
+          "ende_s": 114.3805
+        },
+        {
+          "wort": "keine",
+          "start_s": 114.9457,
+          "ende_s": 115.2033
+        },
+        {
+          "wort": "Abhängigkeit",
+          "start_s": 115.2033,
+          "ende_s": 115.7997
+        }
+      ]
+    },
+    {
+      "id": "v21",
+      "szene": "s8_morgen",
+      "text": "Sieben Uhr. Alles läuft. Niemand wurde geweckt.",
+      "start_s": 116.816667,
+      "ende_s": 119.8,
+      "start_f": 7009,
+      "ende_f": 7188,
+      "datei": null,
+      "vorlaeufig": true,
+      "woerter": [
+        {
+          "wort": "Sieben",
+          "start_s": 116.8967,
+          "ende_s": 117.2027
+        },
+        {
+          "wort": "Uhr",
+          "start_s": 117.2027,
+          "ende_s": 117.3635
+        },
+        {
+          "wort": "Alles",
+          "start_s": 117.7627,
+          "ende_s": 118.0203
+        },
+        {
+          "wort": "läuft",
+          "start_s": 118.0203,
+          "ende_s": 118.2779
+        },
+        {
+          "wort": "Niemand",
+          "start_s": 118.6771,
+          "ende_s": 119.0315
+        },
+        {
+          "wort": "wurde",
+          "start_s": 119.0315,
+          "ende_s": 119.2891
+        },
+        {
+          "wort": "geweckt",
+          "start_s": 119.2891,
+          "ende_s": 119.6435
+        }
+      ]
+    },
+    {
+      "id": "v22",
+      "szene": "s8_morgen",
+      "text": "nomissuccess. Infrastruktur, die nachts niemanden weckt.",
+      "start_s": 119.866667,
+      "ende_s": 123.5,
+      "start_f": 7192,
+      "ende_f": 7410,
+      "datei": null,
+      "vorlaeufig": true,
+      "woerter": [
+        {
+          "wort": "nomissuccess",
+          "start_s": 119.9467,
+          "ende_s": 120.5431
+        },
+        {
+          "wort": "Infrastruktur",
+          "start_s": 120.9423,
+          "ende_s": 121.5871
+        },
+        {
+          "wort": "die",
+          "start_s": 122.1523,
+          "ende_s": 122.3131
+        },
+        {
+          "wort": "nachts",
+          "start_s": 122.3131,
+          "ende_s": 122.6191
+        },
+        {
+          "wort": "niemanden",
+          "start_s": 122.6191,
+          "ende_s": 123.0703
+        },
+        {
+          "wort": "weckt",
+          "start_s": 123.0703,
+          "ende_s": 123.3279
+        }
+      ]
+    },
+    {
+      "id": "v23",
+      "szene": "s8_morgen",
+      "text": "Das Erstgespräch dauert dreißig Minuten und kostet nichts. nomissuccess punkt de.",
+      "start_s": 123.55,
+      "ende_s": 127.733333,
+      "start_f": 7413,
+      "ende_f": 7664,
+      "datei": null,
+      "vorlaeufig": true,
+      "woerter": [
+        {
+          "wort": "Das",
+          "start_s": 123.63,
+          "ende_s": 123.7908
+        },
+        {
+          "wort": "Erstgespräch",
+          "start_s": 123.7908,
+          "ende_s": 124.3872
+        },
+        {
+          "wort": "dauert",
+          "start_s": 124.3872,
+          "ende_s": 124.6932
+        },
+        {
+          "wort": "dreißig",
+          "start_s": 124.6932,
+          "ende_s": 125.096
+        },
+        {
+          "wort": "Minuten",
+          "start_s": 125.096,
+          "ende_s": 125.4504
+        },
+        {
+          "wort": "und",
+          "start_s": 125.4504,
+          "ende_s": 125.6112
+        },
+        {
+          "wort": "kostet",
+          "start_s": 125.6112,
+          "ende_s": 125.9172
+        },
+        {
+          "wort": "nichts",
+          "start_s": 125.9172,
+          "ende_s": 126.2232
+        },
+        {
+          "wort": "nomissuccess",
+          "start_s": 126.6224,
+          "ende_s": 127.2188
+        },
+        {
+          "wort": "punkt",
+          "start_s": 127.2188,
+          "ende_s": 127.4764
+        },
+        {
+          "wort": "de",
+          "start_s": 127.4764,
+          "ende_s": 127.5888
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "ribbon_enter",
+      "szene": "s1_nacht",
+      "t_s": 0.25,
+      "f": 15,
+      "sfx": "whoosh",
+      "ebene": "blender",
+      "bild": "Logo-Band schneidet als hauchdünne Lichtlinie von rechts ins Dunkel, Kamera beginnt zu folgen",
+      "anker": {
+        "szenenstart": true
+      },
+      "offset_s": 0.25
+    },
+    {
+      "id": "clock_roll",
+      "szene": "s1_nacht",
+      "t_s": 2.2767,
+      "f": 137,
+      "sfx": "hit",
+      "ebene": "fusion",
+      "bild": "Rollzähler 03:11:57 → 03:12:00 landet; Ziffern rollen vertikal mit Bewegungsunschärfe, je Sekunde ein tick",
+      "anker": {
+        "vo": "v01",
+        "wort": "zwölf",
+        "kante": "ende"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "sleep_letters",
+      "szene": "s1_nacht",
+      "t_s": 2.9367,
+      "f": 176,
+      "sfx": "downer",
+      "ebene": "fusion",
+      "bild": "'Die Stadt schläft.' Buchstaben sacken nacheinander leicht nach unten und dimmen auf 40 %",
+      "anker": {
+        "vo": "v01",
+        "wort": "schläft"
+      },
+      "offset_s": -0.1
+    },
+    {
+      "id": "lights_off",
+      "szene": "s1_nacht",
+      "t_s": 4.5767,
+      "f": 275,
+      "sfx": "click",
+      "ebene": "beide",
+      "bild": "'Ihr Büro ist dunkel.' Buchstabe für Buchstabe geht das Licht aus; in Blender erlöschen Fensterlichter im Bokeh",
+      "anker": {
+        "vo": "v01",
+        "wort": "dunkel"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "led_1",
+      "szene": "s1_nacht",
+      "t_s": 7.4833,
+      "f": 449,
+      "sfx": "tick",
+      "ebene": "fusion",
+      "bild": "LED 1 (Website) glimmt grün auf",
+      "anker": {
+        "vo": "v02",
+        "wort": "Website"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "led_2",
+      "szene": "s1_nacht",
+      "t_s": 8.3433,
+      "f": 501,
+      "sfx": "tick",
+      "ebene": "fusion",
+      "bild": "LED 2 (Firewall)",
+      "anker": {
+        "vo": "v02",
+        "wort": "Firewall"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "led_3",
+      "szene": "s1_nacht",
+      "t_s": 9.0833,
+      "f": 545,
+      "sfx": "tick",
+      "ebene": "fusion",
+      "bild": "LED 3 (Server)",
+      "anker": {
+        "vo": "v02",
+        "wort": "Server"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "led_4",
+      "szene": "s1_nacht",
+      "t_s": 9.7233,
+      "f": 583,
+      "sfx": "tick",
+      "ebene": "fusion",
+      "bild": "LED 4 (Backups)",
+      "anker": {
+        "vo": "v02",
+        "wort": "Backups"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "bell_morph",
+      "szene": "s1_nacht",
+      "t_s": 13.0567,
+      "f": 783,
+      "sfx": "hit",
+      "ebene": "fusion",
+      "bild": "Das Fragezeichen verwandelt sich in eine Weckerglocke (Linien-Icon), die einmal zuckt und erstarrt",
+      "anker": {
+        "vo": "v03",
+        "wort": "jemanden",
+        "kante": "ende"
+      },
+      "offset_s": 0.05
+    },
+    {
+      "id": "window_reveal",
+      "szene": "s2_website",
+      "t_s": 15.1967,
+      "f": 912,
+      "sfx": "whoosh",
+      "ebene": "blender",
+      "bild": "Kamera dreht in eine dunkle Straße; die echte nomissuccess.de-Seite steht als beleuchtetes Schaufenster, Spiegelung am Boden",
+      "anker": {
+        "vo": "v04",
+        "wort": "Website"
+      },
+      "offset_s": -0.15
+    },
+    {
+      "id": "window_land",
+      "szene": "s2_website",
+      "t_s": 16.8267,
+      "f": 1010,
+      "sfx": "hit",
+      "ebene": "blender",
+      "bild": "Kamera kommt frontal vor dem Schaufenster zur Ruhe",
+      "anker": {
+        "vo": "v04",
+        "wort": "Schaufenster"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "layers_explode",
+      "szene": "s2_website",
+      "t_s": 20.53,
+      "f": 1232,
+      "sfx": "shimmer",
+      "ebene": "beide",
+      "bild": "Die Seite zerlegt sich in Schichten (Raster, Typo, Bilder, echter Quellcode), die mit Tiefenunschärfe auseinanderfliegen",
+      "anker": {
+        "vo": "v05",
+        "wort": "programmiert"
+      },
+      "offset_s": -0.2
+    },
+    {
+      "id": "layers_snap",
+      "szene": "s2_website",
+      "t_s": 21.62,
+      "f": 1297,
+      "sfx": "hit",
+      "ebene": "blender",
+      "bild": "Schichten rasten satt wieder ein",
+      "anker": {
+        "vo": "v05",
+        "wort": "Kein"
+      },
+      "offset_s": -0.15
+    },
+    {
+      "id": "tower_fall",
+      "szene": "s2_website",
+      "t_s": 21.95,
+      "f": 1317,
+      "sfx": "clatter",
+      "ebene": "blender",
+      "bild": "Turm aus Bausteinen ('Plugin', 'Theme', 'Tracking') kippt und fällt mit Physik aus dem Bild",
+      "anker": {
+        "vo": "v05",
+        "wort": "Baukasten"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "speed_line",
+      "szene": "s2_website",
+      "t_s": 26.6467,
+      "f": 1599,
+      "sfx": "riser",
+      "ebene": "fusion",
+      "bild": "Eine Linie rast quer durchs Bild, '< 1 s' stoppt hart",
+      "anker": {
+        "vo": "v06",
+        "wort": "Sekunde"
+      },
+      "offset_s": -0.25
+    },
+    {
+      "id": "de_pin",
+      "szene": "s2_website",
+      "t_s": 28.6967,
+      "f": 1722,
+      "sfx": "tick",
+      "ebene": "fusion",
+      "bild": "Wert 'Gehostet in Deutschland' rastet ein",
+      "anker": {
+        "vo": "v06",
+        "wort": "Deutschland"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "calendar_ticks",
+      "szene": "s2_website",
+      "t_s": 29.8367,
+      "f": 1790,
+      "sfx": "tick",
+      "ebene": "fusion",
+      "bild": "Kalenderraster 1–30 hakt im Zeitraffer ab",
+      "anker": {
+        "vo": "v06",
+        "wort": "gesichert"
+      },
+      "offset_s": -0.3
+    },
+    {
+      "id": "month_carousel",
+      "szene": "s2_website",
+      "t_s": 31.4367,
+      "f": 1886,
+      "sfx": "whoosh",
+      "ebene": "fusion",
+      "bild": "Monatskarten Jan–Dez gleiten als Karussell durch, darauf 'Ein fester Betrag'",
+      "anker": {
+        "vo": "v07",
+        "wort": "monatlich"
+      },
+      "offset_s": -0.1
+    },
+    {
+      "id": "key_turn",
+      "szene": "s2_website",
+      "t_s": 38.33,
+      "f": 2300,
+      "sfx": "lock",
+      "ebene": "blender",
+      "bild": "3D-Schlüssel dreht sich ins Schloss; Label git clone — Ihr Repository",
+      "anker": {
+        "vo": "v08",
+        "wort": "Ihnen"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "dive_into_pixels",
+      "szene": "s3_netz",
+      "t_s": 40.7497,
+      "f": 2445,
+      "sfx": "riser",
+      "ebene": "blender",
+      "bild": "Kamera taucht durch die Website-Pixel; Bildpunkte werden zu Netzknoten",
+      "anker": {
+        "vo": "v09",
+        "wort": "Netzwerk"
+      },
+      "offset_s": -0.4
+    },
+    {
+      "id": "attacker",
+      "szene": "s3_netz",
+      "t_s": 43.7565,
+      "f": 2625,
+      "sfx": "subdrop",
+      "ebene": "blender",
+      "bild": "Am Rand des Netzes tauchen rote Pakete auf",
+      "anker": {
+        "vo": "v09",
+        "wort": "Angreifer"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "firewall_wall",
+      "szene": "s3_netz",
+      "t_s": 45.8377,
+      "f": 2750,
+      "sfx": "hit",
+      "ebene": "beide",
+      "bild": "Wand aus Lichtflächen fährt hoch; Text 'Firewall' + 'FortiGate · OPNsense'",
+      "anker": {
+        "vo": "v10",
+        "wort": "Firewall"
+      },
+      "offset_s": -0.1
+    },
+    {
+      "id": "packets_bounce",
+      "szene": "s3_netz",
+      "t_s": 48.8557,
+      "f": 2931,
+      "sfx": "tick",
+      "ebene": "blender",
+      "bild": "Rote Pakete prallen funkenschlagend ab, grüne gehen durch",
+      "anker": {
+        "vo": "v10",
+        "wort": "herstellerneutral"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "radar_sweep",
+      "szene": "s3_netz",
+      "t_s": 54.3128,
+      "f": 3259,
+      "sfx": "riser",
+      "ebene": "beide",
+      "bild": "Radarstrahl sucht das Feld ab",
+      "anker": {
+        "vo": "v11",
+        "wort": "Zero"
+      },
+      "offset_s": -0.2
+    },
+    {
+      "id": "net_vanish",
+      "szene": "s3_netz",
+      "t_s": 56.7188,
+      "f": 3403,
+      "sfx": "shimmer",
+      "ebene": "beide",
+      "bild": "Firmennetz löst sich ins Dunkel auf, Radar findet nichts",
+      "anker": {
+        "vo": "v11",
+        "wort": "unsichtbar"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "zero_ports",
+      "szene": "s3_netz",
+      "t_s": 58.5996,
+      "f": 3516,
+      "sfx": "hit",
+      "ebene": "fusion",
+      "bild": "Große '0' + 'offene Ports'",
+      "anker": {
+        "vo": "v11",
+        "wort": "Port"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "mtls_lock",
+      "szene": "s3_netz",
+      "t_s": 60.456,
+      "f": 3627,
+      "sfx": "lock",
+      "ebene": "blender",
+      "bild": "Ein Laptop zieht ein feines Band zu genau einem Dienst; Schloss rastet",
+      "anker": {
+        "vo": "v11",
+        "wort": "könnte",
+        "kante": "ende"
+      },
+      "offset_s": 0.1
+    },
+    {
+      "id": "red_tendrils",
+      "szene": "s4_ernstfall",
+      "t_s": 62.8855,
+      "f": 3773,
+      "sfx": "subdrop",
+      "ebene": "blender",
+      "bild": "Dunkelrote Rauch-Ranken kriechen auf drei Backup-Würfel zu",
+      "anker": {
+        "vo": "v12",
+        "wort": "Ransomware"
+      },
+      "offset_s": -0.2
+    },
+    {
+      "id": "immutable_lock",
+      "szene": "s4_ernstfall",
+      "t_s": 65.9893,
+      "f": 3959,
+      "sfx": "lock",
+      "ebene": "beide",
+      "bild": "Ein Würfel bekommt ein Schloss",
+      "anker": {
+        "vo": "v13",
+        "wort": "unveränderbare"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "shockwave",
+      "szene": "s4_ernstfall",
+      "t_s": 66.8325,
+      "f": 4010,
+      "sfx": "hit",
+      "ebene": "blender",
+      "bild": "Ranken schlagen ein, Brechungs-Schockwelle läuft durch den Würfel, Ranken weichen zurück",
+      "anker": {
+        "vo": "v13",
+        "wort": "Kopien"
+      },
+      "offset_s": 0.15
+    },
+    {
+      "id": "rewind",
+      "szene": "s4_ernstfall",
+      "t_s": 68.0249,
+      "f": 4081,
+      "sfx": "rewind",
+      "ebene": "beide",
+      "bild": "Die ganze Szene spult mit Bewegungsunschärfe zurück, Würfel fliegen in den Server",
+      "anker": {
+        "vo": "v13",
+        "wort": "zurück"
+      },
+      "offset_s": -0.3
+    },
+    {
+      "id": "hope_fade",
+      "szene": "s4_ernstfall",
+      "t_s": 72.3493,
+      "f": 4341,
+      "sfx": "downer",
+      "ebene": "fusion",
+      "bild": "'Hoffnung' dünn und blass, wird durch 'getestet ✓' ersetzt",
+      "anker": {
+        "vo": "v13",
+        "wort": "Hoffnung"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "invoice_spin",
+      "szene": "s5_betrieb",
+      "t_s": 75.0703,
+      "f": 4504,
+      "sfx": "riser",
+      "ebene": "blender",
+      "bild": "3D-Rechnung, Betrag dreht unkontrolliert hoch (verwischte Ziffern, keine echte Zahl)",
+      "anker": {
+        "vo": "v14",
+        "wort": "Vielfaches"
+      },
+      "offset_s": -0.5
+    },
+    {
+      "id": "paper_plane",
+      "szene": "s5_betrieb",
+      "t_s": 77.4119,
+      "f": 4645,
+      "sfx": "whoosh",
+      "ebene": "beide",
+      "bild": "Papier faltet sich zum Flieger und fliegt die Umzugsbahn zur Proxmox-Karte",
+      "anker": {
+        "vo": "v14",
+        "wort": "Proxmox"
+      },
+      "offset_s": -0.2
+    },
+    {
+      "id": "rollback_path",
+      "szene": "s5_betrieb",
+      "t_s": 80.2879,
+      "f": 4817,
+      "sfx": "shimmer",
+      "ebene": "beide",
+      "bild": "Gestrichelte 'Rückweg'-Bahn zeichnet sich zurück",
+      "anker": {
+        "vo": "v14",
+        "wort": "Rückweg"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "rolling_update",
+      "szene": "s5_betrieb",
+      "t_s": 82.3799,
+      "f": 4943,
+      "sfx": "tick",
+      "ebene": "beide",
+      "bild": "Container-Blöcke tauschen nacheinander, Statuslinie bleibt grün",
+      "anker": {
+        "vo": "v15",
+        "wort": "Betrieb"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "dashboards",
+      "szene": "s5_betrieb",
+      "t_s": 83.6211,
+      "f": 5017,
+      "sfx": "hit",
+      "ebene": "blender",
+      "bild": "Dashboard-Kacheln setzen sich zusammen",
+      "anker": {
+        "vo": "v15",
+        "wort": "Dashboards"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "prospect_paper",
+      "szene": "s6_beweis",
+      "t_s": 87.9619,
+      "f": 5278,
+      "sfx": "paper",
+      "ebene": "blender",
+      "bild": "Ein Hochglanz-Prospekt flattert weg",
+      "anker": {
+        "vo": "v16",
+        "wort": "Prospekt"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "grafana_flyover",
+      "szene": "s6_beweis",
+      "t_s": 89.6547,
+      "f": 5379,
+      "sfx": "riser",
+      "ebene": "beide",
+      "bild": "Echter Grafana-Screenshot als Landschaft, Kamera fliegt tief darüber, Kurven zeichnen sich nach",
+      "anker": {
+        "vo": "v16",
+        "wort": "betreiben"
+      },
+      "offset_s": -0.2
+    },
+    {
+      "id": "stamp",
+      "szene": "s6_beweis",
+      "t_s": 94.2369,
+      "f": 5654,
+      "sfx": "hit",
+      "ebene": "fusion",
+      "bild": "Stempel KEIN MOCKUP · ECHTES MONITORING, um -3° gedreht",
+      "anker": {
+        "vo": "v17",
+        "wort": "Mockup"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "fan_panels",
+      "szene": "s6_beweis",
+      "t_s": 95.8757,
+      "f": 5753,
+      "sfx": "whoosh",
+      "ebene": "blender",
+      "bild": "PBS- und Proxmox-Screenshots fächern daneben auf",
+      "anker": {
+        "vo": "v17",
+        "wort": "Monitoring"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "converge",
+      "szene": "s7_team",
+      "t_s": 100.3685,
+      "f": 6022,
+      "sfx": "sting",
+      "ebene": "beide",
+      "bild": "Alle Objekte der Nacht treffen sich, Band schnürt sie zu einem Bündel",
+      "anker": {
+        "vo": "v18",
+        "wort": "Team"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "converge_sub",
+      "szene": "s7_team",
+      "t_s": 101.4645,
+      "f": 6088,
+      "sfx": "whoosh",
+      "ebene": "fusion",
+      "bild": "Unterzeile 'Von der Website bis zur Firewall.'",
+      "anker": {
+        "vo": "v18",
+        "wort": "Website"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "tickets_fall",
+      "szene": "s7_team",
+      "t_s": 104.3299,
+      "f": 6260,
+      "sfx": "clatter",
+      "ebene": "blender",
+      "bild": "Turm aus Ticketzetteln bricht zusammen",
+      "anker": {
+        "vo": "v19",
+        "wort": "Ticketstapel"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "direct_line",
+      "szene": "s7_team",
+      "t_s": 107.8063,
+      "f": 6468,
+      "sfx": "whoosh",
+      "ebene": "blender",
+      "bild": "Eine direkte Linie (Band) zieht von 'Sie' zu den Leuten",
+      "anker": {
+        "vo": "v19",
+        "wort": "bauen"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "workday",
+      "szene": "s7_team",
+      "t_s": 109.9015,
+      "f": 6594,
+      "sfx": "tick",
+      "ebene": "fusion",
+      "bild": "'Antwort innerhalb eines Werktags.'",
+      "anker": {
+        "vo": "v19",
+        "wort": "Werktags"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "docs_fly",
+      "szene": "s7_team",
+      "t_s": 112.4605,
+      "f": 6748,
+      "sfx": "paper",
+      "ebene": "blender",
+      "bild": "Doku-Seiten fliegen in einen Ordner",
+      "anker": {
+        "vo": "v20",
+        "wort": "Dokumentation"
+      },
+      "offset_s": -0.2
+    },
+    {
+      "id": "blackbox_unfold",
+      "szene": "s7_team",
+      "t_s": 114.2197,
+      "f": 6853,
+      "sfx": "shimmer",
+      "ebene": "beide",
+      "bild": "Schwarzer Würfel klappt zu offenem Drahtgitter-Würfel auf",
+      "anker": {
+        "vo": "v20",
+        "wort": "Box"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "clock_roll_7",
+      "szene": "s8_morgen",
+      "t_s": 117.3635,
+      "f": 7042,
+      "sfx": "hit",
+      "ebene": "fusion",
+      "bild": "Rollzähler 06:59:58 → 07:00:00",
+      "anker": {
+        "vo": "v21",
+        "wort": "Uhr",
+        "kante": "ende"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "dawn",
+      "szene": "s8_morgen",
+      "t_s": 117.7203,
+      "f": 7063,
+      "sfx": "swell",
+      "ebene": "blender",
+      "bild": "Morgenlicht steigt von unten auf: Nacht → Blau/Mint",
+      "anker": {
+        "vo": "v21",
+        "wort": "läuft"
+      },
+      "offset_s": -0.3
+    },
+    {
+      "id": "bell_sleep",
+      "szene": "s8_morgen",
+      "t_s": 119.2891,
+      "f": 7157,
+      "sfx": "downer",
+      "ebene": "fusion",
+      "bild": "Weckerglocke aus Szene 1 schläft ein und löst sich auf; 'Niemand wurde geweckt.'",
+      "anker": {
+        "vo": "v21",
+        "wort": "geweckt"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "logo_fold",
+      "szene": "s8_morgen",
+      "t_s": 120.5431,
+      "f": 7233,
+      "sfx": "sting",
+      "ebene": "beide",
+      "bild": "Band faltet sich zum 3D-N und landet; Wortmarke schreibt sich aus",
+      "anker": {
+        "vo": "v22",
+        "wort": "nomissuccess",
+        "kante": "ende"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "claim",
+      "szene": "s8_morgen",
+      "t_s": 120.9423,
+      "f": 7257,
+      "sfx": "hit",
+      "ebene": "fusion",
+      "bild": "Claim erscheint unter der Wortmarke",
+      "anker": {
+        "vo": "v22",
+        "wort": "Infrastruktur"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "cta",
+      "szene": "s8_morgen",
+      "t_s": 123.7908,
+      "f": 7427,
+      "sfx": "whoosh",
+      "ebene": "fusion",
+      "bild": "Pill 'Erstgespräch · 30 Minuten · kostenlos'",
+      "anker": {
+        "vo": "v23",
+        "wort": "Erstgespräch"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "url",
+      "szene": "s8_morgen",
+      "t_s": 127.2188,
+      "f": 7633,
+      "sfx": "hit",
+      "ebene": "fusion",
+      "bild": "nomissuccess.de steht; Lockup bleibt bis zum letzten Bild",
+      "anker": {
+        "vo": "v23",
+        "wort": "punkt"
+      },
+      "offset_s": 0.0
+    },
+    {
+      "id": "endcard_in",
+      "szene": "abspann",
+      "t_s": 130.3833,
+      "f": 7823,
+      "sfx": "shimmer",
+      "ebene": "fusion",
+      "bild": "made by / nomissuccess, animiert; letzter Akkord klingt aus",
+      "anker": {
+        "szenenstart": true
+      },
+      "offset_s": 0.0
+    }
+  ],
+  "cues": [
+    {
+      "t_s": 0.25,
+      "f": 15,
+      "art": "whoosh",
+      "szene": "s1_nacht",
+      "quelle": "event:ribbon_enter"
+    },
+    {
+      "t_s": 2.2767,
+      "f": 137,
+      "art": "hit",
+      "szene": "s1_nacht",
+      "quelle": "event:clock_roll"
+    },
+    {
+      "t_s": 2.9367,
+      "f": 176,
+      "art": "downer",
+      "szene": "s1_nacht",
+      "quelle": "event:sleep_letters"
+    },
+    {
+      "t_s": 4.5767,
+      "f": 275,
+      "art": "click",
+      "szene": "s1_nacht",
+      "quelle": "event:lights_off"
+    },
+    {
+      "t_s": 7.4833,
+      "f": 449,
+      "art": "tick",
+      "szene": "s1_nacht",
+      "quelle": "event:led_1"
+    },
+    {
+      "t_s": 8.3433,
+      "f": 501,
+      "art": "tick",
+      "szene": "s1_nacht",
+      "quelle": "event:led_2"
+    },
+    {
+      "t_s": 9.0833,
+      "f": 545,
+      "art": "tick",
+      "szene": "s1_nacht",
+      "quelle": "event:led_3"
+    },
+    {
+      "t_s": 9.7233,
+      "f": 583,
+      "art": "tick",
+      "szene": "s1_nacht",
+      "quelle": "event:led_4"
+    },
+    {
+      "t_s": 13.0567,
+      "f": 783,
+      "art": "hit",
+      "szene": "s1_nacht",
+      "quelle": "event:bell_morph"
+    },
+    {
+      "t_s": 15.1967,
+      "f": 912,
+      "art": "whoosh",
+      "szene": "s2_website",
+      "quelle": "event:window_reveal"
+    },
+    {
+      "t_s": 16.8267,
+      "f": 1010,
+      "art": "hit",
+      "szene": "s2_website",
+      "quelle": "event:window_land"
+    },
+    {
+      "t_s": 20.53,
+      "f": 1232,
+      "art": "shimmer",
+      "szene": "s2_website",
+      "quelle": "event:layers_explode"
+    },
+    {
+      "t_s": 21.62,
+      "f": 1297,
+      "art": "hit",
+      "szene": "s2_website",
+      "quelle": "event:layers_snap"
+    },
+    {
+      "t_s": 21.95,
+      "f": 1317,
+      "art": "clatter",
+      "szene": "s2_website",
+      "quelle": "event:tower_fall"
+    },
+    {
+      "t_s": 26.6467,
+      "f": 1599,
+      "art": "riser",
+      "szene": "s2_website",
+      "quelle": "event:speed_line"
+    },
+    {
+      "t_s": 28.6967,
+      "f": 1722,
+      "art": "tick",
+      "szene": "s2_website",
+      "quelle": "event:de_pin"
+    },
+    {
+      "t_s": 29.8367,
+      "f": 1790,
+      "art": "tick",
+      "szene": "s2_website",
+      "quelle": "event:calendar_ticks"
+    },
+    {
+      "t_s": 31.4367,
+      "f": 1886,
+      "art": "whoosh",
+      "szene": "s2_website",
+      "quelle": "event:month_carousel"
+    },
+    {
+      "t_s": 38.33,
+      "f": 2300,
+      "art": "lock",
+      "szene": "s2_website",
+      "quelle": "event:key_turn"
+    },
+    {
+      "t_s": 40.7497,
+      "f": 2445,
+      "art": "riser",
+      "szene": "s3_netz",
+      "quelle": "event:dive_into_pixels"
+    },
+    {
+      "t_s": 43.7565,
+      "f": 2625,
+      "art": "subdrop",
+      "szene": "s3_netz",
+      "quelle": "event:attacker"
+    },
+    {
+      "t_s": 45.8377,
+      "f": 2750,
+      "art": "hit",
+      "szene": "s3_netz",
+      "quelle": "event:firewall_wall"
+    },
+    {
+      "t_s": 48.8557,
+      "f": 2931,
+      "art": "tick",
+      "szene": "s3_netz",
+      "quelle": "event:packets_bounce"
+    },
+    {
+      "t_s": 54.3128,
+      "f": 3259,
+      "art": "riser",
+      "szene": "s3_netz",
+      "quelle": "event:radar_sweep"
+    },
+    {
+      "t_s": 56.7188,
+      "f": 3403,
+      "art": "shimmer",
+      "szene": "s3_netz",
+      "quelle": "event:net_vanish"
+    },
+    {
+      "t_s": 58.5996,
+      "f": 3516,
+      "art": "hit",
+      "szene": "s3_netz",
+      "quelle": "event:zero_ports"
+    },
+    {
+      "t_s": 60.456,
+      "f": 3627,
+      "art": "lock",
+      "szene": "s3_netz",
+      "quelle": "event:mtls_lock"
+    },
+    {
+      "t_s": 62.8855,
+      "f": 3773,
+      "art": "subdrop",
+      "szene": "s4_ernstfall",
+      "quelle": "event:red_tendrils"
+    },
+    {
+      "t_s": 65.9893,
+      "f": 3959,
+      "art": "lock",
+      "szene": "s4_ernstfall",
+      "quelle": "event:immutable_lock"
+    },
+    {
+      "t_s": 66.8325,
+      "f": 4010,
+      "art": "hit",
+      "szene": "s4_ernstfall",
+      "quelle": "event:shockwave"
+    },
+    {
+      "t_s": 68.0249,
+      "f": 4081,
+      "art": "rewind",
+      "szene": "s4_ernstfall",
+      "quelle": "event:rewind"
+    },
+    {
+      "t_s": 72.3493,
+      "f": 4341,
+      "art": "downer",
+      "szene": "s4_ernstfall",
+      "quelle": "event:hope_fade"
+    },
+    {
+      "t_s": 75.0703,
+      "f": 4504,
+      "art": "riser",
+      "szene": "s5_betrieb",
+      "quelle": "event:invoice_spin"
+    },
+    {
+      "t_s": 77.4119,
+      "f": 4645,
+      "art": "whoosh",
+      "szene": "s5_betrieb",
+      "quelle": "event:paper_plane"
+    },
+    {
+      "t_s": 80.2879,
+      "f": 4817,
+      "art": "shimmer",
+      "szene": "s5_betrieb",
+      "quelle": "event:rollback_path"
+    },
+    {
+      "t_s": 82.3799,
+      "f": 4943,
+      "art": "tick",
+      "szene": "s5_betrieb",
+      "quelle": "event:rolling_update"
+    },
+    {
+      "t_s": 83.6211,
+      "f": 5017,
+      "art": "hit",
+      "szene": "s5_betrieb",
+      "quelle": "event:dashboards"
+    },
+    {
+      "t_s": 87.9619,
+      "f": 5278,
+      "art": "paper",
+      "szene": "s6_beweis",
+      "quelle": "event:prospect_paper"
+    },
+    {
+      "t_s": 89.6547,
+      "f": 5379,
+      "art": "riser",
+      "szene": "s6_beweis",
+      "quelle": "event:grafana_flyover"
+    },
+    {
+      "t_s": 94.2369,
+      "f": 5654,
+      "art": "hit",
+      "szene": "s6_beweis",
+      "quelle": "event:stamp"
+    },
+    {
+      "t_s": 95.8757,
+      "f": 5753,
+      "art": "whoosh",
+      "szene": "s6_beweis",
+      "quelle": "event:fan_panels"
+    },
+    {
+      "t_s": 100.3685,
+      "f": 6022,
+      "art": "sting",
+      "szene": "s7_team",
+      "quelle": "event:converge"
+    },
+    {
+      "t_s": 101.4645,
+      "f": 6088,
+      "art": "whoosh",
+      "szene": "s7_team",
+      "quelle": "event:converge_sub"
+    },
+    {
+      "t_s": 104.3299,
+      "f": 6260,
+      "art": "clatter",
+      "szene": "s7_team",
+      "quelle": "event:tickets_fall"
+    },
+    {
+      "t_s": 107.8063,
+      "f": 6468,
+      "art": "whoosh",
+      "szene": "s7_team",
+      "quelle": "event:direct_line"
+    },
+    {
+      "t_s": 109.9015,
+      "f": 6594,
+      "art": "tick",
+      "szene": "s7_team",
+      "quelle": "event:workday"
+    },
+    {
+      "t_s": 112.4605,
+      "f": 6748,
+      "art": "paper",
+      "szene": "s7_team",
+      "quelle": "event:docs_fly"
+    },
+    {
+      "t_s": 114.2197,
+      "f": 6853,
+      "art": "shimmer",
+      "szene": "s7_team",
+      "quelle": "event:blackbox_unfold"
+    },
+    {
+      "t_s": 117.3635,
+      "f": 7042,
+      "art": "hit",
+      "szene": "s8_morgen",
+      "quelle": "event:clock_roll_7"
+    },
+    {
+      "t_s": 117.7203,
+      "f": 7063,
+      "art": "swell",
+      "szene": "s8_morgen",
+      "quelle": "event:dawn"
+    },
+    {
+      "t_s": 119.2891,
+      "f": 7157,
+      "art": "downer",
+      "szene": "s8_morgen",
+      "quelle": "event:bell_sleep"
+    },
+    {
+      "t_s": 120.5431,
+      "f": 7233,
+      "art": "sting",
+      "szene": "s8_morgen",
+      "quelle": "event:logo_fold"
+    },
+    {
+      "t_s": 120.9423,
+      "f": 7257,
+      "art": "hit",
+      "szene": "s8_morgen",
+      "quelle": "event:claim"
+    },
+    {
+      "t_s": 123.7908,
+      "f": 7427,
+      "art": "whoosh",
+      "szene": "s8_morgen",
+      "quelle": "event:cta"
+    },
+    {
+      "t_s": 127.2188,
+      "f": 7633,
+      "art": "hit",
+      "szene": "s8_morgen",
+      "quelle": "event:url"
+    },
+    {
+      "t_s": 130.3833,
+      "f": 7823,
+      "art": "shimmer",
+      "szene": "abspann",
+      "quelle": "event:endcard_in"
+    }
+  ]
+}
