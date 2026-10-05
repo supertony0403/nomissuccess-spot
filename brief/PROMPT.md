@@ -13,13 +13,13 @@ Angepasst aus dem Spec-Ad-Prompt (Riccardo-Bosso-Vorlage) für Linux, DaVinci Re
 | Referenz | keine Vorlage, Richtung Spotify-, Shopify- und Huel-Spots, Apple-Keynote-Produktfilme |
 | Idee | drei Ideen unten, Empfehlung: **A „Nachtschicht“** |
 | Skript | schreibe ich, nur aus belegten Website-Aussagen und Anthonys Vorgaben |
-| Stimme | **Gemini TTS** über den Jarvis-Schlüssel, vier Stimmproben zur Auswahl |
+| Stimme | **Google Gemini TTS** (eigener API-Schlüssel), vier Stimmproben zur Auswahl |
 | Länge | **≥ 2:00**, Ziel 2:20–2:40, plus ca. 2 s Abspann |
 | Werkzeug | **DaVinci Resolve Studio 21.1.1** als Zentrale (Edit, Fusion, Color, Fairlight, Deliver), **Blender 5.2** für die 3D-Heldenshots |
 | Formate | 1920×1080 und 1080×1920, **60 fps**, je mit Ton und stumm |
 
 ### Nicht machen
-- **Nicht der Look vom DdR-Spot oder vom ersten nomissuccess-Spot.** Anthony fand ihn „zu rentner“. Also keine Schrift auf dunkler Fläche mit Überblendung, keine statisch zentrierten Titel und keine Wort-Slams, Zoom-Punches, RGB-Splits, Scanlines oder Blitze von dort.
+- **Nicht der Look der bisherigen Spots** (auch nicht vom ersten nomissuccess-Spot). Der war „zu rentner“. Also keine Schrift auf dunkler Fläche mit Überblendung, keine statisch zentrierten Titel und keine Wort-Slams, Zoom-Punches, RGB-Splits, Scanlines oder Blitze von dort.
 - **Kein NIS2.** Das bewerben wir nicht.
 - **Keine Herstellerlogos** (Simons Rechtsregel vom 15.07.). FortiGate, OPNsense, Proxmox usw. nur als Textnennung.
 - Nichts erfinden: keine Kunden, keine Referenzen, keine Prozent- oder Euro-Zahlen, die nicht auf der Website stehen.
@@ -112,8 +112,8 @@ Zeiten sind Richtwerte. Die echten Zeiten kommen aus den gemessenen Sprachdauern
 
 ## 6. Ton
 
-- **Stimme:** Gemini TTS über den Schlüssel aus den Jarvis-Einstellungen (`~/.config/ddr-video/gemini.env`, nie ins Repo). Eine Stimme und ein Modell für alle Zeilen, nie mischen. Regie im Stil-Feld: klar, warm, zügig, modern, wie ein Produktfilm und nicht wie ein Nachrichtensprecher.
-- **Stimmauswahl:** vier Gemini-Stimmen lesen v01–v03, du wählst. Die drei DdR-Proben auf dem Desktop (`~/Desktop/ddr-stimmproben/`) kannst du schon jetzt kostenlos anhören. Für B2B passt vermutlich „2 radiostimme-klar“.
+- **Stimme:** Google Gemini TTS über die Google-API. Der Schlüssel liegt nur lokal und kommt nie ins Repo. Eine Stimme und ein Modell für alle Zeilen, nie mischen. Regie im Stil-Feld: klar, warm, zügig, modern, wie ein Produktfilm und nicht wie ein Nachrichtensprecher.
+- **Stimmauswahl:** vier Gemini-Stimmen lesen v01–v03, du wählst. Vorab-Tipp für B2B: eine klare, mittlere Männer- oder Frauenstimme Mitte 30, kein Nachrichtensprecher-Ton.
 - **Musik:** eigene Musik aus Code (numpy), um die Stimme herum arrangiert. Der Bogen folgt der Nacht: Am Anfang ist das Ticken der Uhr der Hi-Hat, dann baut sich der Track auf, im Ernstfall wird er dünner, bei „Ein Team“ hebt er an, und am Morgen löst er sich warm auf. Der letzte Akkord klingt unter dem Abspann aus. **Mindestens 15 dB unter der Stimme**, solange gesprochen wird, und kein Limiter, der die Stimme quetscht.
 - **SFX:** Die SSD-Bibliothek aus der Vorlage (`/Volumes/Extreme Pro/…`) ist ein Mac-Pfad und auf diesem PC nicht vorhanden. Standard ist darum eine **eigene Geräuschbibliothek aus Code** mit Whoosh, Hit, Riser, UI-Tick, Lichtschalter, Schloss, Papier, Physik-Geklapper und Logo-Sting. Jedes Wort und jeder Titel bekommt einen Whoosh, jede Landung einen Hit, jede Produkt- und Logo-Bewegung einen eigenen Ton. Alles wird platziert und per EQ aus dem Sprachband gehalten.
 - **Fairlight-Spuren:** A1 Stimme · A2 Musik · A3 Whoosh · A4 Hits · A5 UI/Mechanik · A6 Riser/Übergänge · A7 Logo/Signatur · A8 Atmo, darüber SFX-Bus und Master.
@@ -165,7 +165,7 @@ Ich zeige dir vorher Vorschaubilder und Links. Jede Quelle und Lizenz kommt in `
 
 ## 10. Credits / Kosten
 
-- **Gemini TTS:** Free Tier, also **0 €**. Engpass ist das Tageskontingent von ca. 10 Anfragen je Modell und Tag. Das ist heute durch den DdR-Spot verbraucht und wird um **09:00 Uhr** zurückgesetzt.
+- **Gemini TTS:** Free Tier, also **0 €**. Engpass ist das Tageskontingent von ca. 10 Anfragen je Modell und Tag. Für heute ist es bereits verbraucht und wird um **09:00 Uhr** zurückgesetzt.
   Plan: 4 Stimmproben + Sprechertext in 3 Blöcken × 2 Takes (6 Anfragen, Aufteilung in Zeilen per lokalem Whisper) + ca. 3 Nachtakes ≈ **13 Anfragen**, also ca. zwei Tage. Notfall-Alternative ohne Kontingent: der eingebaute **Resolve-21-Sprachgenerator** (Deutsch-Qualität ungeprüft).
 - Resolve, Blender, Musik und SFX laufen lokal, **0 €**. Pexels kostet nichts.
 
