@@ -9,7 +9,16 @@ The free tier's daily quota per model is scarce, so this script is frugal:
     errors, and a daily-quota 429 (quotaId "...PerDay...") ends the run at once
     while every finished take is kept,
   * takes are cached in work/vo/takes/<block>_take<n>.wav with a sidecar JSON
-    (text, style, voice, model); a re-run makes no request while it matches.
+    (text, style, style mode, voice, model); a re-run makes no request while it
+    matches.
+
+Two API dialects, chosen by script.json -> stimme.stil_modus:
+  * "metadata" (default, gemini-3.8-*-tts): style in parts[0].speech_metadata,
+    the answer is a WAV with RIFF header.
+  * "prefix" (gemini-3.1-flash-tts-preview, no speech_metadata support): the
+    text is sent as "<stil>: <text>" (the instruction is not spoken), the answer
+    is raw PCM, mimeType "audio/l16; rate=24000; channels=1" (16-bit LE signed),
+    wrapped into a WAV here. The WER reference is always the script text alone.
 
 The API key is read at runtime from ~/.config/ddr-video/gemini.env and travels
 only in the x-goog-api-key header. It is never printed, logged or written, and
@@ -44,6 +53,7 @@ MAX_TAKES = 2
 MAX_VERSUCHE = 2         # per take, only for per-minute 429 / 5xx / network errors
 TIMEOUT_S = 180
 ZIEL_WPS = 2.4           # tie-break between equally correct takes
+STIL_MODI = ("metadata", "prefix")
 
 
 class KontingentErschoepft(RuntimeError):
@@ -132,11 +142,29 @@ def _protokolliere(protokoll: Path | None, etikett: str, ergebnis: str) -> None:
         f.write(f"{stempel}  {etikett}  {ergebnis}\n")
 
 
-def _pcm_als_wav(pcm: bytes, mime: str) -> bytes:
-    rate = int(m[1]) if (m := re.search(r"rate=(\d+)", mime)) else 24_000
+def stil_modus(stimme: dict) -> str:
+    modus = stimme.get("stil_modus", "metadata")
+    if modus not in STIL_MODI:
+        raise ValueError(f"stil_modus '{modus}' unbekannt (erlaubt: {', '.join(STIL_MODI)})")
+    return modus
+
+
+def text_teil(text: str, stimme: dict) -> dict:
+    """parts[0] of the request: style as speech_metadata (3.8) or as spoken-text prefix (3.1)."""
+    if stil_modus(stimme) == "prefix":
+        return {"text": f"{stimme['stil']}: {text}"}
+    return {"text": text, "speech_metadata": {"style": stimme["stil"]}}
+
+
+def pcm_als_wav(pcm: bytes, mime: str) -> bytes:
+    """Raw 16-bit little-endian PCM ("audio/l16; rate=24000; channels=1") -> WAV bytes."""
+    rate = int(m[1]) if (m := re.search(r"rate=(\d+)", mime, re.I)) else 24_000
+    kanaele = int(m[1]) if (m := re.search(r"channels=(\d+)", mime, re.I)) else 1
+    if not pcm or len(pcm) % (2 * kanaele):
+        raise RuntimeError(f"PCM-Länge {len(pcm)} Bytes passt nicht zu 16 bit × {kanaele} Kanal/Kanäle")
     puffer = io.BytesIO()
     with wave.open(puffer, "wb") as w:
-        w.setnchannels(1)
+        w.setnchannels(kanaele)
         w.setsampwidth(2)
         w.setframerate(rate)
         w.writeframes(pcm)
@@ -147,7 +175,7 @@ def tts(text: str, stimme: dict, sitzung: Sitzung, etikett: str = "",
         protokoll: Path | None = None) -> tuple[bytes, dict]:
     """One generateContent call. Returns (WAV bytes with RIFF header, usageMetadata)."""
     koerper = {
-        "contents": [{"parts": [{"text": text, "speech_metadata": {"style": stimme["stil"]}}]}],
+        "contents": [{"parts": [text_teil(text, stimme)]}],
         "generationConfig": {
             "responseModalities": ["AUDIO"],
             "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": stimme["voice"]}}},
@@ -205,11 +233,12 @@ def tts(text: str, stimme: dict, sitzung: Sitzung, etikett: str = "",
         if isinstance(daten, dict):
             grund = (daten.get("candidates") or [{}])[0].get("finishReason", "?")
         raise RuntimeError(f"Antwort ohne Audio (finishReason={grund})") from None
-    if audio[:4] != b"RIFF" or audio[8:12] != b"WAVE":
-        if "l16" in mime.lower() or "pcm" in mime.lower():
-            audio = _pcm_als_wav(audio, mime)
+    ist_riff = audio[:4] == b"RIFF" and audio[8:12] == b"WAVE"
+    if not ist_riff:
+        if "l16" in mime.lower() or "pcm" in mime.lower():     # 3.1: raw PCM, format in mimeType
+            audio = pcm_als_wav(audio, mime)
         else:
-            raise RuntimeError(f"Antwort ist kein WAV (mimeType={mime or '?'})")
+            raise RuntimeError(f"Antwort ist kein WAV und kein PCM (mimeType={mime or '?'})")
     return audio, daten.get("usageMetadata", {})
 
 
@@ -225,8 +254,9 @@ def take_pfad(block_id: str, nummer: int, takes_dir: Path = TAKES_DIR) -> Path:
 
 
 def take_aktuell(block: dict, nummer: int, stimme: dict, takes_dir: Path = TAKES_DIR) -> bool:
-    """A cached take only counts if it was rendered from today's text, style, voice
-    and model — otherwise an edit in script.json would silently be ignored."""
+    """A cached take only counts if it was rendered from today's text, style, style
+    mode, voice and model — otherwise an edit in script.json (or a model switch)
+    would silently be ignored. Old sidecars without stil_modus were 'metadata'."""
     wav = take_pfad(block["id"], nummer, takes_dir)
     meta = wav.with_suffix(".json")
     if not (wav.exists() and meta.exists()):
@@ -235,8 +265,8 @@ def take_aktuell(block: dict, nummer: int, stimme: dict, takes_dir: Path = TAKES
         m = json.loads(meta.read_text(encoding="utf-8"))
     except ValueError:
         return False
-    return (m.get("text"), m.get("stil"), m.get("voice"), m.get("modell")) == (
-        block["text"], stimme["stil"], stimme["voice"], stimme["modell"])
+    return (m.get("text"), m.get("stil"), m.get("stil_modus", "metadata"), m.get("voice"), m.get("modell")) == (
+        block["text"], stimme["stil"], stil_modus(stimme), stimme["voice"], stimme["modell"])
 
 
 def sichere_take(block: dict, nummer: int, stimme: dict, sitzung: Sitzung,
@@ -258,7 +288,7 @@ def sichere_take(block: dict, nummer: int, stimme: dict, sitzung: Sitzung,
     tmp.replace(ziel)
     schreibe_json(ziel.with_suffix(".json"), {
         "text": block["text"], "modell": stimme["modell"], "voice": stimme["voice"], "stil": stimme["stil"],
-        "zeilen": block["zeilen"], "dauer_s": round(dauer, 3), "abtastrate": sr, "nutzung": nutzung,
+        "stil_modus": stil_modus(stimme), "zeilen": block["zeilen"], "dauer_s": round(dauer, 3), "abtastrate": sr, "nutzung": nutzung,
         "erzeugt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
     })
     print(f"  erzeugt {ziel.name}  ({dauer:.2f} s, {nutzung.get('totalTokenCount', '?')} Tokens)")
@@ -314,7 +344,7 @@ def main(argv: list[str] | None = None) -> int:
     bloecke = blocktexte(script)
     sitzung = Sitzung()
     abbruch = ""
-    print(f"TTS {stimme['modell']} · {stimme['voice']} · {len(bloecke)} Blöcke")
+    print(f"TTS {stimme['modell']} · {stimme['voice']} · Stil {stil_modus(stimme)} · {len(bloecke)} Blöcke")
 
     for b in bloecke:
         if take_aktuell(b, 1, stimme):

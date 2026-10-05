@@ -186,6 +186,121 @@ def test_cache_ungueltig_wenn_text_sich_aendert(umgebung, monkeypatch):
     assert neu and len(leitung.anfragen) == 2
 
 
+# ------------------------------------------------------------------ gemini 3.1 (style prefix, raw PCM)
+STIMME_31 = {"modell": "gemini-3.1-flash-tts-preview", "voice": "Charon", "stil_modus": "prefix",
+             "stil": "Sprich als moderner Werbesprecher, klar, warm und selbstbewusst, in zügigem, natürlichem Tempo"}
+
+
+def pcm_antwort(samples: np.ndarray, mime: str = "audio/l16; rate=24000; channels=1") -> Antwort:
+    daten = {"candidates": [{"content": {"parts": [{"inlineData": {
+        "mimeType": mime, "data": base64.b64encode(samples.astype("<i2").tobytes()).decode()}}]}}],
+        "usageMetadata": {"totalTokenCount": 7}}
+    return Antwort(json.dumps(daten).encode())
+
+
+def rampe(n: int = 24_000) -> np.ndarray:
+    return (np.sin(np.arange(n) / 9.0) * 12_000).astype(np.int16)
+
+
+def test_prefix_modus_schickt_stil_im_text_ohne_speech_metadata(umgebung, monkeypatch):
+    leitung = FalscheLeitung(pcm_antwort(rampe()))
+    monkeypatch.setattr(stimme.urllib.request, "urlopen", leitung)
+    stimme.sichere_take(BLOCK, 1, STIMME_31, sitzung(), umgebung)
+    anfrage = leitung.anfragen[0]
+    teil = json.loads(anfrage.data)["contents"][0]["parts"][0]
+    assert teil == {"text": f"{STIMME_31['stil']}: {BLOCK['text']}"}            # no speech_metadata key
+    cfg = json.loads(anfrage.data)["generationConfig"]["speechConfig"]["voiceConfig"]["prebuiltVoiceConfig"]
+    assert cfg == {"voiceName": "Charon"}
+    assert "gemini-3.1-flash-tts-preview:generateContent" in anfrage.full_url
+    meta = json.loads(stimme.take_pfad("A", 1, umgebung).with_suffix(".json").read_text(encoding="utf-8"))
+    assert meta["text"] == BLOCK["text"] and meta["stil_modus"] == "prefix"   # cache key = script text only
+
+
+def test_metadata_modus_bleibt_fuer_3_8(umgebung, monkeypatch):
+    leitung = FalscheLeitung(gute_antwort())
+    monkeypatch.setattr(stimme.urllib.request, "urlopen", leitung)
+    stimme.sichere_take(BLOCK, 1, STIMME, sitzung(), umgebung)
+    teil = json.loads(leitung.anfragen[0].data)["contents"][0]["parts"][0]
+    assert teil == {"text": BLOCK["text"], "speech_metadata": {"style": STIMME["stil"]}}
+
+
+@pytest.mark.parametrize("mime, rate, kanaele", [
+    ("audio/l16; rate=24000; channels=1", 24_000, 1),
+    ("audio/L16;codec=pcm;rate=16000", 16_000, 1),
+    ("audio/l16; rate=48000; channels=2", 48_000, 2),
+])
+def test_rohes_pcm_l16_wird_wav(umgebung, monkeypatch, mime, rate, kanaele):
+    import soundfile as sf
+    pcm = rampe(rate * kanaele)                                   # 1 s of audio
+    monkeypatch.setattr(stimme.urllib.request, "urlopen", FalscheLeitung(pcm_antwort(pcm, mime)))
+    pfad, _ = stimme.sichere_take(BLOCK, 1, STIMME_31, sitzung(), umgebung)
+    assert pfad.read_bytes()[:4] == b"RIFF"
+    info = sf.info(str(pfad))
+    assert (info.samplerate, info.channels, info.subtype) == (rate, kanaele, "PCM_16")
+    daten, _ = sf.read(str(pfad), dtype="int16", always_2d=True)
+    assert np.array_equal(daten.reshape(-1), pcm)                 # byte-exact, little-endian
+    meta = json.loads(pfad.with_suffix(".json").read_text(encoding="utf-8"))
+    assert meta["abtastrate"] == rate and meta["dauer_s"] == pytest.approx(1.0)
+
+
+def test_rohdaten_ohne_riff_und_ohne_pcm_mimetype_sind_fehler(umgebung, monkeypatch):
+    monkeypatch.setattr(stimme.urllib.request, "urlopen", FalscheLeitung(pcm_antwort(rampe(), "audio/mpeg")))
+    with pytest.raises(RuntimeError, match="kein WAV"):
+        stimme.sichere_take(BLOCK, 1, STIMME_31, sitzung(), umgebung)
+
+
+def test_ungerade_pcm_laenge_ist_fehler(umgebung, monkeypatch):
+    daten = {"candidates": [{"content": {"parts": [{"inlineData": {
+        "mimeType": "audio/l16; rate=24000; channels=1", "data": base64.b64encode(b"\x01\x02\x03").decode()}}]}}]}
+    monkeypatch.setattr(stimme.urllib.request, "urlopen", FalscheLeitung(Antwort(json.dumps(daten).encode())))
+    with pytest.raises(RuntimeError, match="PCM"):
+        stimme.sichere_take(BLOCK, 1, STIMME_31, sitzung(), umgebung)
+
+
+def test_cache_unterscheidet_modell_voice_und_stilmodus(umgebung, monkeypatch):
+    monkeypatch.setattr(stimme.urllib.request, "urlopen", FalscheLeitung(gute_antwort()))
+    stimme.sichere_take(BLOCK, 1, STIMME, sitzung(), umgebung)                 # a 3.8 take
+    assert stimme.take_aktuell(BLOCK, 1, STIMME, umgebung)
+    assert not stimme.take_aktuell(BLOCK, 1, STIMME_31, umgebung)
+    assert not stimme.take_aktuell(BLOCK, 1, {**STIMME, "modell": STIMME_31["modell"]}, umgebung)
+    assert not stimme.take_aktuell(BLOCK, 1, {**STIMME, "voice": "Charon"}, umgebung)
+    assert not stimme.take_aktuell(BLOCK, 1, {**STIMME, "stil": STIMME_31["stil"]}, umgebung)
+    assert not stimme.take_aktuell(BLOCK, 1, {**STIMME, "stil_modus": "prefix"}, umgebung)
+    leitung = FalscheLeitung(pcm_antwort(rampe()))
+    monkeypatch.setattr(stimme.urllib.request, "urlopen", leitung)
+    _, neu = stimme.sichere_take(BLOCK, 1, STIMME_31, sitzung(), umgebung)  # model change -> new request
+    assert neu and len(leitung.anfragen) == 1
+    assert stimme.take_aktuell(BLOCK, 1, STIMME_31, umgebung)
+    assert not stimme.take_aktuell(BLOCK, 1, STIMME, umgebung)
+
+
+def test_alter_sidecar_ohne_stilmodus_gilt_als_metadata(umgebung):
+    pfad = stimme.take_pfad("A", 1, umgebung)
+    pfad.parent.mkdir(parents=True)
+    pfad.write_bytes(wav_bytes())
+    pfad.with_suffix(".json").write_text(json.dumps(
+        {"text": BLOCK["text"], "stil": STIMME["stil"], "voice": STIMME["voice"], "modell": STIMME["modell"]}),
+        encoding="utf-8")
+    assert stimme.take_aktuell(BLOCK, 1, STIMME, umgebung)
+    assert not stimme.take_aktuell(BLOCK, 1, {**STIMME, "stil_modus": "prefix"}, umgebung)
+
+
+def test_wer_referenz_ist_nur_der_skripttext(umgebung, monkeypatch):
+    """The style prefix is an instruction, not script: if the voice spoke it, that is an error."""
+    pfad = stimme.take_pfad("A", 1, umgebung)
+    pfad.parent.mkdir(parents=True)
+    pfad.write_bytes(wav_bytes())
+
+    def transkript(text):
+        woerter = [{"wort": " " + w, "start": i * 0.3, "ende": i * 0.3 + 0.25} for i, w in enumerate(text.split())]
+        return lambda p, modell="small": {"modell": modell, "text": text, "woerter": woerter}
+
+    monkeypatch.setattr(stimme, "transkribiere", transkript("Drei Uhr zwölf. Die Stadt schläft."))
+    assert stimme.bewerte(BLOCK, pfad)["wer"] == 0.0
+    monkeypatch.setattr(stimme, "transkribiere", transkript(f"{STIMME_31['stil']}: Drei Uhr zwölf. Die Stadt schläft."))
+    assert stimme.bewerte(BLOCK, pfad)["wer"] > 1.0
+
+
 def test_drossel_haelt_pause_zwischen_anfragen(monkeypatch):
     uhr = iter([100.0, 100.0, 105.0, 105.0])
     geschlafen = []

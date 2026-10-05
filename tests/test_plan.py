@@ -115,6 +115,19 @@ def test_woerter_monoton_und_im_clip(timeline):
         assert vorher <= vo["ende_s"] + EPS, vo["id"]
 
 
+def test_clip_laenge_gleich_dateilaenge_trotz_gerundeter_dauer(script, events_doc):
+    """ausrichtung.json stores dauer_s rounded to 6 decimals (394/60 -> 6.566667, x60 =
+    394.00002); the clip must still be exactly as long as the file, not one frame more."""
+    aus = synthetische_ausrichtung(script)
+    for e in aus.values():
+        e["dauer_s"] = round(e["dauer_s"], 6)
+    # precondition: the rounding trap really occurs for some line (x60 lands just above n)
+    assert any(e["dauer_s"] * FPS - round(e["dauer_s"] * FPS) > 1e-6 for e in aus.values())
+    tl = plan.baue_timeline(script, events_doc, aus)
+    for v in tl["vo"]:
+        assert v["ende_f"] - v["start_f"] == round(aus[v["id"]]["dauer_s"] * FPS), v["id"]
+
+
 def test_timing_regeln(timeline):
     vo = {v["id"]: v for v in timeline["vo"]}
     toleranz = 1.5 / FPS                                   # frame-snapped placement
@@ -224,6 +237,22 @@ def test_pruefe_timeline_findet_ueberlappung(timeline):
     kaputt["szenen"][2]["start_s"] = kaputt["szenen"][2]["start_f"] / FPS
     assert any("s3_netz" in f for f in plan.pruefe_timeline(kaputt))
     assert plan.pruefe_timeline(timeline) == []
+
+
+def test_markenbericht_meldet_phrasen_und_was_whisper_hoerte(script):
+    roh = json.loads((FIXTURES / "whisper_synthetisch_v21_v23.json").read_text(encoding="utf-8"))
+    texte = {z["id"]: z["text"] for z in script["vo"]}
+    z = plan.richte_aus([(i, texte[i]) for i in ("v21", "v22", "v23")], roh["woerter"], roh["dauer_s"])
+    marken = {(m["zeile"], m["wort"]): m for m in plan.markenbericht(z, roh["woerter"])}
+    assert set(marken) == {("v22", "nomissuccess"), ("v23", "nomissuccess punkt de")}
+    assert marken[("v22", "nomissuccess")]["whisper"] == "No Miss Success."
+    assert marken[("v22", "nomissuccess")]["art"] == "verteilt"
+    assert marken[("v23", "nomissuccess punkt de")]["whisper"] == "Nomissuccess.de."
+    zero = plan.markenbericht({"v11": [{"wort": "Mit", "start_s": 0.0, "ende_s": 0.2, "art": "erkannt"},
+                                       {"wort": "Zero", "start_s": 0.2, "ende_s": 0.5, "art": "erkannt"},
+                                       {"wort": "Trust", "start_s": 0.5, "ende_s": 0.9, "art": "ersetzt"}]},
+                              [{"wort": " Zero", "start": 0.2, "ende": 0.5}, {"wort": " Trost", "start": 0.5, "ende": 0.9}])
+    assert zero == [{"zeile": "v11", "wort": "Zero Trust", "art": "ersetzt", "whisper": "Zero Trost"}]
 
 
 # ------------------------------------------------------------------ cutting lines from a block take

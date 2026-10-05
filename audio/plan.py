@@ -58,7 +58,9 @@ SCHWELLE_DB = -35.0        # "speech" = 10 ms RMS within 35 dB of the block's lo
                            # (-40 caught breaths before the next line as speech)
 FENSTER_S = 0.01
 
-MARKEN = ("nomissuccess", "fortigate", "opnsense", "vmware", "proxmox", "zero", "trust", "ransomware")
+# brand names reported with what Whisper heard; phrases are matched as a whole
+MARKEN = (("nomissuccess", "punkt", "de"), ("zero", "trust"), ("nomissuccess",), ("fortigate",),
+          ("opnsense",), ("vmware", "lizenz"), ("proxmox",), ("ransomware",))
 
 
 class AnkerFehler(ValueError):
@@ -151,17 +153,26 @@ def richte_aus(zeilen: list[tuple[str, str]], whisper_roh: list[dict],
 
 
 def markenbericht(zuordnung: dict[str, list[dict]], whisper_roh: list[dict]) -> list[dict]:
-    """What Whisper actually heard where the script says a brand name."""
+    """What Whisper actually heard where the script says a brand name (longest
+    phrase first, each script word reported once)."""
+    rang = {"erkannt": 0, "ersetzt": 1, "verteilt": 2, "interpoliert": 3}
     out = []
     for zid, woerter in zuordnung.items():
-        for w in woerter:
-            n = normalisiere(w["wort"])
-            if not any(m in n for m in MARKEN):
-                continue
-            gehoert = [r["wort"].strip() for r in whisper_roh
-                       if r["start"] < w["ende_s"] and r["ende"] > w["start_s"]]
-            out.append({"zeile": zid, "wort": w["wort"], "art": w["art"], "whisper": " ".join(gehoert) or "—"})
-    return out
+        norm = [" ".join(normalisiere(w["wort"]).split()) for w in woerter]
+        belegt: set[int] = set()
+        for phrase in MARKEN:
+            ziel = " ".join(phrase)
+            for i in range(len(woerter)):
+                for j in range(i + 1, len(woerter) + 1):
+                    if " ".join(norm[i:j]) != ziel or belegt & set(range(i, j)):
+                        continue
+                    von, bis = woerter[i]["start_s"], woerter[j - 1]["ende_s"]
+                    gehoert = [r["wort"].strip() for r in whisper_roh if r["start"] < bis and r["ende"] > von]
+                    out.append({"zeile": zid, "wort": " ".join(w["wort"] for w in woerter[i:j]),
+                                "art": max((w["art"] for w in woerter[i:j]), key=rang.__getitem__),
+                                "whisper": " ".join(gehoert) or "—", "start_s": von})
+                    belegt |= set(range(i, j))
+    return sorted(out, key=lambda m: (m["zeile"], m.pop("start_s")))
 
 
 # ------------------------------------------------------------------ cutting
@@ -382,7 +393,8 @@ def baue_timeline(script: dict, events_doc: dict, zeilen: dict) -> dict:
         start = start_f / FPS
         woerter = [{"wort": w["wort"], "start_s": round(start + w["start_s"], 4),
                     "ende_s": round(start + w["ende_s"], 4)} for w in a["woerter"]]
-        ende_f = start_f + math.ceil(a["dauer_s"] * FPS - 1e-6)
+        # files are whole frames; dauer_s is stored rounded (6 decimals), so allow 1e-3 frame
+        ende_f = start_f + math.ceil(a["dauer_s"] * FPS - 1e-3)
         geschaetzt = bool(a.get("vorlaeufig"))
         vo.append({"id": z["id"], "szene": z["szene"], "text": z["text"],
                    "start_s": _s(start_f), "ende_s": _s(ende_f), "start_f": start_f, "ende_f": ende_f,
