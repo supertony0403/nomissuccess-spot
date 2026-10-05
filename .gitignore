@@ -1,0 +1,15 @@
+# renders, intermediate audio and caches stay local
+out/
+work/
+renders/
+snapshots/
+.venv/
+node_modules/
+__pycache__/
+*.wav
+*.mp4
+*.mov
+*.exr
+*.blend1
+.env
+*.env
