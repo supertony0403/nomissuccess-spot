@@ -136,6 +136,9 @@ def scratch_timeline(project: Any, name: str) -> Iterator[Any]:
     try:
         yield timeline
     finally:
+        # never pull a timeline from under a running render: the queue then hangs for good
+        if project.IsRenderingInProgress():
+            raise ResolveNotReachable(f"render still running — kept timeline {name!r}; stop it in Deliver")
         media_pool.DeleteTimelines([timeline])
         if previous is not None:
             project.SetCurrentTimeline(previous)
@@ -233,6 +236,11 @@ def render_comp_frames(project: Any, carrier: Any, comp_path: Path, frames: list
             deadline = time.time() + 60 + 20 * len(jobs)
             while project.IsRenderingInProgress() and time.time() < deadline:
                 time.sleep(0.5)
+            if project.IsRenderingInProgress():
+                project.StopRendering()
+                stop_until = time.time() + 30
+                while project.IsRenderingInProgress() and time.time() < stop_until:
+                    time.sleep(0.5)
             failed = {j: project.GetRenderJobStatus(j) for j in jobs}
             failed = {j: st for j, st in failed.items() if st.get("JobStatus") != "Complete"}
             if failed:
@@ -244,9 +252,10 @@ def render_comp_frames(project: Any, carrier: Any, comp_path: Path, frames: list
                     shutil.move(str(hits[0]), dest)
                     written.append(dest)
         finally:
-            for job in jobs:
-                project.DeleteRenderJob(job)
-            timeline.DeleteClips([item], False)
+            if not project.IsRenderingInProgress():
+                for job in jobs:
+                    project.DeleteRenderJob(job)
+                timeline.DeleteClips([item], False)
     shutil.rmtree(stage, ignore_errors=True)
     _guard("cleanup")
     return written

@@ -56,9 +56,9 @@ class Layout:
 
 def layout(fmt: str) -> Layout:
     if fmt == "9x16":   # upper half, inside the safe area (sides 90, top 215)
-        return Layout(left=120, counter_top=470, counter_cap=132, text_top=470, text_cap=64,
+        return Layout(left=120, counter_top=470, counter_cap=118, text_top=470, text_cap=64,
                       line_pitch=104, led_top=740, led_pitch=58, led_cap=21)
-    return Layout(left=120, counter_top=300, counter_cap=132, text_top=300, text_cap=64,
+    return Layout(left=120, counter_top=300, counter_cap=118, text_top=300, text_cap=64,
                   line_pitch=104, led_top=580, led_pitch=58, led_cap=21)
 
 

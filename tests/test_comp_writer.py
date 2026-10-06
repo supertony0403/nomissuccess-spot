@@ -714,3 +714,26 @@ def _merge_index(text: str, layer: str) -> int:
         if name.startswith("SzeneM") and t.type_name == "Merge" and link_of(t, "Foreground")[0] == layer:
             return int(name[len("SzeneM"):])
     raise AssertionError(f"no scene merge for {layer}")
+
+
+@pytest.mark.parametrize("fmt", ["16x9", "9x16"])
+def test_scene1_type_fits_its_area(fmt):
+    """9:16: inside the safe area and the upper half; 16:9: the left half (± 4 px)."""
+    from fusion import hud
+    from fusion.szenen import s1_nacht as s1
+
+    w, h = cw.FORMATS[fmt]
+    comp = cw.Comp(w, h, frames=10)
+    lay = s1.layout(fmt)
+    right = comp.safe_box().right if fmt == "9x16" else w // 2 + 4
+    head = cw.FontMetrics.find(*s1.HEAD)
+    num = cw.FontMetrics.find(*s1.NUM)
+    size_num = comp.size_for_cap(lay.counter_cap, *s1.NUM)
+    cell = dict(num.advances)[ord("0")] / num.upm * num.em_px(size_num, w) * hud.CLOCK_TRACKING
+    assert lay.left + 8 * cell <= right
+    size = comp.size_for_cap(lay.text_cap, *s1.HEAD)
+    for line in ("Die Stadt schläft.", "Ihr Büro ist dunkel.", "Weckt sie heute", "Nacht jemanden?"):
+        assert lay.left + head.width_px(line, size, w) <= right, line
+    if fmt == "9x16":
+        assert comp.safe_box().top <= lay.counter_top
+        assert lay.led_top + 3 * lay.led_pitch + lay.led_cap <= h / 2
