@@ -1,0 +1,2641 @@
+{
+ "_hinweis": "Test fixture for audio (Task 2). Synthetic word timings, generated from script.json + szenen/events.json.",
+ "fps": 60,
+ "dauer_s": 160.962,
+ "dauer_f": 9658,
+ "abspann": {
+  "start_s": 158.962,
+  "ende_s": 160.962
+ },
+ "szenen": [
+  {
+   "id": "s1_nacht",
+   "start_s": 0.0,
+   "ende_s": 14.572,
+   "start_f": 0,
+   "ende_f": 874
+  },
+  {
+   "id": "s2_website",
+   "start_s": 14.572,
+   "ende_s": 46.434,
+   "start_f": 874,
+   "ende_f": 2786
+  },
+  {
+   "id": "s3_netz",
+   "start_s": 46.434,
+   "ende_s": 74.092,
+   "start_f": 2786,
+   "ende_f": 4446
+  },
+  {
+   "id": "s4_ernstfall",
+   "start_s": 74.092,
+   "ende_s": 90.004,
+   "start_f": 4446,
+   "ende_f": 5400
+  },
+  {
+   "id": "s5_betrieb",
+   "start_s": 90.004,
+   "ende_s": 106.66,
+   "start_f": 5400,
+   "ende_f": 6400
+  },
+  {
+   "id": "s6_beweis",
+   "start_s": 106.66,
+   "ende_s": 120.736,
+   "start_f": 6400,
+   "ende_f": 7244
+  },
+  {
+   "id": "s7_team",
+   "start_s": 120.736,
+   "ende_s": 142.462,
+   "start_f": 7244,
+   "ende_f": 8548
+  },
+  {
+   "id": "s8_morgen",
+   "start_s": 142.462,
+   "ende_s": 158.962,
+   "start_f": 8548,
+   "ende_f": 9538
+  }
+ ],
+ "vo": [
+  {
+   "id": "v01",
+   "szene": "s1_nacht",
+   "start_s": 1.6,
+   "ende_s": 5.766,
+   "datei": "assets/audio/vo/v01.wav",
+   "woerter": [
+    {
+     "wort": "Drei",
+     "start_s": 1.6,
+     "ende_s": 1.878
+    },
+    {
+     "wort": "Uhr",
+     "start_s": 1.948,
+     "ende_s": 2.174
+    },
+    {
+     "wort": "zwölf",
+     "start_s": 2.244,
+     "ende_s": 2.574
+    },
+    {
+     "wort": "Die",
+     "start_s": 2.944,
+     "ende_s": 3.17
+    },
+    {
+     "wort": "Stadt",
+     "start_s": 3.24,
+     "ende_s": 3.57
+    },
+    {
+     "wort": "schläft",
+     "start_s": 3.64,
+     "ende_s": 4.074
+    },
+    {
+     "wort": "Ihr",
+     "start_s": 4.444,
+     "ende_s": 4.67
+    },
+    {
+     "wort": "Büro",
+     "start_s": 4.74,
+     "ende_s": 5.018
+    },
+    {
+     "wort": "ist",
+     "start_s": 5.088,
+     "ende_s": 5.314
+    },
+    {
+     "wort": "dunkel",
+     "start_s": 5.384,
+     "ende_s": 5.766
+    }
+   ]
+  },
+  {
+   "id": "v02",
+   "szene": "s1_nacht",
+   "start_s": 6.066,
+   "ende_s": 10.312,
+   "datei": "assets/audio/vo/v02.wav",
+   "woerter": [
+    {
+     "wort": "Aber",
+     "start_s": 6.066,
+     "ende_s": 6.344
+    },
+    {
+     "wort": "Ihre",
+     "start_s": 6.414,
+     "ende_s": 6.692
+    },
+    {
+     "wort": "IT",
+     "start_s": 6.762,
+     "ende_s": 6.936
+    },
+    {
+     "wort": "schläft",
+     "start_s": 7.006,
+     "ende_s": 7.44
+    },
+    {
+     "wort": "nie",
+     "start_s": 7.51,
+     "ende_s": 7.736
+    },
+    {
+     "wort": "Website",
+     "start_s": 7.946,
+     "ende_s": 8.38
+    },
+    {
+     "wort": "Firewall",
+     "start_s": 8.59,
+     "ende_s": 9.076
+    },
+    {
+     "wort": "Server",
+     "start_s": 9.286,
+     "ende_s": 9.668
+    },
+    {
+     "wort": "Backups",
+     "start_s": 9.878,
+     "ende_s": 10.312
+    }
+   ]
+  },
+  {
+   "id": "v03",
+   "szene": "s1_nacht",
+   "start_s": 10.612,
+   "ende_s": 14.022,
+   "datei": "assets/audio/vo/v03.wav",
+   "woerter": [
+    {
+     "wort": "Die",
+     "start_s": 10.612,
+     "ende_s": 10.838
+    },
+    {
+     "wort": "Frage",
+     "start_s": 10.908,
+     "ende_s": 11.238
+    },
+    {
+     "wort": "ist",
+     "start_s": 11.308,
+     "ende_s": 11.534
+    },
+    {
+     "wort": "nur",
+     "start_s": 11.604,
+     "ende_s": 11.83
+    },
+    {
+     "wort": "Weckt",
+     "start_s": 12.04,
+     "ende_s": 12.37
+    },
+    {
+     "wort": "sie",
+     "start_s": 12.44,
+     "ende_s": 12.666
+    },
+    {
+     "wort": "heute",
+     "start_s": 12.736,
+     "ende_s": 13.066
+    },
+    {
+     "wort": "Nacht",
+     "start_s": 13.136,
+     "ende_s": 13.466
+    },
+    {
+     "wort": "jemanden",
+     "start_s": 13.536,
+     "ende_s": 14.022
+    }
+   ]
+  },
+  {
+   "id": "v04",
+   "szene": "s2_website",
+   "start_s": 15.122,
+   "ende_s": 21.564,
+   "datei": "assets/audio/vo/v04.wav",
+   "woerter": [
+    {
+     "wort": "Fangen",
+     "start_s": 15.122,
+     "ende_s": 15.504
+    },
+    {
+     "wort": "wir",
+     "start_s": 15.574,
+     "ende_s": 15.8
+    },
+    {
+     "wort": "vorne",
+     "start_s": 15.87,
+     "ende_s": 16.2
+    },
+    {
+     "wort": "an",
+     "start_s": 16.27,
+     "ende_s": 16.444
+    },
+    {
+     "wort": "bei",
+     "start_s": 16.654,
+     "ende_s": 16.88
+    },
+    {
+     "wort": "Ihrer",
+     "start_s": 16.95,
+     "ende_s": 17.28
+    },
+    {
+     "wort": "Website",
+     "start_s": 17.35,
+     "ende_s": 17.784
+    },
+    {
+     "wort": "Sie",
+     "start_s": 18.154,
+     "ende_s": 18.38
+    },
+    {
+     "wort": "ist",
+     "start_s": 18.45,
+     "ende_s": 18.676
+    },
+    {
+     "wort": "Ihr",
+     "start_s": 18.746,
+     "ende_s": 18.972
+    },
+    {
+     "wort": "Schaufenster",
+     "start_s": 19.042,
+     "ende_s": 19.736
+    },
+    {
+     "wort": "auch",
+     "start_s": 19.946,
+     "ende_s": 20.224
+    },
+    {
+     "wort": "um",
+     "start_s": 20.294,
+     "ende_s": 20.468
+    },
+    {
+     "wort": "drei",
+     "start_s": 20.538,
+     "ende_s": 20.816
+    },
+    {
+     "wort": "Uhr",
+     "start_s": 20.886,
+     "ende_s": 21.112
+    },
+    {
+     "wort": "nachts",
+     "start_s": 21.182,
+     "ende_s": 21.564
+    }
+   ]
+  },
+  {
+   "id": "v05",
+   "szene": "s2_website",
+   "start_s": 21.864,
+   "ende_s": 29.802,
+   "datei": "assets/audio/vo/v05.wav",
+   "woerter": [
+    {
+     "wort": "Wir",
+     "start_s": 21.864,
+     "ende_s": 22.09
+    },
+    {
+     "wort": "bauen",
+     "start_s": 22.16,
+     "ende_s": 22.49
+    },
+    {
+     "wort": "sie",
+     "start_s": 22.56,
+     "ende_s": 22.786
+    },
+    {
+     "wort": "für",
+     "start_s": 22.856,
+     "ende_s": 23.082
+    },
+    {
+     "wort": "Sie",
+     "start_s": 23.152,
+     "ende_s": 23.378
+    },
+    {
+     "wort": "Komplett",
+     "start_s": 23.748,
+     "ende_s": 24.234
+    },
+    {
+     "wort": "programmiert",
+     "start_s": 24.304,
+     "ende_s": 24.998
+    },
+    {
+     "wort": "Kein",
+     "start_s": 25.368,
+     "ende_s": 25.646
+    },
+    {
+     "wort": "Baukasten",
+     "start_s": 25.716,
+     "ende_s": 26.254
+    },
+    {
+     "wort": "keine",
+     "start_s": 26.464,
+     "ende_s": 26.794
+    },
+    {
+     "wort": "Plugin-Sammlung",
+     "start_s": 26.864,
+     "ende_s": 27.714
+    },
+    {
+     "wort": "keine",
+     "start_s": 27.924,
+     "ende_s": 28.254
+    },
+    {
+     "wort": "Vorlage",
+     "start_s": 28.324,
+     "ende_s": 28.758
+    },
+    {
+     "wort": "von",
+     "start_s": 28.828,
+     "ende_s": 29.054
+    },
+    {
+     "wort": "der",
+     "start_s": 29.124,
+     "ende_s": 29.35
+    },
+    {
+     "wort": "Stange",
+     "start_s": 29.42,
+     "ende_s": 29.802
+    }
+   ]
+  },
+  {
+   "id": "v06",
+   "szene": "s2_website",
+   "start_s": 30.102,
+   "ende_s": 36.468,
+   "datei": "assets/audio/vo/v06.wav",
+   "woerter": [
+    {
+     "wort": "Sie",
+     "start_s": 30.102,
+     "ende_s": 30.328
+    },
+    {
+     "wort": "lädt",
+     "start_s": 30.398,
+     "ende_s": 30.676
+    },
+    {
+     "wort": "in",
+     "start_s": 30.746,
+     "ende_s": 30.92
+    },
+    {
+     "wort": "unter",
+     "start_s": 30.99,
+     "ende_s": 31.32
+    },
+    {
+     "wort": "einer",
+     "start_s": 31.39,
+     "ende_s": 31.72
+    },
+    {
+     "wort": "Sekunde",
+     "start_s": 31.79,
+     "ende_s": 32.224
+    },
+    {
+     "wort": "liegt",
+     "start_s": 32.434,
+     "ende_s": 32.764
+    },
+    {
+     "wort": "auf",
+     "start_s": 32.834,
+     "ende_s": 33.06
+    },
+    {
+     "wort": "Servern",
+     "start_s": 33.13,
+     "ende_s": 33.564
+    },
+    {
+     "wort": "in",
+     "start_s": 33.634,
+     "ende_s": 33.808
+    },
+    {
+     "wort": "Deutschland",
+     "start_s": 33.878,
+     "ende_s": 34.52
+    },
+    {
+     "wort": "und",
+     "start_s": 34.59,
+     "ende_s": 34.816
+    },
+    {
+     "wort": "wird",
+     "start_s": 34.886,
+     "ende_s": 35.164
+    },
+    {
+     "wort": "jeden",
+     "start_s": 35.234,
+     "ende_s": 35.564
+    },
+    {
+     "wort": "Tag",
+     "start_s": 35.634,
+     "ende_s": 35.86
+    },
+    {
+     "wort": "gesichert",
+     "start_s": 35.93,
+     "ende_s": 36.468
+    }
+   ]
+  },
+  {
+   "id": "v07",
+   "szene": "s2_website",
+   "start_s": 36.768,
+   "ende_s": 43.342,
+   "datei": "assets/audio/vo/v07.wav",
+   "woerter": [
+    {
+     "wort": "Und",
+     "start_s": 36.768,
+     "ende_s": 36.994
+    },
+    {
+     "wort": "Sie",
+     "start_s": 37.064,
+     "ende_s": 37.29
+    },
+    {
+     "wort": "zahlen",
+     "start_s": 37.36,
+     "ende_s": 37.742
+    },
+    {
+     "wort": "monatlich",
+     "start_s": 37.812,
+     "ende_s": 38.35
+    },
+    {
+     "wort": "Hosting",
+     "start_s": 38.56,
+     "ende_s": 38.994
+    },
+    {
+     "wort": "Updates",
+     "start_s": 39.204,
+     "ende_s": 39.638
+    },
+    {
+     "wort": "und",
+     "start_s": 39.708,
+     "ende_s": 39.934
+    },
+    {
+     "wort": "Pflege",
+     "start_s": 40.004,
+     "ende_s": 40.386
+    },
+    {
+     "wort": "für",
+     "start_s": 40.456,
+     "ende_s": 40.682
+    },
+    {
+     "wort": "einen",
+     "start_s": 40.752,
+     "ende_s": 41.082
+    },
+    {
+     "wort": "festen",
+     "start_s": 41.152,
+     "ende_s": 41.534
+    },
+    {
+     "wort": "Betrag",
+     "start_s": 41.604,
+     "ende_s": 41.986
+    },
+    {
+     "wort": "ohne",
+     "start_s": 42.196,
+     "ende_s": 42.474
+    },
+    {
+     "wort": "Überraschungen",
+     "start_s": 42.544,
+     "ende_s": 43.342
+    }
+   ]
+  },
+  {
+   "id": "v08",
+   "szene": "s2_website",
+   "start_s": 43.642,
+   "ende_s": 45.884,
+   "datei": "assets/audio/vo/v08.wav",
+   "woerter": [
+    {
+     "wort": "Der",
+     "start_s": 43.642,
+     "ende_s": 43.868
+    },
+    {
+     "wort": "Quellcode",
+     "start_s": 43.938,
+     "ende_s": 44.476
+    },
+    {
+     "wort": "gehört",
+     "start_s": 44.546,
+     "ende_s": 44.928
+    },
+    {
+     "wort": "trotzdem",
+     "start_s": 44.998,
+     "ende_s": 45.484
+    },
+    {
+     "wort": "Ihnen",
+     "start_s": 45.554,
+     "ende_s": 45.884
+    }
+   ]
+  },
+  {
+   "id": "v09",
+   "szene": "s3_netz",
+   "start_s": 46.984,
+   "ende_s": 53.474,
+   "datei": "assets/audio/vo/v09.wav",
+   "woerter": [
+    {
+     "wort": "Hinter",
+     "start_s": 46.984,
+     "ende_s": 47.366
+    },
+    {
+     "wort": "der",
+     "start_s": 47.436,
+     "ende_s": 47.662
+    },
+    {
+     "wort": "Website",
+     "start_s": 47.732,
+     "ende_s": 48.166
+    },
+    {
+     "wort": "beginnt",
+     "start_s": 48.236,
+     "ende_s": 48.67
+    },
+    {
+     "wort": "Ihr",
+     "start_s": 48.74,
+     "ende_s": 48.966
+    },
+    {
+     "wort": "Netzwerk",
+     "start_s": 49.036,
+     "ende_s": 49.522
+    },
+    {
+     "wort": "Dort",
+     "start_s": 49.892,
+     "ende_s": 50.17
+    },
+    {
+     "wort": "entscheidet",
+     "start_s": 50.24,
+     "ende_s": 50.882
+    },
+    {
+     "wort": "sich",
+     "start_s": 50.952,
+     "ende_s": 51.23
+    },
+    {
+     "wort": "ob",
+     "start_s": 51.44,
+     "ende_s": 51.614
+    },
+    {
+     "wort": "ein",
+     "start_s": 51.684,
+     "ende_s": 51.91
+    },
+    {
+     "wort": "Angreifer",
+     "start_s": 51.98,
+     "ende_s": 52.518
+    },
+    {
+     "wort": "draußen",
+     "start_s": 52.588,
+     "ende_s": 53.022
+    },
+    {
+     "wort": "bleibt",
+     "start_s": 53.092,
+     "ende_s": 53.474
+    }
+   ]
+  },
+  {
+   "id": "v10",
+   "szene": "s3_netz",
+   "start_s": 53.774,
+   "ende_s": 60.712,
+   "datei": "assets/audio/vo/v10.wav",
+   "woerter": [
+    {
+     "wort": "Wir",
+     "start_s": 53.774,
+     "ende_s": 54.0
+    },
+    {
+     "wort": "richten",
+     "start_s": 54.07,
+     "ende_s": 54.504
+    },
+    {
+     "wort": "Ihre",
+     "start_s": 54.574,
+     "ende_s": 54.852
+    },
+    {
+     "wort": "Firewall",
+     "start_s": 54.922,
+     "ende_s": 55.408
+    },
+    {
+     "wort": "ein",
+     "start_s": 55.478,
+     "ende_s": 55.704
+    },
+    {
+     "wort": "mit",
+     "start_s": 55.914,
+     "ende_s": 56.14
+    },
+    {
+     "wort": "FortiGate",
+     "start_s": 56.21,
+     "ende_s": 56.748
+    },
+    {
+     "wort": "oder",
+     "start_s": 56.818,
+     "ende_s": 57.096
+    },
+    {
+     "wort": "OPNsense",
+     "start_s": 57.166,
+     "ende_s": 57.652
+    },
+    {
+     "wort": "herstellerneutral",
+     "start_s": 57.862,
+     "ende_s": 58.712
+    },
+    {
+     "wort": "und",
+     "start_s": 58.782,
+     "ende_s": 59.008
+    },
+    {
+     "wort": "aus",
+     "start_s": 59.078,
+     "ende_s": 59.304
+    },
+    {
+     "wort": "dem",
+     "start_s": 59.374,
+     "ende_s": 59.6
+    },
+    {
+     "wort": "täglichen",
+     "start_s": 59.67,
+     "ende_s": 60.208
+    },
+    {
+     "wort": "Betrieb",
+     "start_s": 60.278,
+     "ende_s": 60.712
+    }
+   ]
+  },
+  {
+   "id": "v11",
+   "szene": "s3_netz",
+   "start_s": 61.012,
+   "ende_s": 73.542,
+   "datei": "assets/audio/vo/v11.wav",
+   "woerter": [
+    {
+     "wort": "Und",
+     "start_s": 61.012,
+     "ende_s": 61.238
+    },
+    {
+     "wort": "der",
+     "start_s": 61.308,
+     "ende_s": 61.534
+    },
+    {
+     "wort": "Zugriff",
+     "start_s": 61.604,
+     "ende_s": 62.038
+    },
+    {
+     "wort": "aus",
+     "start_s": 62.108,
+     "ende_s": 62.334
+    },
+    {
+     "wort": "dem",
+     "start_s": 62.404,
+     "ende_s": 62.63
+    },
+    {
+     "wort": "Homeoffice",
+     "start_s": 62.7,
+     "ende_s": 63.29
+    },
+    {
+     "wort": "läuft",
+     "start_s": 63.36,
+     "ende_s": 63.69
+    },
+    {
+     "wort": "ohne",
+     "start_s": 63.76,
+     "ende_s": 64.038
+    },
+    {
+     "wort": "klassisches",
+     "start_s": 64.108,
+     "ende_s": 64.75
+    },
+    {
+     "wort": "VPN",
+     "start_s": 64.82,
+     "ende_s": 65.046
+    },
+    {
+     "wort": "Mit",
+     "start_s": 65.416,
+     "ende_s": 65.642
+    },
+    {
+     "wort": "Zero",
+     "start_s": 65.712,
+     "ende_s": 65.99
+    },
+    {
+     "wort": "Trust",
+     "start_s": 66.06,
+     "ende_s": 66.39
+    },
+    {
+     "wort": "ist",
+     "start_s": 66.46,
+     "ende_s": 66.686
+    },
+    {
+     "wort": "Ihr",
+     "start_s": 66.756,
+     "ende_s": 66.982
+    },
+    {
+     "wort": "Firmennetz",
+     "start_s": 67.052,
+     "ende_s": 67.642
+    },
+    {
+     "wort": "im",
+     "start_s": 67.712,
+     "ende_s": 67.886
+    },
+    {
+     "wort": "Internet",
+     "start_s": 67.956,
+     "ende_s": 68.442
+    },
+    {
+     "wort": "schlicht",
+     "start_s": 68.512,
+     "ende_s": 68.998
+    },
+    {
+     "wort": "unsichtbar",
+     "start_s": 69.068,
+     "ende_s": 69.658
+    },
+    {
+     "wort": "Es",
+     "start_s": 70.028,
+     "ende_s": 70.202
+    },
+    {
+     "wort": "gibt",
+     "start_s": 70.272,
+     "ende_s": 70.55
+    },
+    {
+     "wort": "keinen",
+     "start_s": 70.62,
+     "ende_s": 71.002
+    },
+    {
+     "wort": "offenen",
+     "start_s": 71.072,
+     "ende_s": 71.506
+    },
+    {
+     "wort": "Port",
+     "start_s": 71.576,
+     "ende_s": 71.854
+    },
+    {
+     "wort": "den",
+     "start_s": 72.064,
+     "ende_s": 72.29
+    },
+    {
+     "wort": "man",
+     "start_s": 72.36,
+     "ende_s": 72.586
+    },
+    {
+     "wort": "scannen",
+     "start_s": 72.656,
+     "ende_s": 73.09
+    },
+    {
+     "wort": "könnte",
+     "start_s": 73.16,
+     "ende_s": 73.542
+    }
+   ]
+  },
+  {
+   "id": "v12",
+   "szene": "s4_ernstfall",
+   "start_s": 74.642,
+   "ende_s": 79.636,
+   "datei": "assets/audio/vo/v12.wav",
+   "woerter": [
+    {
+     "wort": "Und",
+     "start_s": 74.642,
+     "ende_s": 74.868
+    },
+    {
+     "wort": "wenn",
+     "start_s": 74.938,
+     "ende_s": 75.216
+    },
+    {
+     "wort": "doch",
+     "start_s": 75.286,
+     "ende_s": 75.564
+    },
+    {
+     "wort": "etwas",
+     "start_s": 75.634,
+     "ende_s": 75.964
+    },
+    {
+     "wort": "passiert",
+     "start_s": 76.034,
+     "ende_s": 76.52
+    },
+    {
+     "wort": "Ransomware",
+     "start_s": 76.89,
+     "ende_s": 77.48
+    },
+    {
+     "wort": "greift",
+     "start_s": 77.55,
+     "ende_s": 77.932
+    },
+    {
+     "wort": "zuerst",
+     "start_s": 78.002,
+     "ende_s": 78.384
+    },
+    {
+     "wort": "die",
+     "start_s": 78.454,
+     "ende_s": 78.68
+    },
+    {
+     "wort": "Sicherungen",
+     "start_s": 78.75,
+     "ende_s": 79.392
+    },
+    {
+     "wort": "an",
+     "start_s": 79.462,
+     "ende_s": 79.636
+    }
+   ]
+  },
+  {
+   "id": "v13",
+   "szene": "s4_ernstfall",
+   "start_s": 79.936,
+   "ende_s": 89.454,
+   "datei": "assets/audio/vo/v13.wav",
+   "woerter": [
+    {
+     "wort": "Darum",
+     "start_s": 79.936,
+     "ende_s": 80.266
+    },
+    {
+     "wort": "legen",
+     "start_s": 80.336,
+     "ende_s": 80.666
+    },
+    {
+     "wort": "wir",
+     "start_s": 80.736,
+     "ende_s": 80.962
+    },
+    {
+     "wort": "unveränderbare",
+     "start_s": 81.032,
+     "ende_s": 81.83
+    },
+    {
+     "wort": "Kopien",
+     "start_s": 81.9,
+     "ende_s": 82.282
+    },
+    {
+     "wort": "an",
+     "start_s": 82.352,
+     "ende_s": 82.526
+    },
+    {
+     "wort": "und",
+     "start_s": 82.596,
+     "ende_s": 82.822
+    },
+    {
+     "wort": "spielen",
+     "start_s": 82.892,
+     "ende_s": 83.326
+    },
+    {
+     "wort": "sie",
+     "start_s": 83.396,
+     "ende_s": 83.622
+    },
+    {
+     "wort": "regelmäßig",
+     "start_s": 83.692,
+     "ende_s": 84.282
+    },
+    {
+     "wort": "zurück",
+     "start_s": 84.352,
+     "ende_s": 84.734
+    },
+    {
+     "wort": "Denn",
+     "start_s": 85.104,
+     "ende_s": 85.382
+    },
+    {
+     "wort": "ein",
+     "start_s": 85.452,
+     "ende_s": 85.678
+    },
+    {
+     "wort": "Backup",
+     "start_s": 85.748,
+     "ende_s": 86.13
+    },
+    {
+     "wort": "das",
+     "start_s": 86.34,
+     "ende_s": 86.566
+    },
+    {
+     "wort": "nie",
+     "start_s": 86.636,
+     "ende_s": 86.862
+    },
+    {
+     "wort": "getestet",
+     "start_s": 86.932,
+     "ende_s": 87.418
+    },
+    {
+     "wort": "wurde",
+     "start_s": 87.488,
+     "ende_s": 87.818
+    },
+    {
+     "wort": "ist",
+     "start_s": 88.028,
+     "ende_s": 88.254
+    },
+    {
+     "wort": "nur",
+     "start_s": 88.324,
+     "ende_s": 88.55
+    },
+    {
+     "wort": "eine",
+     "start_s": 88.62,
+     "ende_s": 88.898
+    },
+    {
+     "wort": "Hoffnung",
+     "start_s": 88.968,
+     "ende_s": 89.454
+    }
+   ]
+  },
+  {
+   "id": "v14",
+   "szene": "s5_betrieb",
+   "start_s": 90.554,
+   "ende_s": 98.992,
+   "datei": "assets/audio/vo/v14.wav",
+   "woerter": [
+    {
+     "wort": "Ihre",
+     "start_s": 90.554,
+     "ende_s": 90.832
+    },
+    {
+     "wort": "VMware-Lizenz",
+     "start_s": 90.902,
+     "ende_s": 91.648
+    },
+    {
+     "wort": "kostet",
+     "start_s": 91.718,
+     "ende_s": 92.1
+    },
+    {
+     "wort": "plötzlich",
+     "start_s": 92.17,
+     "ende_s": 92.708
+    },
+    {
+     "wort": "ein",
+     "start_s": 92.778,
+     "ende_s": 93.004
+    },
+    {
+     "wort": "Vielfaches",
+     "start_s": 93.074,
+     "ende_s": 93.664
+    },
+    {
+     "wort": "Wir",
+     "start_s": 94.034,
+     "ende_s": 94.26
+    },
+    {
+     "wort": "ziehen",
+     "start_s": 94.33,
+     "ende_s": 94.712
+    },
+    {
+     "wort": "Ihre",
+     "start_s": 94.782,
+     "ende_s": 95.06
+    },
+    {
+     "wort": "Server",
+     "start_s": 95.13,
+     "ende_s": 95.512
+    },
+    {
+     "wort": "auf",
+     "start_s": 95.582,
+     "ende_s": 95.808
+    },
+    {
+     "wort": "Proxmox",
+     "start_s": 95.878,
+     "ende_s": 96.312
+    },
+    {
+     "wort": "um",
+     "start_s": 96.382,
+     "ende_s": 96.556
+    },
+    {
+     "wort": "planbar",
+     "start_s": 96.766,
+     "ende_s": 97.2
+    },
+    {
+     "wort": "mit",
+     "start_s": 97.41,
+     "ende_s": 97.636
+    },
+    {
+     "wort": "Testlauf",
+     "start_s": 97.706,
+     "ende_s": 98.192
+    },
+    {
+     "wort": "und",
+     "start_s": 98.262,
+     "ende_s": 98.488
+    },
+    {
+     "wort": "Rückweg",
+     "start_s": 98.558,
+     "ende_s": 98.992
+    }
+   ]
+  },
+  {
+   "id": "v15",
+   "szene": "s5_betrieb",
+   "start_s": 99.292,
+   "ende_s": 106.11,
+   "datei": "assets/audio/vo/v15.wav",
+   "woerter": [
+    {
+     "wort": "Updates",
+     "start_s": 99.292,
+     "ende_s": 99.726
+    },
+    {
+     "wort": "spielen",
+     "start_s": 99.796,
+     "ende_s": 100.23
+    },
+    {
+     "wort": "wir",
+     "start_s": 100.3,
+     "ende_s": 100.526
+    },
+    {
+     "wort": "im",
+     "start_s": 100.596,
+     "ende_s": 100.77
+    },
+    {
+     "wort": "laufenden",
+     "start_s": 100.84,
+     "ende_s": 101.378
+    },
+    {
+     "wort": "Betrieb",
+     "start_s": 101.448,
+     "ende_s": 101.882
+    },
+    {
+     "wort": "ein",
+     "start_s": 101.952,
+     "ende_s": 102.178
+    },
+    {
+     "wort": "mit",
+     "start_s": 102.388,
+     "ende_s": 102.614
+    },
+    {
+     "wort": "Dashboards",
+     "start_s": 102.684,
+     "ende_s": 103.274
+    },
+    {
+     "wort": "die",
+     "start_s": 103.484,
+     "ende_s": 103.71
+    },
+    {
+     "wort": "man",
+     "start_s": 103.78,
+     "ende_s": 104.006
+    },
+    {
+     "wort": "auch",
+     "start_s": 104.076,
+     "ende_s": 104.354
+    },
+    {
+     "wort": "ohne",
+     "start_s": 104.424,
+     "ende_s": 104.702
+    },
+    {
+     "wort": "IT-Studium",
+     "start_s": 104.772,
+     "ende_s": 105.362
+    },
+    {
+     "wort": "lesen",
+     "start_s": 105.432,
+     "ende_s": 105.762
+    },
+    {
+     "wort": "kann",
+     "start_s": 105.832,
+     "ende_s": 106.11
+    }
+   ]
+  },
+  {
+   "id": "v16",
+   "szene": "s6_beweis",
+   "start_s": 107.21,
+   "ende_s": 113.132,
+   "datei": "assets/audio/vo/v16.wav",
+   "woerter": [
+    {
+     "wort": "Klingt",
+     "start_s": 107.21,
+     "ende_s": 107.592
+    },
+    {
+     "wort": "nach",
+     "start_s": 107.662,
+     "ende_s": 107.94
+    },
+    {
+     "wort": "Prospekt",
+     "start_s": 108.01,
+     "ende_s": 108.496
+    },
+    {
+     "wort": "Ist",
+     "start_s": 108.866,
+     "ende_s": 109.092
+    },
+    {
+     "wort": "es",
+     "start_s": 109.162,
+     "ende_s": 109.336
+    },
+    {
+     "wort": "nicht",
+     "start_s": 109.406,
+     "ende_s": 109.736
+    },
+    {
+     "wort": "Wir",
+     "start_s": 110.106,
+     "ende_s": 110.332
+    },
+    {
+     "wort": "betreiben",
+     "start_s": 110.402,
+     "ende_s": 110.94
+    },
+    {
+     "wort": "selbst",
+     "start_s": 111.01,
+     "ende_s": 111.392
+    },
+    {
+     "wort": "was",
+     "start_s": 111.602,
+     "ende_s": 111.828
+    },
+    {
+     "wort": "wir",
+     "start_s": 111.898,
+     "ende_s": 112.124
+    },
+    {
+     "wort": "Ihnen",
+     "start_s": 112.194,
+     "ende_s": 112.524
+    },
+    {
+     "wort": "empfehlen",
+     "start_s": 112.594,
+     "ende_s": 113.132
+    }
+   ]
+  },
+  {
+   "id": "v17",
+   "szene": "s6_beweis",
+   "start_s": 113.432,
+   "ende_s": 120.186,
+   "datei": "assets/audio/vo/v17.wav",
+   "woerter": [
+    {
+     "wort": "Was",
+     "start_s": 113.432,
+     "ende_s": 113.658
+    },
+    {
+     "wort": "Sie",
+     "start_s": 113.728,
+     "ende_s": 113.954
+    },
+    {
+     "wort": "hier",
+     "start_s": 114.024,
+     "ende_s": 114.302
+    },
+    {
+     "wort": "sehen",
+     "start_s": 114.372,
+     "ende_s": 114.702
+    },
+    {
+     "wort": "ist",
+     "start_s": 114.912,
+     "ende_s": 115.138
+    },
+    {
+     "wort": "kein",
+     "start_s": 115.208,
+     "ende_s": 115.486
+    },
+    {
+     "wort": "Mockup",
+     "start_s": 115.556,
+     "ende_s": 115.938
+    },
+    {
+     "wort": "Das",
+     "start_s": 116.308,
+     "ende_s": 116.534
+    },
+    {
+     "wort": "ist",
+     "start_s": 116.604,
+     "ende_s": 116.83
+    },
+    {
+     "wort": "unser",
+     "start_s": 116.9,
+     "ende_s": 117.23
+    },
+    {
+     "wort": "eigenes",
+     "start_s": 117.3,
+     "ende_s": 117.734
+    },
+    {
+     "wort": "Monitoring",
+     "start_s": 117.804,
+     "ende_s": 118.394
+    },
+    {
+     "wort": "live",
+     "start_s": 118.604,
+     "ende_s": 118.882
+    },
+    {
+     "wort": "und",
+     "start_s": 118.952,
+     "ende_s": 119.178
+    },
+    {
+     "wort": "im",
+     "start_s": 119.248,
+     "ende_s": 119.422
+    },
+    {
+     "wort": "Dauerbetrieb",
+     "start_s": 119.492,
+     "ende_s": 120.186
+    }
+   ]
+  },
+  {
+   "id": "v18",
+   "szene": "s7_team",
+   "start_s": 121.286,
+   "ende_s": 126.036,
+   "datei": "assets/audio/vo/v18.wav",
+   "woerter": [
+    {
+     "wort": "Und",
+     "start_s": 121.286,
+     "ende_s": 121.512
+    },
+    {
+     "wort": "das",
+     "start_s": 121.582,
+     "ende_s": 121.808
+    },
+    {
+     "wort": "alles",
+     "start_s": 121.878,
+     "ende_s": 122.208
+    },
+    {
+     "wort": "kommt",
+     "start_s": 122.278,
+     "ende_s": 122.608
+    },
+    {
+     "wort": "von",
+     "start_s": 122.678,
+     "ende_s": 122.904
+    },
+    {
+     "wort": "einem",
+     "start_s": 122.974,
+     "ende_s": 123.304
+    },
+    {
+     "wort": "Team",
+     "start_s": 123.374,
+     "ende_s": 123.652
+    },
+    {
+     "wort": "von",
+     "start_s": 123.862,
+     "ende_s": 124.088
+    },
+    {
+     "wort": "der",
+     "start_s": 124.158,
+     "ende_s": 124.384
+    },
+    {
+     "wort": "Website",
+     "start_s": 124.454,
+     "ende_s": 124.888
+    },
+    {
+     "wort": "bis",
+     "start_s": 124.958,
+     "ende_s": 125.184
+    },
+    {
+     "wort": "zur",
+     "start_s": 125.254,
+     "ende_s": 125.48
+    },
+    {
+     "wort": "Firewall",
+     "start_s": 125.55,
+     "ende_s": 126.036
+    }
+   ]
+  },
+  {
+   "id": "v19",
+   "szene": "s7_team",
+   "start_s": 126.336,
+   "ende_s": 135.818,
+   "datei": "assets/audio/vo/v19.wav",
+   "woerter": [
+    {
+     "wort": "Kein",
+     "start_s": 126.336,
+     "ende_s": 126.614
+    },
+    {
+     "wort": "Callcenter",
+     "start_s": 126.684,
+     "ende_s": 127.274
+    },
+    {
+     "wort": "kein",
+     "start_s": 127.484,
+     "ende_s": 127.762
+    },
+    {
+     "wort": "Ticketstapel",
+     "start_s": 127.832,
+     "ende_s": 128.526
+    },
+    {
+     "wort": "Sie",
+     "start_s": 128.896,
+     "ende_s": 129.122
+    },
+    {
+     "wort": "sprechen",
+     "start_s": 129.192,
+     "ende_s": 129.678
+    },
+    {
+     "wort": "mit",
+     "start_s": 129.748,
+     "ende_s": 129.974
+    },
+    {
+     "wort": "den",
+     "start_s": 130.044,
+     "ende_s": 130.27
+    },
+    {
+     "wort": "Leuten",
+     "start_s": 130.34,
+     "ende_s": 130.722
+    },
+    {
+     "wort": "die",
+     "start_s": 130.932,
+     "ende_s": 131.158
+    },
+    {
+     "wort": "Ihre",
+     "start_s": 131.228,
+     "ende_s": 131.506
+    },
+    {
+     "wort": "Systeme",
+     "start_s": 131.576,
+     "ende_s": 132.01
+    },
+    {
+     "wort": "bauen",
+     "start_s": 132.08,
+     "ende_s": 132.41
+    },
+    {
+     "wort": "und",
+     "start_s": 132.62,
+     "ende_s": 132.846
+    },
+    {
+     "wort": "bekommen",
+     "start_s": 132.916,
+     "ende_s": 133.402
+    },
+    {
+     "wort": "innerhalb",
+     "start_s": 133.472,
+     "ende_s": 134.01
+    },
+    {
+     "wort": "eines",
+     "start_s": 134.08,
+     "ende_s": 134.41
+    },
+    {
+     "wort": "Werktags",
+     "start_s": 134.48,
+     "ende_s": 134.966
+    },
+    {
+     "wort": "eine",
+     "start_s": 135.036,
+     "ende_s": 135.314
+    },
+    {
+     "wort": "Antwort",
+     "start_s": 135.384,
+     "ende_s": 135.818
+    }
+   ]
+  },
+  {
+   "id": "v20",
+   "szene": "s7_team",
+   "start_s": 136.118,
+   "ende_s": 141.912,
+   "datei": "assets/audio/vo/v20.wav",
+   "woerter": [
+    {
+     "wort": "Am",
+     "start_s": 136.118,
+     "ende_s": 136.292
+    },
+    {
+     "wort": "Ende",
+     "start_s": 136.362,
+     "ende_s": 136.64
+    },
+    {
+     "wort": "gehört",
+     "start_s": 136.71,
+     "ende_s": 137.092
+    },
+    {
+     "wort": "Ihnen",
+     "start_s": 137.162,
+     "ende_s": 137.492
+    },
+    {
+     "wort": "die",
+     "start_s": 137.562,
+     "ende_s": 137.788
+    },
+    {
+     "wort": "komplette",
+     "start_s": 137.858,
+     "ende_s": 138.396
+    },
+    {
+     "wort": "Dokumentation",
+     "start_s": 138.466,
+     "ende_s": 139.212
+    },
+    {
+     "wort": "Keine",
+     "start_s": 139.582,
+     "ende_s": 139.912
+    },
+    {
+     "wort": "Black",
+     "start_s": 139.982,
+     "ende_s": 140.312
+    },
+    {
+     "wort": "Box",
+     "start_s": 140.382,
+     "ende_s": 140.608
+    },
+    {
+     "wort": "keine",
+     "start_s": 140.818,
+     "ende_s": 141.148
+    },
+    {
+     "wort": "Abhängigkeit",
+     "start_s": 141.218,
+     "ende_s": 141.912
+    }
+   ]
+  },
+  {
+   "id": "v21",
+   "szene": "s8_morgen",
+   "start_s": 143.012,
+   "ende_s": 146.498,
+   "datei": "assets/audio/vo/v21.wav",
+   "woerter": [
+    {
+     "wort": "Sieben",
+     "start_s": 143.012,
+     "ende_s": 143.394
+    },
+    {
+     "wort": "Uhr",
+     "start_s": 143.464,
+     "ende_s": 143.69
+    },
+    {
+     "wort": "Alles",
+     "start_s": 144.06,
+     "ende_s": 144.39
+    },
+    {
+     "wort": "läuft",
+     "start_s": 144.46,
+     "ende_s": 144.79
+    },
+    {
+     "wort": "Niemand",
+     "start_s": 145.16,
+     "ende_s": 145.594
+    },
+    {
+     "wort": "wurde",
+     "start_s": 145.664,
+     "ende_s": 145.994
+    },
+    {
+     "wort": "geweckt",
+     "start_s": 146.064,
+     "ende_s": 146.498
+    }
+   ]
+  },
+  {
+   "id": "v22",
+   "szene": "s8_morgen",
+   "start_s": 146.798,
+   "ende_s": 150.504,
+   "datei": "assets/audio/vo/v22.wav",
+   "woerter": [
+    {
+     "wort": "nomissuccess",
+     "start_s": 146.798,
+     "ende_s": 147.492
+    },
+    {
+     "wort": "Infrastruktur",
+     "start_s": 147.862,
+     "ende_s": 148.608
+    },
+    {
+     "wort": "die",
+     "start_s": 148.818,
+     "ende_s": 149.044
+    },
+    {
+     "wort": "nachts",
+     "start_s": 149.114,
+     "ende_s": 149.496
+    },
+    {
+     "wort": "niemanden",
+     "start_s": 149.566,
+     "ende_s": 150.104
+    },
+    {
+     "wort": "weckt",
+     "start_s": 150.174,
+     "ende_s": 150.504
+    }
+   ]
+  },
+  {
+   "id": "v23",
+   "szene": "s8_morgen",
+   "start_s": 150.804,
+   "ende_s": 156.162,
+   "datei": "assets/audio/vo/v23.wav",
+   "woerter": [
+    {
+     "wort": "Das",
+     "start_s": 150.804,
+     "ende_s": 151.03
+    },
+    {
+     "wort": "Erstgespräch",
+     "start_s": 151.1,
+     "ende_s": 151.794
+    },
+    {
+     "wort": "dauert",
+     "start_s": 151.864,
+     "ende_s": 152.246
+    },
+    {
+     "wort": "dreißig",
+     "start_s": 152.316,
+     "ende_s": 152.75
+    },
+    {
+     "wort": "Minuten",
+     "start_s": 152.82,
+     "ende_s": 153.254
+    },
+    {
+     "wort": "und",
+     "start_s": 153.324,
+     "ende_s": 153.55
+    },
+    {
+     "wort": "kostet",
+     "start_s": 153.62,
+     "ende_s": 154.002
+    },
+    {
+     "wort": "nichts",
+     "start_s": 154.072,
+     "ende_s": 154.454
+    },
+    {
+     "wort": "nomissuccess",
+     "start_s": 154.824,
+     "ende_s": 155.518
+    },
+    {
+     "wort": "punkt",
+     "start_s": 155.588,
+     "ende_s": 155.918
+    },
+    {
+     "wort": "de",
+     "start_s": 155.988,
+     "ende_s": 156.162
+    }
+   ]
+  }
+ ],
+ "events": [
+  {
+   "id": "ribbon_enter",
+   "szene": "s1_nacht",
+   "t_s": 0.25,
+   "f": 15,
+   "sfx": "whoosh"
+  },
+  {
+   "id": "clock_roll",
+   "szene": "s1_nacht",
+   "t_s": 2.574,
+   "f": 154,
+   "sfx": "hit"
+  },
+  {
+   "id": "sleep_letters",
+   "szene": "s1_nacht",
+   "t_s": 3.54,
+   "f": 212,
+   "sfx": "downer"
+  },
+  {
+   "id": "lights_off",
+   "szene": "s1_nacht",
+   "t_s": 5.384,
+   "f": 323,
+   "sfx": "click"
+  },
+  {
+   "id": "led_1",
+   "szene": "s1_nacht",
+   "t_s": 7.946,
+   "f": 477,
+   "sfx": "tick"
+  },
+  {
+   "id": "led_2",
+   "szene": "s1_nacht",
+   "t_s": 8.59,
+   "f": 515,
+   "sfx": "tick"
+  },
+  {
+   "id": "led_3",
+   "szene": "s1_nacht",
+   "t_s": 9.286,
+   "f": 557,
+   "sfx": "tick"
+  },
+  {
+   "id": "led_4",
+   "szene": "s1_nacht",
+   "t_s": 9.878,
+   "f": 593,
+   "sfx": "tick"
+  },
+  {
+   "id": "bell_morph",
+   "szene": "s1_nacht",
+   "t_s": 14.072,
+   "f": 844,
+   "sfx": "hit"
+  },
+  {
+   "id": "window_reveal",
+   "szene": "s2_website",
+   "t_s": 17.2,
+   "f": 1032,
+   "sfx": "whoosh"
+  },
+  {
+   "id": "window_land",
+   "szene": "s2_website",
+   "t_s": 19.042,
+   "f": 1143,
+   "sfx": "hit"
+  },
+  {
+   "id": "layers_explode",
+   "szene": "s2_website",
+   "t_s": 24.104,
+   "f": 1446,
+   "sfx": "shimmer"
+  },
+  {
+   "id": "layers_snap",
+   "szene": "s2_website",
+   "t_s": 25.218,
+   "f": 1513,
+   "sfx": "hit"
+  },
+  {
+   "id": "tower_fall",
+   "szene": "s2_website",
+   "t_s": 25.716,
+   "f": 1543,
+   "sfx": "clatter"
+  },
+  {
+   "id": "speed_line",
+   "szene": "s2_website",
+   "t_s": 31.54,
+   "f": 1892,
+   "sfx": "riser"
+  },
+  {
+   "id": "de_pin",
+   "szene": "s2_website",
+   "t_s": 33.878,
+   "f": 2033,
+   "sfx": "tick"
+  },
+  {
+   "id": "calendar_ticks",
+   "szene": "s2_website",
+   "t_s": 35.63,
+   "f": 2138,
+   "sfx": "tick"
+  },
+  {
+   "id": "month_carousel",
+   "szene": "s2_website",
+   "t_s": 37.712,
+   "f": 2263,
+   "sfx": "whoosh"
+  },
+  {
+   "id": "key_turn",
+   "szene": "s2_website",
+   "t_s": 45.554,
+   "f": 2733,
+   "sfx": "lock"
+  },
+  {
+   "id": "dive_into_pixels",
+   "szene": "s3_netz",
+   "t_s": 48.636,
+   "f": 2918,
+   "sfx": "riser"
+  },
+  {
+   "id": "attacker",
+   "szene": "s3_netz",
+   "t_s": 51.98,
+   "f": 3119,
+   "sfx": "subdrop"
+  },
+  {
+   "id": "firewall_wall",
+   "szene": "s3_netz",
+   "t_s": 54.822,
+   "f": 3289,
+   "sfx": "hit"
+  },
+  {
+   "id": "packets_bounce",
+   "szene": "s3_netz",
+   "t_s": 57.862,
+   "f": 3472,
+   "sfx": "tick"
+  },
+  {
+   "id": "radar_sweep",
+   "szene": "s3_netz",
+   "t_s": 65.512,
+   "f": 3931,
+   "sfx": "riser"
+  },
+  {
+   "id": "net_vanish",
+   "szene": "s3_netz",
+   "t_s": 69.068,
+   "f": 4144,
+   "sfx": "shimmer"
+  },
+  {
+   "id": "zero_ports",
+   "szene": "s3_netz",
+   "t_s": 71.576,
+   "f": 4295,
+   "sfx": "hit"
+  },
+  {
+   "id": "mtls_lock",
+   "szene": "s3_netz",
+   "t_s": 73.642,
+   "f": 4419,
+   "sfx": "lock"
+  },
+  {
+   "id": "red_tendrils",
+   "szene": "s4_ernstfall",
+   "t_s": 76.69,
+   "f": 4601,
+   "sfx": "subdrop"
+  },
+  {
+   "id": "immutable_lock",
+   "szene": "s4_ernstfall",
+   "t_s": 81.032,
+   "f": 4862,
+   "sfx": "lock"
+  },
+  {
+   "id": "shockwave",
+   "szene": "s4_ernstfall",
+   "t_s": 82.05,
+   "f": 4923,
+   "sfx": "hit"
+  },
+  {
+   "id": "rewind",
+   "szene": "s4_ernstfall",
+   "t_s": 84.052,
+   "f": 5043,
+   "sfx": "rewind"
+  },
+  {
+   "id": "hope_fade",
+   "szene": "s4_ernstfall",
+   "t_s": 88.968,
+   "f": 5338,
+   "sfx": "downer"
+  },
+  {
+   "id": "invoice_spin",
+   "szene": "s5_betrieb",
+   "t_s": 92.574,
+   "f": 5554,
+   "sfx": "riser"
+  },
+  {
+   "id": "paper_plane",
+   "szene": "s5_betrieb",
+   "t_s": 95.678,
+   "f": 5741,
+   "sfx": "whoosh"
+  },
+  {
+   "id": "rollback_path",
+   "szene": "s5_betrieb",
+   "t_s": 98.558,
+   "f": 5913,
+   "sfx": "shimmer"
+  },
+  {
+   "id": "rolling_update",
+   "szene": "s5_betrieb",
+   "t_s": 101.448,
+   "f": 6087,
+   "sfx": "tick"
+  },
+  {
+   "id": "dashboards",
+   "szene": "s5_betrieb",
+   "t_s": 102.684,
+   "f": 6161,
+   "sfx": "hit"
+  },
+  {
+   "id": "prospect_paper",
+   "szene": "s6_beweis",
+   "t_s": 108.01,
+   "f": 6481,
+   "sfx": "paper"
+  },
+  {
+   "id": "grafana_flyover",
+   "szene": "s6_beweis",
+   "t_s": 110.202,
+   "f": 6612,
+   "sfx": "riser"
+  },
+  {
+   "id": "stamp",
+   "szene": "s6_beweis",
+   "t_s": 115.556,
+   "f": 6933,
+   "sfx": "hit"
+  },
+  {
+   "id": "fan_panels",
+   "szene": "s6_beweis",
+   "t_s": 117.804,
+   "f": 7068,
+   "sfx": "whoosh"
+  },
+  {
+   "id": "converge",
+   "szene": "s7_team",
+   "t_s": 123.374,
+   "f": 7402,
+   "sfx": "sting"
+  },
+  {
+   "id": "converge_sub",
+   "szene": "s7_team",
+   "t_s": 124.454,
+   "f": 7467,
+   "sfx": "whoosh"
+  },
+  {
+   "id": "tickets_fall",
+   "szene": "s7_team",
+   "t_s": 127.832,
+   "f": 7670,
+   "sfx": "clatter"
+  },
+  {
+   "id": "direct_line",
+   "szene": "s7_team",
+   "t_s": 132.08,
+   "f": 7925,
+   "sfx": "whoosh"
+  },
+  {
+   "id": "workday",
+   "szene": "s7_team",
+   "t_s": 134.48,
+   "f": 8069,
+   "sfx": "tick"
+  },
+  {
+   "id": "docs_fly",
+   "szene": "s7_team",
+   "t_s": 138.266,
+   "f": 8296,
+   "sfx": "paper"
+  },
+  {
+   "id": "blackbox_unfold",
+   "szene": "s7_team",
+   "t_s": 140.382,
+   "f": 8423,
+   "sfx": "shimmer"
+  },
+  {
+   "id": "clock_roll_7",
+   "szene": "s8_morgen",
+   "t_s": 143.69,
+   "f": 8621,
+   "sfx": "hit"
+  },
+  {
+   "id": "dawn",
+   "szene": "s8_morgen",
+   "t_s": 144.16,
+   "f": 8650,
+   "sfx": "swell"
+  },
+  {
+   "id": "bell_sleep",
+   "szene": "s8_morgen",
+   "t_s": 146.064,
+   "f": 8764,
+   "sfx": "downer"
+  },
+  {
+   "id": "logo_fold",
+   "szene": "s8_morgen",
+   "t_s": 147.492,
+   "f": 8850,
+   "sfx": "sting"
+  },
+  {
+   "id": "claim",
+   "szene": "s8_morgen",
+   "t_s": 147.862,
+   "f": 8872,
+   "sfx": "hit"
+  },
+  {
+   "id": "cta",
+   "szene": "s8_morgen",
+   "t_s": 151.1,
+   "f": 9066,
+   "sfx": "whoosh"
+  },
+  {
+   "id": "url",
+   "szene": "s8_morgen",
+   "t_s": 155.588,
+   "f": 9335,
+   "sfx": "hit"
+  },
+  {
+   "id": "endcard_in",
+   "szene": "abspann",
+   "t_s": 158.962,
+   "f": 9538,
+   "sfx": "shimmer"
+  }
+ ],
+ "cues": [
+  {
+   "t_s": 0.25,
+   "art": "whoosh",
+   "szene": "s1_nacht",
+   "quelle": "event:ribbon_enter"
+  },
+  {
+   "t_s": 2.574,
+   "art": "hit",
+   "szene": "s1_nacht",
+   "quelle": "event:clock_roll"
+  },
+  {
+   "t_s": 3.54,
+   "art": "downer",
+   "szene": "s1_nacht",
+   "quelle": "event:sleep_letters"
+  },
+  {
+   "t_s": 5.384,
+   "art": "click",
+   "szene": "s1_nacht",
+   "quelle": "event:lights_off"
+  },
+  {
+   "t_s": 7.946,
+   "art": "tick",
+   "szene": "s1_nacht",
+   "quelle": "event:led_1"
+  },
+  {
+   "t_s": 8.59,
+   "art": "tick",
+   "szene": "s1_nacht",
+   "quelle": "event:led_2"
+  },
+  {
+   "t_s": 9.286,
+   "art": "tick",
+   "szene": "s1_nacht",
+   "quelle": "event:led_3"
+  },
+  {
+   "t_s": 9.878,
+   "art": "tick",
+   "szene": "s1_nacht",
+   "quelle": "event:led_4"
+  },
+  {
+   "t_s": 14.072,
+   "art": "hit",
+   "szene": "s1_nacht",
+   "quelle": "event:bell_morph"
+  },
+  {
+   "t_s": 14.572,
+   "art": "whoosh",
+   "szene": "s2_website",
+   "quelle": "szenenwechsel:s2_website"
+  },
+  {
+   "t_s": 17.2,
+   "art": "whoosh",
+   "szene": "s2_website",
+   "quelle": "event:window_reveal"
+  },
+  {
+   "t_s": 19.042,
+   "art": "hit",
+   "szene": "s2_website",
+   "quelle": "event:window_land"
+  },
+  {
+   "t_s": 24.104,
+   "art": "shimmer",
+   "szene": "s2_website",
+   "quelle": "event:layers_explode"
+  },
+  {
+   "t_s": 25.218,
+   "art": "hit",
+   "szene": "s2_website",
+   "quelle": "event:layers_snap"
+  },
+  {
+   "t_s": 25.716,
+   "art": "clatter",
+   "szene": "s2_website",
+   "quelle": "event:tower_fall"
+  },
+  {
+   "t_s": 31.54,
+   "art": "riser",
+   "szene": "s2_website",
+   "quelle": "event:speed_line"
+  },
+  {
+   "t_s": 33.878,
+   "art": "tick",
+   "szene": "s2_website",
+   "quelle": "event:de_pin"
+  },
+  {
+   "t_s": 35.63,
+   "art": "tick",
+   "szene": "s2_website",
+   "quelle": "event:calendar_ticks"
+  },
+  {
+   "t_s": 37.712,
+   "art": "whoosh",
+   "szene": "s2_website",
+   "quelle": "event:month_carousel"
+  },
+  {
+   "t_s": 45.554,
+   "art": "lock",
+   "szene": "s2_website",
+   "quelle": "event:key_turn"
+  },
+  {
+   "t_s": 46.434,
+   "art": "whoosh",
+   "szene": "s3_netz",
+   "quelle": "szenenwechsel:s3_netz"
+  },
+  {
+   "t_s": 48.636,
+   "art": "riser",
+   "szene": "s3_netz",
+   "quelle": "event:dive_into_pixels"
+  },
+  {
+   "t_s": 51.98,
+   "art": "subdrop",
+   "szene": "s3_netz",
+   "quelle": "event:attacker"
+  },
+  {
+   "t_s": 54.822,
+   "art": "hit",
+   "szene": "s3_netz",
+   "quelle": "event:firewall_wall"
+  },
+  {
+   "t_s": 57.862,
+   "art": "tick",
+   "szene": "s3_netz",
+   "quelle": "event:packets_bounce"
+  },
+  {
+   "t_s": 65.512,
+   "art": "riser",
+   "szene": "s3_netz",
+   "quelle": "event:radar_sweep"
+  },
+  {
+   "t_s": 69.068,
+   "art": "shimmer",
+   "szene": "s3_netz",
+   "quelle": "event:net_vanish"
+  },
+  {
+   "t_s": 71.576,
+   "art": "hit",
+   "szene": "s3_netz",
+   "quelle": "event:zero_ports"
+  },
+  {
+   "t_s": 73.642,
+   "art": "lock",
+   "szene": "s3_netz",
+   "quelle": "event:mtls_lock"
+  },
+  {
+   "t_s": 74.092,
+   "art": "whoosh",
+   "szene": "s4_ernstfall",
+   "quelle": "szenenwechsel:s4_ernstfall"
+  },
+  {
+   "t_s": 76.69,
+   "art": "subdrop",
+   "szene": "s4_ernstfall",
+   "quelle": "event:red_tendrils"
+  },
+  {
+   "t_s": 81.032,
+   "art": "lock",
+   "szene": "s4_ernstfall",
+   "quelle": "event:immutable_lock"
+  },
+  {
+   "t_s": 82.05,
+   "art": "hit",
+   "szene": "s4_ernstfall",
+   "quelle": "event:shockwave"
+  },
+  {
+   "t_s": 84.052,
+   "art": "rewind",
+   "szene": "s4_ernstfall",
+   "quelle": "event:rewind"
+  },
+  {
+   "t_s": 88.968,
+   "art": "downer",
+   "szene": "s4_ernstfall",
+   "quelle": "event:hope_fade"
+  },
+  {
+   "t_s": 90.004,
+   "art": "whoosh",
+   "szene": "s5_betrieb",
+   "quelle": "szenenwechsel:s5_betrieb"
+  },
+  {
+   "t_s": 92.574,
+   "art": "riser",
+   "szene": "s5_betrieb",
+   "quelle": "event:invoice_spin"
+  },
+  {
+   "t_s": 95.678,
+   "art": "whoosh",
+   "szene": "s5_betrieb",
+   "quelle": "event:paper_plane"
+  },
+  {
+   "t_s": 98.558,
+   "art": "shimmer",
+   "szene": "s5_betrieb",
+   "quelle": "event:rollback_path"
+  },
+  {
+   "t_s": 101.448,
+   "art": "tick",
+   "szene": "s5_betrieb",
+   "quelle": "event:rolling_update"
+  },
+  {
+   "t_s": 102.684,
+   "art": "hit",
+   "szene": "s5_betrieb",
+   "quelle": "event:dashboards"
+  },
+  {
+   "t_s": 106.66,
+   "art": "whoosh",
+   "szene": "s6_beweis",
+   "quelle": "szenenwechsel:s6_beweis"
+  },
+  {
+   "t_s": 108.01,
+   "art": "paper",
+   "szene": "s6_beweis",
+   "quelle": "event:prospect_paper"
+  },
+  {
+   "t_s": 110.202,
+   "art": "riser",
+   "szene": "s6_beweis",
+   "quelle": "event:grafana_flyover"
+  },
+  {
+   "t_s": 115.556,
+   "art": "hit",
+   "szene": "s6_beweis",
+   "quelle": "event:stamp"
+  },
+  {
+   "t_s": 117.804,
+   "art": "whoosh",
+   "szene": "s6_beweis",
+   "quelle": "event:fan_panels"
+  },
+  {
+   "t_s": 120.736,
+   "art": "whoosh",
+   "szene": "s7_team",
+   "quelle": "szenenwechsel:s7_team"
+  },
+  {
+   "t_s": 123.374,
+   "art": "sting",
+   "szene": "s7_team",
+   "quelle": "event:converge"
+  },
+  {
+   "t_s": 124.454,
+   "art": "whoosh",
+   "szene": "s7_team",
+   "quelle": "event:converge_sub"
+  },
+  {
+   "t_s": 127.832,
+   "art": "clatter",
+   "szene": "s7_team",
+   "quelle": "event:tickets_fall"
+  },
+  {
+   "t_s": 132.08,
+   "art": "whoosh",
+   "szene": "s7_team",
+   "quelle": "event:direct_line"
+  },
+  {
+   "t_s": 134.48,
+   "art": "tick",
+   "szene": "s7_team",
+   "quelle": "event:workday"
+  },
+  {
+   "t_s": 138.266,
+   "art": "paper",
+   "szene": "s7_team",
+   "quelle": "event:docs_fly"
+  },
+  {
+   "t_s": 140.382,
+   "art": "shimmer",
+   "szene": "s7_team",
+   "quelle": "event:blackbox_unfold"
+  },
+  {
+   "t_s": 142.462,
+   "art": "whoosh",
+   "szene": "s8_morgen",
+   "quelle": "szenenwechsel:s8_morgen"
+  },
+  {
+   "t_s": 143.69,
+   "art": "hit",
+   "szene": "s8_morgen",
+   "quelle": "event:clock_roll_7"
+  },
+  {
+   "t_s": 144.16,
+   "art": "swell",
+   "szene": "s8_morgen",
+   "quelle": "event:dawn"
+  },
+  {
+   "t_s": 146.064,
+   "art": "downer",
+   "szene": "s8_morgen",
+   "quelle": "event:bell_sleep"
+  },
+  {
+   "t_s": 147.492,
+   "art": "sting",
+   "szene": "s8_morgen",
+   "quelle": "event:logo_fold"
+  },
+  {
+   "t_s": 147.862,
+   "art": "hit",
+   "szene": "s8_morgen",
+   "quelle": "event:claim"
+  },
+  {
+   "t_s": 151.1,
+   "art": "whoosh",
+   "szene": "s8_morgen",
+   "quelle": "event:cta"
+  },
+  {
+   "t_s": 155.588,
+   "art": "hit",
+   "szene": "s8_morgen",
+   "quelle": "event:url"
+  },
+  {
+   "t_s": 158.962,
+   "art": "shimmer",
+   "szene": "abspann",
+   "quelle": "event:endcard_in"
+  }
+ ]
+}
