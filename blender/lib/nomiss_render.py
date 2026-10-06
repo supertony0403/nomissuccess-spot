@@ -231,10 +231,29 @@ def render_frames(scene: bpy.types.Scene, frames: list[int], out_dir: str | os.P
 
 
 def render_animation(scene: bpy.types.Scene) -> None:
-    t0 = time.time()
-    bpy.ops.render.render(animation=True)
-    n = scene.frame_end - scene.frame_start + 1
-    dt = time.time() - t0
+    """Render frame_start..frame_end as individual stills.
+
+    Same file names as an animation render (``scene.render.frame_path``).
+    A single ``render(animation=True)`` in Blender 5.2.1 drops objects whose
+    geometry is empty in the first rendered frame for the whole session
+    (e.g. a band that has not started to grow yet); stills are immune.
+    """
+    pattern = scene.render.filepath
+    t_all = time.time()
+    n = 0
+    try:
+        for f in range(scene.frame_start, scene.frame_end + 1):
+            scene.frame_set(f)
+            path = scene.render.frame_path(frame=f)
+            scene.render.filepath = path
+            t0 = time.time()
+            bpy.ops.render.render(write_still=True)
+            scene.render.filepath = pattern
+            n += 1
+            print(f"[nomiss_render] Bild {f}/{scene.frame_end} in {time.time() - t0:.2f} s", flush=True)
+    finally:
+        scene.render.filepath = pattern
+    dt = time.time() - t_all
     print(f"[nomiss_render] Animation {n} Bilder in {dt:.1f} s ({dt / max(n, 1):.2f} s/Bild)", flush=True)
 
 

@@ -164,10 +164,12 @@ def build(args):
     RB.set_input(band, "Schweif Laenge", 9.0 / total)  # tail tapers over 9 m
 
     def head_m(f: float) -> float:
+        # never 0: a 0.3 m stub off-frame keeps the geometry non-empty (an
+        # object that is empty in a render session's first frame is dropped)
         if f <= f_enter:
-            return 0.0
+            return 0.3
         t = (f - f_enter) / fps
-        s_h = 20.0 * C.ease(t / 1.3, "out_cubic") + 2.0 * max(0.0, t - 0.8)
+        s_h = 0.3 + 20.0 * C.ease(t / 1.3, "out_cubic") + 2.0 * max(0.0, t - 0.8)
         if f > f_pull:
             s_h += 330.0 * C.ease((f - f_pull) / (f_end - f_pull), "in_quad")
         return min(s_h, total)
