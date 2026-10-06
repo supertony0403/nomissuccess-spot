@@ -10,7 +10,9 @@
                      off day by day (numbers give way to mint check marks)
 * ``month_carousel`` month cards Jan–Dez glide through a soft window, every month the
                      same bar (one fixed amount); headline „Monatlich. Ein fester Betrag.“
-* ``key_turn``       mono label „git clone — Ihr Repository“ types on, cursor blinks
+* ``key_turn``       mono label „git clone — Ihr Repository“ types on, cursor blinks.
+                     The key turns 55 frames before the scene ends, so the label starts
+                     typing 0.8 s *before* the event (fully typed on it) to stand ≥ 1.2 s.
 
 16:9: block bottom-left on the shop-window floor; 9:16: top of the safe area.
 """
@@ -18,6 +20,7 @@
 from __future__ import annotations
 
 import argparse
+import math
 from pathlib import Path
 
 if __package__ in (None, ""):
@@ -172,30 +175,38 @@ def _monate(sz: gt.Szene) -> None:
                event="month_carousel", text=data["text"])
 
 
+CODE_VORLAUF_S = 0.8      # typing starts this long before key_turn
+CODE_DELAY = 0.5          # frames between typed characters
+
+
 def _code(sz: gt.Szene) -> None:
     c, r = sz.c, sz.r
-    t = sz.ev("key_turn")
+    event = sz.ev("key_turn")
+    vorlauf = round(CODE_VORLAUF_S * sz.fps)
+    t = max(0, event - vorlauf)
     data = sz.bildtexte["code"]
     cap = 22 if sz.vertical else 20
     s = gt.satz(c, data["text"], gt.MONO, cap, track_em=0.04)
     (top,) = sz.spalte([cap], [])
-    delay = 0.7
-    a = gt.text(sz, "Code", s, r.left, top, alpha=0.92, follower=gt.tippen(t, delay=delay, alpha=0.92),
+    a = gt.text(sz, "Code", s, r.left, top, alpha=0.92, follower=gt.tippen(t, delay=CODE_DELAY, alpha=0.92),
                 motion_blur=False)
-    typed = t + round(len(data["text"]) * delay) + 2
+    typed = t + math.ceil((len(data["text"]) - 1) * CODE_DELAY) + 2   # last glyph fully on
+    # the cursor blinks through its merge's Blend: Fusion does not premultiply a
+    # Background, so keying TopLeftAlpha alone would leave a solid colour block
     cur, _ = gt.flaeche(sz, "CodeCursor", (r.left + s.width + 8, top - cap * 0.18, cap * 0.62, cap * 1.36),
                         sz.farbe, 1.0)
-    blink = {t: 0.0, typed: 0.0}
-    f = typed
-    on = True
+    g = gt.Stack(c, "CodeG")
+    g.add(a)
+    cursor = g.add(cur)
+    blink = {0: 0.0, typed: 0.0}
+    f, on = typed, True
     while f + 16 < sz.len:
         blink[f] = 1.0 if on else 0.0
         f += 16
         on = not on
-    c.keyframes(cur, "TopLeftAlpha", blink, ease="step")
-    g = gt.gruppe(sz, "CodeG", [a, cur])
-    gt.eintrag(sz, "code", g, t, sz.halten("key_turn"), slot="code", teile=[data["text"]], event="key_turn",
-               abgang="links", dur=10)
+    c.keyframes(cursor, "Blend", blink, ease="step")
+    gt.eintrag(sz, "code", g.top, t, sz.halten("key_turn"), slot="code", teile=[data["text"]], event="key_turn",
+               abgang="links", dur=10, vorlauf=event - t)
 
 
 def bau(fmt: str, tl: dict) -> gt.Szene:

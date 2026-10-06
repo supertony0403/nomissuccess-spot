@@ -104,7 +104,8 @@ def zeiten(tl: dict) -> Zeiten:
     leds = tuple(ev(f"led_{k}") for k in range(1, 5))
     leds_ein = min(wort("v02", "Aber") + 4, leds[0] - 40)
     frage = wort("v03", "Weckt") - 10
-    zeilen_weg = min(wort("v03", "Die") - 8, frage - 22)
+    # the lines never leave before they went dark (events pushed late by the guards above)
+    zeilen_weg = max(licht_aus + 1, min(wort("v03", "Die") - 8, frage - 22))
     glocke = ev("bell_morph")
     return Zeiten(s1 - s0, erscheinen, ticks, roll, flug, ankunft, zeile1, sacken, zeile2, licht_aus,
                   leds_ein, leds, zeilen_weg, frage, glocke)  # type: ignore[arg-type]

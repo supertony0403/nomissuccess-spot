@@ -186,7 +186,7 @@ class Eintrag:
     id: str                 # bildtexte id
     text: str               # the script text (or the joined list for lists)
     teile: list[str]        # strings written into Text+ tools
-    erscheinen: int         # scene-local frame the gate opens (= the event)
+    erscheinen: int         # scene-local frame the gate opens (= the event − vorlauf)
     bis: int                # rule hold end (VO end + 0.4 s / next event of the slot / scene end)
     t_out: int              # frame the exit starts (bis, pulled in to finish inside the scene)
     slot: str
@@ -196,6 +196,7 @@ class Eintrag:
     landung: tuple[str, str] | None = None
     symbole: dict[str, str] = field(default_factory=dict)   # glyph drawn as a tool → tool name
     bis_ende: bool = False
+    vorlauf: int = 0        # frames the gate opens before its event (default: none)
 
 
 class Stack:
@@ -430,14 +431,17 @@ def eintrag(sz: Szene, bid: str, layer: str, t_in: int, bis: int, *, slot: str, 
             abgang: str = "hoch", dur: int = 14, text: str | None = None, event: str | None = None,
             art: str = "erscheinen", landung: tuple[str, str] | None = None, symbole: dict | None = None,
             bis_ende: bool = False, eingang_xf: dict[int, tuple[float, float]] | None = None,
-            pivot_px: tuple[float, float] | None = None) -> str:
+            pivot_px: tuple[float, float] | None = None, vorlauf: int = 0) -> str:
     """Wrap ``layer`` in its exit move and gate it into the scene; record the entry.
 
     Exit styles: ``hoch``/``runter``/``links``/``rechts`` (move + fade, motion blur) or
-    ``klein`` (shrinks 6 % about ``pivot_px`` + fade). ``bis_ende`` = no exit (lockup)."""
+    ``klein`` (shrinks 6 % about ``pivot_px`` + fade). ``bis_ende`` = no exit (lockup).
+    ``vorlauf`` > 0 means ``t_in`` lies that many frames before the event (only where the
+    event sits too close to the scene end to read the text otherwise)."""
     c = sz.c
     name = cw._safe(f"E{bid[:1].upper()}{bid[1:]}")
-    t_out = min(bis, sz.len - 1 - dur)
+    # never before the entrance: an event near the scene end must not flash the text early
+    t_out = max(t_in, min(bis, sz.len - 1 - dur))
     pivot = sz.px(*pivot_px) if pivot_px else None
     xf = c.transform(c._unique(f"{name}Xf"), layer, motion_blur=True, quality=10, shutter=200.0, pivot=pivot)
     keys: dict[int, tuple[float, float]] = dict(eingang_xf or {})
@@ -464,7 +468,7 @@ def eintrag(sz: Szene, bid: str, layer: str, t_in: int, bis: int, *, slot: str, 
         id=bid, text=text if text is not None else sz.bildtexte.get(bid, {}).get("text", ""),
         teile=list(teile), erscheinen=t_in, bis=bis, t_out=t_out if not bis_ende else sz.len - 1,
         slot=slot, gate=gate, event=event, art=art, landung=landung, symbole=dict(symbole or {}),
-        bis_ende=bis_ende))
+        bis_ende=bis_ende, vorlauf=vorlauf))
     return gate
 
 

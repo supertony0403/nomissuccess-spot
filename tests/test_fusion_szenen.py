@@ -28,6 +28,9 @@ SCRIPT = json.loads((REPO / "script.json").read_text(encoding="utf-8"))
 EVENTS = json.loads((REPO / "szenen" / "events.json").read_text(encoding="utf-8"))["events"]
 LOCKUP = {"wortmarke", "claim", "cta", "url"}          # s8: holds to the last frame
 SYMBOLE = ("→", "✓")                                  # drawn as shapes, not typed
+# the only entry whose gate opens before its event: key_turn is 55 frames before the end
+# of s2, so „git clone — Ihr Repository“ starts typing 0.8 s early to be readable
+VORLAUF = {("s2_website", "code"): 48}
 
 
 @pytest.fixture(scope="module")
@@ -206,7 +209,9 @@ def test_every_bildtext_appears_exactly_on_its_event_frame(gebaut, timeline, nam
             assert max(land) == ev, f"{e.id}: lands on {max(land)}, event {ev}"
             assert opened <= ev
         else:
-            assert opened == ev, f"{e.id}: gate opens on {opened}, event {e.event} is {ev}"
+            lead = VORLAUF.get((name, e.id), 0)
+            assert e.vorlauf == lead
+            assert opened == ev - lead, f"{e.id}: gate opens on {opened}, event {e.event} is {ev}"
 
 
 @pytest.mark.parametrize("name,fmt", CASES)
@@ -311,9 +316,73 @@ def test_background_colour_is_premultiplied():
     assert tools["Feld"]["Inputs"]["TopLeftRed"]["Value"] == pytest.approx(r * 0.1)
 
 
+def test_exit_never_starts_before_the_entrance_near_the_scene_end(timeline):
+    """An event in the last frames of a scene must not flash its text before the event."""
+    from fusion.szenen import gemeinsam_typo as gt
+
+    sz = gt.Szene("s6_beweis", "16x9", timeline)
+    layer = sz.c.background("Probe", color=(1, 1, 1), alpha=1.0)
+    t_in = sz.len - 5
+    gt.eintrag(sz, "stempel", layer, t_in, sz.len - 1, slot="probe", teile=[], dur=14)
+    sz.fertig()
+    tools = parse_comp(sz.c.to_text())["Tools"]
+    blend = _spline(tools, sz.eintraege[0].gate, "Blend")
+    assert all(v == 0 for f, v in blend.items() if f < t_in)
+    assert min(f for f, v in blend.items() if v > 0) == t_in
+
+
+def test_scene1_lines_never_leave_before_they_went_dark(timeline):
+    """L7 in scene 1: with lights_off pushed late, the lines' exit follows it."""
+    import copy
+
+    from fusion.szenen import s1_nacht as s1
+
+    tl = copy.deepcopy(timeline)
+    _, s1_end = cw.scene_span(tl, "s1_nacht")
+    next(e for e in tl["events"] if e["id"] == "lights_off")["f"] = s1_end - 40
+    z = s1.zeiten(tl)
+    assert z.zeilen_weg > z.licht_aus
+
+
+@pytest.mark.parametrize("name,fmt", CASES)
+def test_no_background_blinks_through_its_alpha(gebaut, name, fmt):
+    """Fusion does not premultiply a Background: an animated TopLeftAlpha leaves the full
+    colour on screen. Blinking and fading go through a merge's Blend."""
+    _, tools = gebaut[(name, fmt)]
+    for tname, tool in tools.items():
+        if tool.type_name == "Background":
+            assert "SourceOp" not in tool["Inputs"].get("TopLeftAlpha", {}), tname
+
+
 # --------------------------------------------------------------------------------------
 # scene specifics
 # --------------------------------------------------------------------------------------
+
+
+@pytest.mark.parametrize("fmt", FORMATE)
+def test_s2_git_clone_label_stands_fully_typed_for_at_least_1_2_s(gebaut, timeline, fmt):
+    sz, tools = gebaut[("s2_website", fmt)]
+    fps = timeline["fps"]
+    text = _text_of(tools, "Code")
+    follower = tools[tools["Code"]["Inputs"]["StyledText"]["SourceOp"]]
+    delay = follower["Inputs"]["Delay"]["Value"]
+    typing = _spline(tools, follower.name if hasattr(follower, "name") else
+                     tools["Code"]["Inputs"]["StyledText"]["SourceOp"], "Opacity1")
+    complete = max(typing) + delay * (len(text) - 1)          # last glyph fully on
+    entry = next(e for e in sz.eintraege if e.id == "code")
+    blend = _spline(tools, entry.gate, "Blend")
+    frames = sorted(blend)
+    t_out, gone = frames[-2], frames[-1]
+    assert (t_out - complete) / fps >= 1.2, f"stands {(t_out - complete) / fps:.2f} s"
+    assert gone <= sz.len - 1                                 # leaves inside the scene
+    key = _local_event(timeline, sz, "key_turn")
+    assert complete <= key < t_out                            # typed when the key turns
+    # the cursor is dark until the text is typed, then blinks via its merge
+    cursor = next(n for n, t in tools.items() if t.type_name == "Merge"
+                  and t["Inputs"].get("Foreground", {}).get("SourceOp") == "CodeCursor")
+    blink = _spline(tools, cursor, "Blend")
+    assert all(v == 0 for f, v in blink.items() if f <= complete)
+    assert any(v == 1 for v in blink.values())
 
 
 @pytest.mark.parametrize("fmt", FORMATE)
