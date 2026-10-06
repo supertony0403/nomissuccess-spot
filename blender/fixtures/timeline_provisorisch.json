@@ -1,0 +1,191 @@
+{
+ "_hinweis": "PROVISORISCH (Task 3): plausible Zeiten, bis audio/plan.py die echte timeline.json schreibt. Format wie Plan Task 1.",
+ "fps": 60,
+ "dauer_s": 142.2,
+ "dauer_f": 8532,
+ "abspann": {
+  "start_s": 140.2,
+  "ende_s": 142.2
+ },
+ "szenen": [
+  {
+   "id": "s1_nacht",
+   "start_s": 0.0,
+   "ende_s": 14.4,
+   "start_f": 0,
+   "ende_f": 864
+  },
+  {
+   "id": "s2_website",
+   "start_s": 14.4,
+   "ende_s": 48.6,
+   "start_f": 864,
+   "ende_f": 2916
+  },
+  {
+   "id": "s3_netz",
+   "start_s": 48.6,
+   "ende_s": 72.2,
+   "start_f": 2916,
+   "ende_f": 4332
+  },
+  {
+   "id": "s4_ernstfall",
+   "start_s": 72.2,
+   "ende_s": 87.6,
+   "start_f": 4332,
+   "ende_f": 5256
+  },
+  {
+   "id": "s5_betrieb",
+   "start_s": 87.6,
+   "ende_s": 104.0,
+   "start_f": 5256,
+   "ende_f": 6240
+  },
+  {
+   "id": "s6_beweis",
+   "start_s": 104.0,
+   "ende_s": 115.4,
+   "start_f": 6240,
+   "ende_f": 6924
+  },
+  {
+   "id": "s7_team",
+   "start_s": 115.4,
+   "ende_s": 125.0,
+   "start_f": 6924,
+   "ende_f": 7500
+  },
+  {
+   "id": "s8_morgen",
+   "start_s": 125.0,
+   "ende_s": 140.2,
+   "start_f": 7500,
+   "ende_f": 8412
+  }
+ ],
+ "vo": [],
+ "events": [
+  {
+   "id": "ribbon_enter",
+   "szene": "s1_nacht",
+   "t_s": 0.25,
+   "f": 15,
+   "sfx": "whoosh"
+  },
+  {
+   "id": "clock_roll",
+   "szene": "s1_nacht",
+   "t_s": 2.62,
+   "f": 157,
+   "sfx": "hit"
+  },
+  {
+   "id": "sleep_letters",
+   "szene": "s1_nacht",
+   "t_s": 3.55,
+   "f": 213,
+   "sfx": "downer"
+  },
+  {
+   "id": "lights_off",
+   "szene": "s1_nacht",
+   "t_s": 4.98,
+   "f": 299,
+   "sfx": "click"
+  },
+  {
+   "id": "led_1",
+   "szene": "s1_nacht",
+   "t_s": 6.92,
+   "f": 415,
+   "sfx": "tick"
+  },
+  {
+   "id": "led_2",
+   "szene": "s1_nacht",
+   "t_s": 7.55,
+   "f": 453,
+   "sfx": "tick"
+  },
+  {
+   "id": "led_3",
+   "szene": "s1_nacht",
+   "t_s": 8.21,
+   "f": 493,
+   "sfx": "tick"
+  },
+  {
+   "id": "led_4",
+   "szene": "s1_nacht",
+   "t_s": 8.86,
+   "f": 532,
+   "sfx": "tick"
+  },
+  {
+   "id": "bell_morph",
+   "szene": "s1_nacht",
+   "t_s": 13.9,
+   "f": 834,
+   "sfx": "hit"
+  },
+  {
+   "id": "clock_roll_7",
+   "szene": "s8_morgen",
+   "t_s": 126.2,
+   "f": 7572,
+   "sfx": "hit"
+  },
+  {
+   "id": "dawn",
+   "szene": "s8_morgen",
+   "t_s": 126.95,
+   "f": 7617,
+   "sfx": "swell"
+  },
+  {
+   "id": "bell_sleep",
+   "szene": "s8_morgen",
+   "t_s": 128.05,
+   "f": 7683,
+   "sfx": "downer"
+  },
+  {
+   "id": "logo_fold",
+   "szene": "s8_morgen",
+   "t_s": 129.75,
+   "f": 7785,
+   "sfx": "sting"
+  },
+  {
+   "id": "claim",
+   "szene": "s8_morgen",
+   "t_s": 130.12,
+   "f": 7807,
+   "sfx": "hit"
+  },
+  {
+   "id": "cta",
+   "szene": "s8_morgen",
+   "t_s": 132.85,
+   "f": 7971,
+   "sfx": "whoosh"
+  },
+  {
+   "id": "url",
+   "szene": "s8_morgen",
+   "t_s": 136.7,
+   "f": 8202,
+   "sfx": "hit"
+  },
+  {
+   "id": "endcard_in",
+   "szene": "abspann",
+   "t_s": 140.2,
+   "f": 8412,
+   "sfx": "shimmer"
+  }
+ ],
+ "cues": []
+}
