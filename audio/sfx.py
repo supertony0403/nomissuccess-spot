@@ -23,7 +23,7 @@ import numpy as np
 from scipy.signal import istft, stft
 
 from ton_gemeinsam import (SFX_KATEGORIE, SFX_STEMS, SR, WURZEL, Klang, Pegelmesser, bp, falten_mit_schweif,
-                           fade, hp, hp0, huelle_exp, k_gewichtet, lp, lp0, n_samples, pan, platzieren, raum_ir,
+                           fade, hp, hp0, huelle_exp, k_gewichtet, lp, n_samples, pan, platzieren, raum_ir, saege,
                            von_db, wav_schreiben)
 
 ARTEN = ("whoosh", "hit", "tick", "riser", "downer", "click", "lock", "paper", "clatter",
@@ -83,21 +83,6 @@ def _band_sweep(x: np.ndarray, fc_von_t, q: float) -> np.ndarray:
     y = y[: len(x)]
     if len(y) < len(x):
         y = np.pad(y, (0, len(x) - len(y)))
-    return y
-
-
-def _saege(freq: np.ndarray | float, n: int, phase0: float = 0.0) -> np.ndarray:
-    """Band-limited (polyBLEP) sawtooth, freq may vary per sample."""
-    f = np.broadcast_to(np.asarray(freq, dtype=np.float64), (n,))
-    dt = f / SR
-    ph = (phase0 + np.cumsum(dt)) % 1.0
-    y = 2.0 * ph - 1.0
-    m = ph < dt
-    u = ph[m] / dt[m]
-    y[m] -= u + u - u * u - 1.0
-    m = ph > 1.0 - dt
-    u = (ph[m] - 1.0) / dt[m]
-    y[m] -= u * u + u + u + 1.0
     return y
 
 
@@ -369,7 +354,7 @@ def _riser(v: int, rng: np.random.Generator, fk: float) -> Klang:
         y = np.stack([_band_sweep(r[:, c], fc, 2.0) for c in range(2)], axis=1) * (u ** 2.5)[:, None]
     elif v == 1:  # tonal riser: detuned saws two octaves up, filter opening
         f = 110.0 * 4.0 ** (u ** 1.3)
-        stimmen = [(_saege(f * d, n, rng.uniform()), lage) for d, lage in
+        stimmen = [(saege(f * d, n, rng.uniform()), lage) for d, lage in
                    ((0.994, -0.6), (1.0, 0.0), (1.006, 0.6))]
         y = sum(pan(s, lage) for s, lage in stimmen) / 3.0
         y = np.stack([_band_sweep(y[:, c], lambda tt: 500.0 * 12.0 ** np.clip(tt / dauer, 0, 1), 0.7)
@@ -397,7 +382,7 @@ def _downer(v: int, rng: np.random.Generator, fk: float) -> Klang:
         y = pan(ton + rausch, 0.0)
     elif v == 1:  # power-down / tape stop on A3
         rate = (1 - u) ** 2
-        ton = _saege(220.0 * rate + 1.0, n)
+        ton = saege(220.0 * rate + 1.0, n)
         y = np.stack([_band_sweep(ton, lambda tt: 4000.0 * (1 - np.clip(tt / dauer, 0, 0.97)) ** 2 + 150.0, 0.8)] * 2,
                      axis=1)
     else:
@@ -530,8 +515,11 @@ def atmo_rendern(timeline: dict, n: int, seed: int = 4242) -> np.ndarray:
         pos += float(rng.uniform(0.6, 2.2))
 
     def auf(x: np.ndarray, ziel: float) -> np.ndarray:
-        pm = Pegelmesser(x[int(1 * SR): int(min(n / SR, 41.0) * SR)])
-        return x * von_db(ziel - pm.pegel(0, 40.0))
+        a, b = min(SR, n // 4), min(n, int(41.0 * SR))
+        seg = x[a:b] if b - a >= int(0.4 * SR) else x
+        if not np.any(seg):
+            return x
+        return x * von_db(ziel - Pegelmesser(seg).pegel(0, len(seg) / SR))
 
     nacht = auf(hp0(nacht, 120.0, 4), -45.0)
     morgen = auf(hp0(morgen, 120.0, 4), -40.0)

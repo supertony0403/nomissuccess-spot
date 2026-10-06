@@ -172,15 +172,22 @@ def lautheitsspanne(x: np.ndarray) -> float:
     return float(np.percentile(st, 95) - np.percentile(st, 10))
 
 
-def true_peak_huelle(x: np.ndarray) -> np.ndarray:
-    """Per-sample true-peak envelope (4x oversampling, max over channels and sub-samples)."""
+def true_peak_huelle(x: np.ndarray, block_s: float = 10.0) -> np.ndarray:
+    """Per-sample true-peak envelope (4x oversampling, max over channels and sub-samples).
+    Block-wise with overlap (bit-identical to one pass) to keep memory small."""
     x2 = np.atleast_2d(x.T).T
-    os = np.abs(resample_poly(x2, 4, 1, axis=0)).max(axis=1)
     n = x2.shape[0]
-    os = os[: n * 4]
-    if len(os) < n * 4:
-        os = np.pad(os, (0, n * 4 - len(os)))
-    return os.reshape(n, 4).max(axis=1)
+    out = np.empty(n, dtype=np.float64)
+    blk, rand = int(block_s * SR), int(0.05 * SR)
+    for a in range(0, n, blk):
+        b = min(n, a + blk)
+        a0, b0 = max(0, a - rand), min(n, b + rand)
+        os = np.abs(resample_poly(x2[a0:b0], 4, 1, axis=0)).max(axis=1)
+        os = os[(a - a0) * 4:(a - a0) * 4 + (b - a) * 4]
+        if len(os) < (b - a) * 4:
+            os = np.pad(os, (0, (b - a) * 4 - len(os)))
+        out[a:b] = os.reshape(b - a, 4).max(axis=1)
+    return out
 
 
 def true_peak_db(x: np.ndarray) -> float:
@@ -230,10 +237,6 @@ def pan(mono: np.ndarray, position: float | np.ndarray) -> np.ndarray:
     """Constant-power pan, position -1 (left) .. +1 (right); position may vary per sample."""
     w = (np.asarray(position) + 1.0) * np.pi / 4.0
     return np.stack([mono * np.cos(w), mono * np.sin(w)], axis=1)
-
-
-def stereo(mono: np.ndarray) -> np.ndarray:
-    return np.stack([mono, mono], axis=1)
 
 
 def huelle_exp(n: int, tau_s: float, attack_s: float = 0.0) -> np.ndarray:
@@ -293,21 +296,19 @@ def falten_mit_schweif(x: np.ndarray, ir: np.ndarray) -> np.ndarray:
     return np.stack([oaconvolve(x2[:, c], ir[:, c]) for c in range(2)], axis=1)
 
 
-def momentan_max_lufs(x: np.ndarray) -> float:
-    """Max momentary loudness (400 ms K-weighted window, 25 ms hop) of a short sound."""
-    x2 = np.atleast_2d(x.T).T
-    pad = np.zeros((int(0.4 * SR), x2.shape[1]))
-    y = k_gewichtet(np.concatenate([pad, x2, pad]))
-    e = np.concatenate([[0.0], np.cumsum(np.sum(y ** 2, axis=1))])
-    w = int(0.4 * SR)
-    hop = int(0.025 * SR)
-    idx = np.arange(0, len(e) - w - 1, hop)
-    m = (e[idx + w] - e[idx]) / w
-    return float(-0.691 + 10 * np.log10(m.max() + 1e-20))
-
-
-def auf_lautheit(x: np.ndarray, ziel_lufs: float) -> np.ndarray:
-    return x * von_db(ziel_lufs - momentan_max_lufs(x))
+def saege(freq: np.ndarray | float, n: int, phase0: float = 0.0) -> np.ndarray:
+    """Band-limited (polyBLEP) sawtooth; freq may be a scalar or vary per sample."""
+    f = np.broadcast_to(np.asarray(freq, dtype=np.float64), (n,))
+    dt = f / SR
+    ph = (phase0 + np.cumsum(dt)) % 1.0
+    y = 2.0 * ph - 1.0
+    m = ph < dt
+    u = ph[m] / dt[m]
+    y[m] -= u + u - u * u - 1.0
+    m = ph > 1.0 - dt
+    u = (ph[m] - 1.0) / dt[m]
+    y[m] -= u * u + u + u + 1.0
+    return y
 
 
 @dataclass

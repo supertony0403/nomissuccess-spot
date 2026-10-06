@@ -28,8 +28,8 @@ from pathlib import Path
 
 import numpy as np
 
-from ton_gemeinsam import (SR, WURZEL, bp, falten, hp, hp0, huelle_exp, lade_timeline, lp, lp0, n_samples, pan,
-                           platzieren, raum_ir, von_db, wav_schreiben)
+from ton_gemeinsam import (SR, WURZEL, bp, falten, hp, huelle_exp, lade_timeline, lp, lp0, n_samples, pan,
+                           platzieren, raum_ir, saege, wav_schreiben)
 
 AKZENT_FENSTER_S = 0.040
 SCHLUSS_MIN_KLANG_S = 3.0
@@ -65,6 +65,9 @@ class Profil:
     synkope: bool = False
     energie: float = 1.0       # scales accents
 
+
+SZENEN_PROFIL = {"s1_nacht": 0, "s2_website": 1, "s3_netz": 2, "s4_ernstfall": 3, "s5_betrieb": 4,
+                 "s6_beweis": 5, "s7_team": 6, "s8_morgen": 7}
 
 PROFILE: tuple[Profil, ...] = (
     Profil(prog=("Am",), hats="uhr", bass="puls", pad=0.30, pad_hell=800.0, pad_stimmen=3, energie=0.55),
@@ -172,12 +175,17 @@ def _schlaege_fuer(dauer_s: float) -> tuple[int, float]:
 
 def partitur_planen(timeline: dict) -> Partitur:
     dauer = float(timeline["dauer_s"])
-    szenen = sorted(timeline["szenen"], key=lambda s: s["start_s"])
+    szenen = sorted((s for s in timeline.get("szenen", []) if s["ende_s"] > s["start_s"]), key=lambda s: s["start_s"])
+    if not szenen:
+        raise ValueError("Timeline ohne Szenen mit positiver Dauer: keine Tempokarte möglich")
     abschnitte: list[Abschnitt] = []
     for i, s in enumerate(szenen):
         ende = szenen[i + 1]["start_s"] if i + 1 < len(szenen) else s["ende_s"]
+        if ende - s["start_s"] <= 1e-3:
+            continue
         n, bpm = _schlaege_fuer(ende - s["start_s"])
-        abschnitte.append(Abschnitt(s["id"], s["start_s"], ende, bpm, n, min(i, len(PROFILE) - 1)))
+        profil = SZENEN_PROFIL.get(s["id"], min(i, len(PROFILE) - 1))  # by id; index only as fallback
+        abschnitte.append(Abschnitt(s["id"], s["start_s"], ende, bpm, n, profil))
 
     takte: list[Takt] = []
     for ab in abschnitte:
@@ -253,6 +261,18 @@ def _akzente_planen(timeline: dict, takte: list[Takt]) -> list[Akzent]:
 
 # ------------------------------------------------------------------ instruments
 
+def _fest(funktion):
+    """lru_cache whose results are read-only, so no caller can corrupt a cached sample."""
+    gecacht = lru_cache(maxsize=512)(funktion)
+
+    def wrapper(*args):
+        x = gecacht(*args)
+        x.flags.writeable = False
+        return x
+    wrapper.cache_clear = gecacht.cache_clear
+    return wrapper
+
+
 def _norm(x: np.ndarray) -> np.ndarray:
     """Peak-normalise an instrument sample to 1.0 so arrangement gains are readable."""
     return x / (np.abs(x).max() + 1e-12)
@@ -266,20 +286,7 @@ def _t(n: int) -> np.ndarray:
     return np.arange(n) / SR
 
 
-def _saege(f: float, n: int, phase0: float) -> np.ndarray:
-    dt = f / SR
-    ph = (phase0 + dt * np.arange(1, n + 1)) % 1.0
-    y = 2.0 * ph - 1.0
-    m = ph < dt
-    u = ph[m] / dt
-    y[m] -= u + u - u * u - 1.0
-    m = ph > 1.0 - dt
-    u = (ph[m] - 1.0) / dt
-    y[m] -= u * u + u + u + 1.0
-    return y
-
-
-@lru_cache(maxsize=8)
+@_fest
 def _kick(art: str) -> np.ndarray:
     n = int(0.55 * SR)
     t = _t(n)
@@ -299,7 +306,7 @@ def _kick(art: str) -> np.ndarray:
     return _norm(k)
 
 
-@lru_cache(maxsize=4)
+@_fest
 def _clap() -> np.ndarray:
     rng = np.random.default_rng(23)
     n = int(0.4 * SR)
@@ -315,7 +322,7 @@ def _clap() -> np.ndarray:
     return _norm(bp(st * env[:, None], 900.0, 6500.0, 2))
 
 
-@lru_cache(maxsize=8)
+@_fest
 def _hat(art: str) -> np.ndarray:
     rng = np.random.default_rng({"zu": 31, "offen": 37, "shaker": 41}[art])
     tau = {"zu": 0.035, "offen": 0.22, "shaker": 0.045}[art]
@@ -329,7 +336,7 @@ def _hat(art: str) -> np.ndarray:
     return _norm(h * np.exp(-t / tau) * np.clip(t / 0.0005, 0, 1))
 
 
-@lru_cache(maxsize=4)
+@_fest
 def _uhr(tock: bool, dunkel: bool) -> np.ndarray:
     n = int(0.08 * SR)
     t = _t(n)
@@ -341,7 +348,7 @@ def _uhr(tock: bool, dunkel: bool) -> np.ndarray:
     return _norm(lp(y, 2500.0, 2) if dunkel else y)
 
 
-@lru_cache(maxsize=256)
+@_fest
 def _bass(midi: int, n: int, weich: bool) -> np.ndarray:
     f = _hz(midi)
     t = _t(n)
@@ -352,7 +359,7 @@ def _bass(midi: int, n: int, weich: bool) -> np.ndarray:
     return _norm((sub * 0.7 + mitte * (0.45 if not weich else 0.25)) * env)
 
 
-@lru_cache(maxsize=512)
+@_fest
 def _pluck(midi: int, hell: float, weich: bool) -> np.ndarray:
     f = _hz(midi)
     laenge = 1.1 if weich else 0.8
@@ -372,7 +379,7 @@ def _pluck(midi: int, hell: float, weich: bool) -> np.ndarray:
     return _norm(hp(y, 180.0, 2))
 
 
-@lru_cache(maxsize=128)
+@_fest
 def _pad(akkord: tuple[int, ...], n_ton: int, hell: float, stimmen: int, breite: float, seed: int) -> np.ndarray:
     """Detuned saw stack per note (polyBLEP), voices spread across the stereo field, low-passed."""
     rng = np.random.default_rng(seed)
@@ -384,7 +391,7 @@ def _pad(akkord: tuple[int, ...], n_ton: int, hell: float, stimmen: int, breite:
     for midi in akkord:
         f = _hz(midi)
         for c, lage in zip(rng.permutation(cents), lagen):
-            s = _saege(f * 2 ** (c / 1200), n, float(rng.uniform()))
+            s = saege(f * 2 ** (c / 1200), n, float(rng.uniform()))
             w = (lage + 1.0) * np.pi / 4.0
             y[:, 0] += s * np.cos(w)
             y[:, 1] += s * np.sin(w)
@@ -395,7 +402,7 @@ def _pad(akkord: tuple[int, ...], n_ton: int, hell: float, stimmen: int, breite:
     return _norm(hp(y * env[:, None], 140.0, 2))
 
 
-@lru_cache(maxsize=8)
+@_fest
 def _crash(laenge: float, seed: int) -> np.ndarray:
     rng = np.random.default_rng(seed)
     n = int(laenge * SR)
@@ -407,7 +414,7 @@ def _crash(laenge: float, seed: int) -> np.ndarray:
     return _norm(lp(y, 12000.0, 2))
 
 
-@lru_cache(maxsize=2)
+@_fest
 def _anschlag() -> np.ndarray:
     """Short attack transient for accents (click + beater band): makes every accent land crisply."""
     n = int(0.03 * SR)
@@ -417,7 +424,7 @@ def _anschlag() -> np.ndarray:
     return _norm(klick + 0.6 * schlaegel)
 
 
-@lru_cache(maxsize=4)
+@_fest
 def _boom() -> np.ndarray:
     n = int(1.2 * SR)
     t = _t(n)
@@ -426,7 +433,7 @@ def _boom() -> np.ndarray:
     return np.tanh(2.0 * b) / np.tanh(2.0)
 
 
-def _glocke(f: float, n: int, laenge: float = 1.0) -> np.ndarray:
+def _glockenton(f: float, n: int, laenge: float = 1.0) -> np.ndarray:
     t = _t(n)
     verh = (1.0, 2.0, 3.0, 4.2, 5.4)
     amps = (1.0, 0.35, 0.18, 0.1, 0.06)
@@ -594,7 +601,7 @@ def musik_rendern(timeline: dict, partitur: Partitur | None = None) -> Musik:
         rng = np.random.default_rng(91)
         drone = np.zeros((m, 2))
         for midi, g in ((33, 0.5), (40, 0.3), (45, 0.18)):
-            s = _saege(_hz(midi), m, float(rng.uniform()))
+            s = saege(_hz(midi), m, float(rng.uniform()))
             drone += pan(s, -0.3 if midi % 2 else 0.3) * g
         filt = 220.0 + 160.0 * (0.5 + 0.5 * np.sin(2 * np.pi * 0.11 * t))
         drone = lp(drone, 330.0, 2) * (0.7 + 0.3 * filt / 380.0)[:, None]
@@ -639,7 +646,7 @@ def musik_rendern(timeline: dict, partitur: Partitur | None = None) -> Musik:
         sp["schluss"][a:] += akk * aus * 0.30
         for i, midi in enumerate((69, 76, 73, 83)):
             k = int(0.03 * i * SR)
-            gl = _glocke(_hz(midi), m - k, 1.2)
+            gl = _glockenton(_hz(midi), m - k, 1.2)
             sp["schluss"][a + k:] += pan(gl, (-0.4, 0.3, -0.1, 0.45)[i]) * 0.05
         sub = _bass(33, m, True) * np.exp(-t / 1.6)
         sp["schluss"][a:] += (sub * 0.45)[:, None]
@@ -662,14 +669,16 @@ def musik_rendern(timeline: dict, partitur: Partitur | None = None) -> Musik:
     summe *= 0.6 / (np.percentile(np.abs(summe), 99.97) + 1e-12)
     summe = np.tanh(summe)
     summe = _sub_mono(summe)
-    summe[-int(0.25 * SR):] *= np.linspace(1, 0, int(0.25 * SR))[:, None]
+    k = min(len(summe), int(0.25 * SR))
+    if k:
+        summe[-k:] *= np.linspace(1, 0, k)[:, None]
     return Musik(summe, sp, p)
 
 
 def akzent_klang(akz: Akzent, p: Partitur) -> tuple[np.ndarray, np.ndarray] | None:
     """One musical accent (attack click + low boom + chord stab of the current chord + crash),
     starting at sample 0 = akz.t_s. Returns (dry, reverb send) or None after the final chord."""
-    if akz.t_s >= p.schlussakkord_s + 0.5:
+    if akz.t_s >= p.schlussakkord_s + 0.5 or akz.t_s < p.takte[0].start_s - 1e-6:
         return None
     tk = max((t for t in p.takte if t.start_s <= akz.t_s + 1e-6), key=lambda t: t.start_s)
     _, _, arp = AKKORDE[tk.akkord]

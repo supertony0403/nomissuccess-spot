@@ -102,6 +102,28 @@ def test_klang_beginnt_auf_t(art):
         assert env[int(t * SR): int((t + 0.15) * SR)].max() >= spitze * 10 ** (-40 / 20), (art, v)
 
 
+@pytest.mark.parametrize("art", TRANSIENT_ARTEN + ENDE_ARTEN)
+def test_anker_auch_bei_wiederholungen(art):
+    """Every occurrence is detuned/re-seeded; the anchor must still land on t_s.
+    Occurrences are spaced by the sound's own length so they do not overlap."""
+    laenge = max(len(sfx.klang(art, v).daten) for v in range(sfx.VARIANTEN[art])) / SR
+    abstand = max(2.5, laenge + 0.3)
+    zeiten = [2.5 + abstand * k for k in range(6)]
+    tl = _timeline([{"t_s": t, "art": art} for t in zeiten], dauer=zeiten[-1] + abstand + 1.0)
+    x = sfx.kategorien_rendern(tl)[SFX_KATEGORIE[art]]
+    for t in zeiten:
+        if art in ENDE_ARTEN:
+            assert abs(_ende(x, t) - t) <= 0.010, (art, t, _ende(x, t) - t)
+        else:
+            assert abs(_onset(x, t) - t) <= 0.005, (art, t, _onset(x, t) - t)
+
+
+def test_sehr_kurze_timeline_ohne_nan():
+    stems = sfx.kategorien_rendern(_timeline([{"t_s": 0.3, "art": "tick"}], dauer=0.8))
+    for name, x in stems.items():
+        assert np.all(np.isfinite(x)), name
+
+
 def test_kategorie_routing():
     for art in ALLE_ARTEN:
         stems = sfx.kategorien_rendern(_timeline([{"t_s": 2.5, "art": art}]))

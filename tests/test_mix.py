@@ -57,21 +57,38 @@ def _lies(pfad: Path) -> np.ndarray:
     return daten
 
 
-def _bauen(basis: Path) -> tuple[mix.MixErgebnis, mix.Ziele, float]:
+def _bauen(basis: Path) -> tuple[mix.MixErgebnis, mix.Ziele, dict]:
     basis.mkdir(parents=True, exist_ok=True)
     tl_pfad = basis / "timeline.json"
     shutil.copy(FIXTURE, tl_pfad)
     tl = json.loads(tl_pfad.read_text())
     mix.ersatz_vo_schreiben(tl, basis)
     ziele = mix.Ziele.unter(basis)
-    t0 = time.perf_counter()
+    t0, c0 = time.perf_counter(), time.process_time()
     erg = mix.bauen(tl_pfad, basis=basis, ziele=ziele)
-    return erg, ziele, time.perf_counter() - t0
+    return erg, ziele, {"wand_s": time.perf_counter() - t0, "cpu_s": time.process_time() - c0}
+
+
+def _mini_timeline(basis: Path) -> dict:
+    """9 s timeline with two lines, a hit under the first line and a scene change."""
+    def zeile(i: int, start: float, n: int) -> dict:
+        woerter = [{"wort": f"w{k}", "start_s": round(start + k * 0.36, 3),
+                    "ende_s": round(start + k * 0.36 + 0.3, 3)} for k in range(n)]
+        return {"id": f"v{i:02d}", "szene": "s1_nacht" if i == 1 else "s8_morgen", "start_s": start,
+                "ende_s": woerter[-1]["ende_s"], "datei": f"assets/audio/vo/v{i:02d}.wav", "woerter": woerter}
+    tl = {"fps": 60, "dauer_s": 9.0, "abspann": {"start_s": 7.0, "ende_s": 9.0},
+          "szenen": [{"id": "s1_nacht", "start_s": 0.0, "ende_s": 4.0},
+                     {"id": "s8_morgen", "start_s": 4.0, "ende_s": 7.0}],
+          "vo": [zeile(1, 0.8, 6), zeile(2, 4.5, 4)],
+          "events": [{"id": "x", "szene": "s1_nacht", "t_s": 2.0, "f": 120, "sfx": "hit"}],
+          "cues": [{"t_s": 2.0, "art": "hit"}, {"t_s": 4.0, "art": "whoosh"}]}
+    mix.ersatz_vo_schreiben(tl, basis)
+    return tl
 
 
 @pytest.fixture(scope="module")
 def gebaut(tmp_path_factory):
-    erg, ziele, laufzeit = _bauen(tmp_path_factory.mktemp("mix_a"))
+    erg, ziele, laufzeit = _bauen(tmp_path_factory.mktemp("mix_a"))  # default modus 'regeln'
     tl = json.loads(FIXTURE.read_text())
     return erg, ziele, laufzeit, tl
 
@@ -106,11 +123,15 @@ def test_musik_mindestens_15_db_unter_jedem_wort(gebaut):
     _, ziele, _, tl = gebaut
     vo_k = _k_gewichtet(_lies(ziele.stems / "vo.wav"))
     mu_k = _k_gewichtet(_lies(ziele.stems / "musik.wav"))
-    abstaende = []
+    im_wort, kurzzeit = [], []
     for zeile in tl["vo"]:
         for w in zeile["woerter"]:
-            abstaende.append(_pegel(vo_k, w["start_s"], w["ende_s"]) - _pegel(mu_k, w["start_s"], w["ende_s"]))
-    assert min(abstaende) >= 15.0, min(abstaende)
+            mu = _pegel(mu_k, w["start_s"], w["ende_s"])
+            mitte = (w["start_s"] + w["ende_s"]) / 2
+            im_wort.append(_pegel(vo_k, w["start_s"], w["ende_s"]) - mu)
+            kurzzeit.append(_pegel(vo_k, mitte - 1.5, mitte + 1.5) - mu)  # EBU short-term (3 s) reading
+    assert min(im_wort) >= 15.0, min(im_wort)
+    assert min(kurzzeit) >= 15.0, min(kurzzeit)
 
 
 def test_musik_kommt_zwischen_szenen_wieder_hoch(gebaut):
@@ -138,7 +159,12 @@ def test_vo_kette_ist_rotator_gain_limiter_ohne_kompressor(gebaut):
     erg, ziele, _, _ = gebaut
     vo = _lies(ziele.stems / "vo.wav")
     assert np.array_equal(vo[:, 0], vo[:, 1])
-    rot = mix.phasenrotator(erg.eingang.vo)
+    from scipy.signal import lfilter
+    rot = erg.eingang.vo
+    for f, q in mix.VO_ROTATOR:  # independent RBJ all-pass cascade
+        w0 = 2 * np.pi * f / SR
+        al, c = np.sin(w0) / (2 * q), np.cos(w0)
+        rot = lfilter([1 - al, -2 * c, 1 + al], [1 + al, -2 * c, 1 - al], rot)
     maske = np.abs(rot) > 1e-3
     statisch = erg.vo_rotiert[maske] / rot[maske]
     assert np.ptp(statisch) / np.mean(statisch) < 1e-6
@@ -162,18 +188,58 @@ def test_vo_limiter_haelt_decke_und_wird_gemessen(gebaut):
                                   "lra_verlust_max_1_lu"}
 
 
-def test_regeln_modus_haelt_alle_vo_regeln(gebaut):
-    """modus='regeln': the voice limiter rules win, the master is capped instead."""
-    erg, _, _, tl = gebaut
-    ein = erg.eingang
-    streng = mix.mischen(ein.vo, ein.musik, ein.sfx, tl, modus="regeln")
-    lim = streng.pegel["vo_limiter"]
+def test_default_build_haelt_alle_grenzen_und_vo_regeln(gebaut):
+    """Default modus 'regeln': the four voice limiter rules hold (over the spoken words) and no
+    hard limit is violated."""
+    erg, _, _, _ = gebaut
+    p = erg.pegel
+    assert p["modus"] == "regeln"
+    assert p["verstoesse"] == []
+    lim = p["vo_limiter"]
     assert lim["regeln_erfuellt"], lim
     assert lim["aktiv_prozent_sprache"] < 1.0 and lim["gr_max_db"] <= 6.0
     assert lim["st_abweichung_lu"] < 0.3 and lim["lra_verlust_lu"] <= 1.0
-    assert _true_peak_db(streng.master) <= -1.0
-    assert pyln.Meter(SR).integrated_loudness(streng.master) <= -14.0 + 0.05
-    assert streng.master_db <= erg.master_db + 1e-6
+    sprache = sum(w["ende_s"] - w["start_s"] for z in gebaut[3]["vo"] for w in z["woerter"])
+    assert abs(lim["sprache_s"] - sprache) < 0.5  # denominator = spoken words, not whole lines
+
+
+def test_brief_modus_trifft_minus_14(gebaut):
+    """modus='brief': exactly -14 LUFS; the limiter rules are measured and reported."""
+    erg, _, _, tl = gebaut
+    ein = erg.eingang
+    laut = mix.mischen(ein.vo, ein.musik, ein.sfx, tl, modus="brief")
+    assert abs(pyln.Meter(SR).integrated_loudness(laut.master) - (-14.0)) <= 0.06
+    assert _true_peak_db(laut.master) <= -1.0
+    assert laut.master_db >= erg.master_db - 1e-6
+    assert set(laut.pegel["vo_limiter"]["regeln"]) == set(erg.pegel["vo_limiter"]["regeln"])
+
+
+def test_bett_weicht_nur_kurz_aus(gebaut):
+    b = gebaut[0].pegel["bett_platz"]
+    assert b["ueber_10db_s"] < 0.5 and b["ueber_3db_s"] < 2.0, b
+
+
+def test_sprachband_dip_im_mix(gebaut):
+    """Atmo: inside phrases its 2-4 kHz band sits ~4 dB lower relative to its low band than in the
+    raw render; between scenes nothing changes (all broadband gains cancel in the ratio)."""
+    erg, ziele, _, tl = gebaut
+    roh = erg.eingang.sfx["sfx_atmo"].mean(axis=1)
+    fertig = _lies(ziele.stems / "sfx_atmo.wav").mean(axis=1)
+    band = butter(4, (2300, 3700), "bandpass", fs=SR, output="sos")
+    tief = butter(4, (300, 1000), "bandpass", fs=SR, output="sos")
+
+    def verhaeltnis(x: np.ndarray, bereiche: list[tuple[float, float]]) -> float:
+        b_, t_ = sosfiltfilt(band, x), sosfiltfilt(tief, x)
+        idx = np.concatenate([np.arange(int(a * SR), int(e * SR)) for a, e in bereiche])
+        return 10 * np.log10(np.mean(b_[idx] ** 2) / np.mean(t_[idx] ** 2))
+
+    from ton_gemeinsam import phrasen
+    innen = [(a + 0.1, b - 0.1) for a, b in phrasen(tl) if b - a > 0.6]
+    zeilen = tl["vo"]
+    pausen = [(a["ende_s"] + 0.45, b["start_s"] - 0.1) for a, b in zip(zeilen, zeilen[1:])
+              if b["start_s"] - a["ende_s"] > 0.9]
+    assert abs((verhaeltnis(fertig, innen) - verhaeltnis(roh, innen)) - (-4.0)) < 1.0
+    assert abs(verhaeltnis(fertig, pausen) - verhaeltnis(roh, pausen)) < 0.5
 
 
 def test_phasenrotator_ist_allpass():
@@ -187,6 +253,13 @@ def test_phasenrotator_ist_allpass():
     x = np.random.default_rng(3).standard_normal(SR * 5) * 0.1
     st = lambda y: pyln.Meter(SR).integrated_loudness(np.stack([y, y], axis=1))  # noqa: E731
     assert abs(st(mix.phasenrotator(x)) - st(x)) < 0.05
+    # the function itself (not only its coefficients): flat magnitude and strictly linear,
+    # so no hidden compression can sit inside it
+    h = mix.phasenrotator(np.r_[1.0, np.zeros(2 ** 16 - 1)])
+    assert np.allclose(np.abs(np.fft.rfft(h)), 1.0, atol=1e-6)
+    spitzen = x.copy()
+    spitzen[::4801] = 0.9
+    assert np.allclose(mix.phasenrotator(3 * spitzen), 3 * mix.phasenrotator(spitzen), atol=1e-12)
 
 
 def test_vo_limiter_fasst_nur_einzelspitze():
@@ -217,6 +290,48 @@ def test_vorlaeufige_zeilen_werden_uebersprungen(tmp_path):
     assert np.abs(vo[int(z["start_s"] * SR): int(z["ende_s"] * SR)]).max() > 0.01
 
 
+def test_vorlaeufige_zeile_im_ganzen_mix(tmp_path):
+    """A line without recording is skipped in the whole mix: no duck, no crash."""
+    import musik
+    import sfx
+    tl = _mini_timeline(tmp_path)
+    tl["vo"][1]["datei"] = None
+    with pytest.warns(UserWarning, match="v02"):
+        vo = mix.vo_laden(tl, tmp_path)
+        erg = mix.mischen(vo, musik.musik_rendern(tl).mix, sfx.kategorien_rendern(tl), tl)
+    z = tl["vo"][1]
+    for p in erg.pegel["duck_phrasen"]:
+        assert p["ende_s"] < z["start_s"] or p["start_s"] > z["ende_s"], p
+    assert np.all(np.isfinite(erg.master))
+
+
+def test_verstoss_bricht_ab_und_schreibt_keine_stems(tmp_path, monkeypatch):
+    _mini_timeline(tmp_path)
+    tl = _mini_timeline(tmp_path)
+    (tmp_path / "timeline.json").write_text(json.dumps(tl))
+    monkeypatch.setattr(mix, "grenzen_pruefen", lambda pegel: ["Testverstoss"])
+    ziele = mix.Ziele.unter(tmp_path)
+    with pytest.raises(mix.MixFehler, match="Testverstoss"):
+        mix.bauen(tmp_path / "timeline.json", basis=tmp_path, ziele=ziele)
+    assert not ziele.stems.exists() and not ziele.referenz.exists()
+    assert json.loads(ziele.pegel.read_text())["verstoesse"] == ["Testverstoss"]
+
+
+def test_duck_bericht_zeigt_angewandte_tiefen(tmp_path, monkeypatch):
+    """If words stay too close, phrases are deepened 3x by 3 dB and the report shows exactly the
+    applied depth (not a 4th, never-applied step), and the violation is flagged."""
+    import musik
+    import sfx
+    tl = _mini_timeline(tmp_path)
+    monkeypatch.setattr(mix, "_duck_phrasen", lambda t, v, m: [
+        {"start_s": a, "ende_s": b, "tiefe_db": -10.0} for a, b in mix.phrasen(t)])
+    monkeypatch.setattr(mix, "_wort_abstaende", lambda t, v, m: [
+        (a, 12.0, 12.0) for a, _ in mix.wort_intervalle(t)])
+    erg = mix.mischen(mix.vo_laden(tl, tmp_path), musik.musik_rendern(tl).mix, sfx.kategorien_rendern(tl), tl)
+    assert {p["tiefe_db"] for p in erg.pegel["duck_phrasen"]} == {-19.0}
+    assert any("duck" in v for v in erg.pegel["verstoesse"])
+
+
 def test_pegel_json(gebaut):
     _, ziele, _, _ = gebaut
     p = json.loads(ziele.pegel.read_text())
@@ -228,7 +343,8 @@ def test_pegel_json(gebaut):
 
 
 def test_laufzeit_unter_zwei_minuten(gebaut):
-    assert gebaut[2] < 120.0, gebaut[2]
+    """CPU time of the whole build (wall time depends on what else runs on the machine)."""
+    assert gebaut[2]["cpu_s"] < 120.0, gebaut[2]
 
 
 def test_deterministisch(gebaut, tmp_path):
@@ -281,6 +397,16 @@ def test_sprachband_ducken():
 @pytest.fixture(scope="module")
 def partitur():
     return musik.partitur_planen(json.loads(FIXTURE.read_text()))
+
+
+def test_partitur_grenzfaelle():
+    with pytest.raises(ValueError, match="Szenen"):
+        musik.partitur_planen({"dauer_s": 5.0, "szenen": [], "vo": [], "events": []})
+    tl = {"dauer_s": 6.0, "szenen": [{"id": "s1_nacht", "start_s": 0.0, "ende_s": 4.0},
+                                     {"id": "s2_website", "start_s": 4.0, "ende_s": 4.0}],
+          "vo": [], "events": [{"id": "frueh", "t_s": -0.2, "sfx": "hit"}]}
+    m = musik.musik_rendern(tl)
+    assert np.all(np.isfinite(m.mix)) and m.mix.shape == (6 * SR, 2)
 
 
 def test_tempo_nah_an_100_bpm(partitur):
