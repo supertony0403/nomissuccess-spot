@@ -13,3 +13,6 @@ __pycache__/
 *.blend1
 .env
 *.env
+# renders/ is a symlink to /mnt/steam-library (big media stays off the system disk)
+renders
+assets/audio/sfx_bibliothek/index.json
