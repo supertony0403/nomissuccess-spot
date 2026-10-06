@@ -18,7 +18,14 @@ is transparent unless asked otherwise, so comps can sit above the Blender shots.
 
 Measured on Resolve 21.1.1 (05.10.2026):
 * Text+ ``Size`` scales with the *image width* (cap height = ratio × Size × width).
-* Rectangle/Ellipse masks: ``Width`` is relative to image width, ``Height`` to height.
+* Rectangle masks: ``Width`` is relative to image width, ``Height`` to height.
+* Ellipse masks: *both* sizes are relative to image width in Fusion (measured 06.10.2026,
+  a ``Height`` of 54/1080 drew a 96 px tall cap); ``ellipse_mask`` converts, so callers
+  keep passing ``Height`` relative to height like for rectangles.
+* Text+ ``CharacterSpacing`` s adds (s − 1) × Size × image width after each glyph
+  (measured 06.10.2026 on JetBrains Mono and Manrope, ±1 px); it is not a multiplier.
+* Background colours are not premultiplied by ``TopLeftAlpha``: Merge adds the full
+  colour. ``background`` premultiplies, so alpha < 1 really is translucent.
 * Text+ anchor: ``HorizontalLeftCenterRight`` −1/0/1 = left/centre/right of ``Center``;
   ``VerticalTopCenterBottom`` −1 = the text hangs below ``Center`` (top anchor).
 * ``ImportFusionComp`` turns Saver tools into MediaOut, so control renders attach a
@@ -366,10 +373,12 @@ class FontMetrics:
         return FUSION_FONT_HEIGHT * self.cap / self.height
 
     def width_px(self, text: str, size: float, image_width: int, tracking: float = 1.0) -> float:
-        """Advance width of ``text`` (no kerning; ``tracking`` scales each advance)."""
+        """Advance width of ``text`` (no kerning). ``tracking`` is Text+ CharacterSpacing,
+        which adds (tracking − 1) × Size × image width between glyphs (measured)."""
         adv = dict(self.advances)
         units = sum(adv.get(ord(ch), self.upm // 2) for ch in text)
-        return units / self.upm * self.em_px(size, image_width) * tracking
+        extra = (tracking - 1.0) * size * image_width * max(0, len(text) - 1)
+        return units / self.upm * self.em_px(size, image_width) + extra
 
 
 # --------------------------------------------------------------------------------------
@@ -593,8 +602,9 @@ class Comp:
 
     def background(self, name: str, color: Any = (0.0, 0.0, 0.0), alpha: float = 0.0) -> str:
         r, g, b, a = _rgba(color, alpha)
-        self._add(name, "Background", {**self._frame_size(), "TopLeftRed": r, "TopLeftGreen": g,
-                                       "TopLeftBlue": b, "TopLeftAlpha": a})
+        # Fusion does not premultiply a Background's colour by its alpha (measured)
+        self._add(name, "Background", {**self._frame_size(), "TopLeftRed": r * a, "TopLeftGreen": g * a,
+                                       "TopLeftBlue": b * a, "TopLeftAlpha": a})
         return name
 
     def gradient(self, name: str, stops: Iterable[tuple[float, Any]],
@@ -650,8 +660,9 @@ class Comp:
     def ellipse_mask(self, name: str, center: tuple[float, float], width: float, height: float,
                      soft_edge: float = 0.0, invert: bool = False, combine_with: str | None = None,
                      level: float = 1.0) -> str:
-        return self._mask("EllipseMask", name, center, width, height, soft_edge, invert,
-                          combine_with, level, {})
+        # Fusion measures an ellipse's Height in image widths too (measured); convert
+        return self._mask("EllipseMask", name, center, width, _finite(height) * self.height / self.width,
+                          soft_edge, invert, combine_with, level, {})
 
     def apply_mask(self, tool: str, mask: str) -> None:
         self._get(tool).inputs["EffectMask"] = Link(mask, "Mask")
