@@ -2419,14 +2419,14 @@
     {
       "id": "hope_fade",
       "szene": "s4_ernstfall",
-      "t_s": 83.3233,
-      "f": 4999,
+      "t_s": 82.9433,
+      "f": 4977,
       "sfx": "downer",
       "ebene": "fusion",
-      "bild": "'Hoffnung' dünn und blass, wird durch 'getestet ✓' ersetzt",
+      "bild": "'Hoffnung' dünn und blass bei 'nur', 12 Frames später ersetzt durch 'getestet ✓' — steht damit über 'Hoffnung' bis Szenenende",
       "anker": {
         "vo": "v13",
-        "wort": "Hoffnung"
+        "wort": "nur"
       },
       "offset_s": 0.0
     },
@@ -2987,8 +2987,8 @@
       "quelle": "event:rewind"
     },
     {
-      "t_s": 83.3233,
-      "f": 4999,
+      "t_s": 82.9433,
+      "f": 4977,
       "art": "downer",
       "szene": "s4_ernstfall",
       "quelle": "event:hope_fade"

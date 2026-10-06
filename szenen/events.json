@@ -2,78 +2,641 @@
   "_regel": "Jedes Event ist an ein gesprochenes Wort gekoppelt: anker = {vo, wort, n (n-tes Vorkommen in der Zeile, Standard 1), kante: 'start'|'ende' (Standard 'start')}, plus offset_s. audio/plan.py rechnet daraus absolute Zeiten/Frames in timeline.json. 'szenenstart'/'szenenende' als Anker sind relativ zur Szene. 'sfx' = Geräusch-Art (Transiente landet auf dem Event). 'ebene' sagt, wer das Bild baut: blender (3D-Welt), fusion (Typo/flache UI) oder beide.",
   "events": {
     "s1_nacht": [
-      { "id": "ribbon_enter",  "anker": { "szenenstart": true }, "offset_s": 0.25, "sfx": "whoosh",  "ebene": "blender", "bild": "Logo-Band schneidet als hauchdünne Lichtlinie von rechts ins Dunkel, Kamera beginnt zu folgen" },
-      { "id": "clock_roll",    "anker": { "vo": "v01", "wort": "zwölf", "kante": "ende" }, "offset_s": 0.0, "sfx": "hit", "ebene": "fusion", "bild": "Rollzähler 03:11:57 → 03:12:00 landet; Ziffern rollen vertikal mit Bewegungsunschärfe, je Sekunde ein tick" },
-      { "id": "sleep_letters", "anker": { "vo": "v01", "wort": "schläft" }, "offset_s": -0.1, "sfx": "downer", "ebene": "fusion", "bild": "'Die Stadt schläft.' Buchstaben sacken nacheinander leicht nach unten und dimmen auf 40 %" },
-      { "id": "lights_off",    "anker": { "vo": "v01", "wort": "dunkel" }, "offset_s": 0.0, "sfx": "click", "ebene": "beide", "bild": "'Ihr Büro ist dunkel.' Buchstabe für Buchstabe geht das Licht aus; in Blender erlöschen Fensterlichter im Bokeh" },
-      { "id": "led_1",         "anker": { "vo": "v02", "wort": "Website" }, "offset_s": 0.0, "sfx": "tick", "ebene": "fusion", "bild": "LED 1 (Website) glimmt grün auf" },
-      { "id": "led_2",         "anker": { "vo": "v02", "wort": "Firewall" }, "offset_s": 0.0, "sfx": "tick", "ebene": "fusion", "bild": "LED 2 (Firewall)" },
-      { "id": "led_3",         "anker": { "vo": "v02", "wort": "Server" }, "offset_s": 0.0, "sfx": "tick", "ebene": "fusion", "bild": "LED 3 (Server)" },
-      { "id": "led_4",         "anker": { "vo": "v02", "wort": "Backups" }, "offset_s": 0.0, "sfx": "tick", "ebene": "fusion", "bild": "LED 4 (Backups)" },
-      { "id": "bell_morph",    "anker": { "vo": "v03", "wort": "jemanden", "kante": "ende" }, "offset_s": 0.05, "sfx": "hit", "ebene": "fusion", "bild": "Das Fragezeichen verwandelt sich in eine Weckerglocke (Linien-Icon), die einmal zuckt und erstarrt" }
+      {
+        "id": "ribbon_enter",
+        "anker": {
+          "szenenstart": true
+        },
+        "offset_s": 0.25,
+        "sfx": "whoosh",
+        "ebene": "blender",
+        "bild": "Logo-Band schneidet als hauchdünne Lichtlinie von rechts ins Dunkel, Kamera beginnt zu folgen"
+      },
+      {
+        "id": "clock_roll",
+        "anker": {
+          "vo": "v01",
+          "wort": "zwölf",
+          "kante": "ende"
+        },
+        "offset_s": 0.0,
+        "sfx": "hit",
+        "ebene": "fusion",
+        "bild": "Rollzähler 03:11:57 → 03:12:00 landet; Ziffern rollen vertikal mit Bewegungsunschärfe, je Sekunde ein tick"
+      },
+      {
+        "id": "sleep_letters",
+        "anker": {
+          "vo": "v01",
+          "wort": "schläft"
+        },
+        "offset_s": -0.1,
+        "sfx": "downer",
+        "ebene": "fusion",
+        "bild": "'Die Stadt schläft.' Buchstaben sacken nacheinander leicht nach unten und dimmen auf 40 %"
+      },
+      {
+        "id": "lights_off",
+        "anker": {
+          "vo": "v01",
+          "wort": "dunkel"
+        },
+        "offset_s": 0.0,
+        "sfx": "click",
+        "ebene": "beide",
+        "bild": "'Ihr Büro ist dunkel.' Buchstabe für Buchstabe geht das Licht aus; in Blender erlöschen Fensterlichter im Bokeh"
+      },
+      {
+        "id": "led_1",
+        "anker": {
+          "vo": "v02",
+          "wort": "Website"
+        },
+        "offset_s": 0.0,
+        "sfx": "tick",
+        "ebene": "fusion",
+        "bild": "LED 1 (Website) glimmt grün auf"
+      },
+      {
+        "id": "led_2",
+        "anker": {
+          "vo": "v02",
+          "wort": "Firewall"
+        },
+        "offset_s": 0.0,
+        "sfx": "tick",
+        "ebene": "fusion",
+        "bild": "LED 2 (Firewall)"
+      },
+      {
+        "id": "led_3",
+        "anker": {
+          "vo": "v02",
+          "wort": "Server"
+        },
+        "offset_s": 0.0,
+        "sfx": "tick",
+        "ebene": "fusion",
+        "bild": "LED 3 (Server)"
+      },
+      {
+        "id": "led_4",
+        "anker": {
+          "vo": "v02",
+          "wort": "Backups"
+        },
+        "offset_s": 0.0,
+        "sfx": "tick",
+        "ebene": "fusion",
+        "bild": "LED 4 (Backups)"
+      },
+      {
+        "id": "bell_morph",
+        "anker": {
+          "vo": "v03",
+          "wort": "jemanden",
+          "kante": "ende"
+        },
+        "offset_s": 0.05,
+        "sfx": "hit",
+        "ebene": "fusion",
+        "bild": "Das Fragezeichen verwandelt sich in eine Weckerglocke (Linien-Icon), die einmal zuckt und erstarrt"
+      }
     ],
     "s2_website": [
-      { "id": "window_reveal",  "anker": { "vo": "v04", "wort": "Website" }, "offset_s": -0.15, "sfx": "whoosh", "ebene": "blender", "bild": "Kamera dreht in eine dunkle Straße; die echte nomissuccess.de-Seite steht als beleuchtetes Schaufenster, Spiegelung am Boden" },
-      { "id": "window_land",    "anker": { "vo": "v04", "wort": "Schaufenster" }, "offset_s": 0.0, "sfx": "hit", "ebene": "blender", "bild": "Kamera kommt frontal vor dem Schaufenster zur Ruhe" },
-      { "id": "layers_explode", "anker": { "vo": "v05", "wort": "programmiert" }, "offset_s": -0.2, "sfx": "shimmer", "ebene": "beide", "bild": "Die Seite zerlegt sich in Schichten (Raster, Typo, Bilder, echter Quellcode), die mit Tiefenunschärfe auseinanderfliegen" },
-      { "id": "layers_snap",    "anker": { "vo": "v05", "wort": "Kein" }, "offset_s": -0.15, "sfx": "hit", "ebene": "blender", "bild": "Schichten rasten satt wieder ein" },
-      { "id": "tower_fall",     "anker": { "vo": "v05", "wort": "Baukasten" }, "offset_s": 0.0, "sfx": "clatter", "ebene": "blender", "bild": "Turm aus Bausteinen ('Plugin', 'Theme', 'Tracking') kippt und fällt mit Physik aus dem Bild" },
-      { "id": "speed_line",     "anker": { "vo": "v06", "wort": "Sekunde" }, "offset_s": -0.25, "sfx": "riser", "ebene": "fusion", "bild": "Eine Linie rast quer durchs Bild, '< 1 s' stoppt hart" },
-      { "id": "de_pin",         "anker": { "vo": "v06", "wort": "Deutschland" }, "offset_s": 0.0, "sfx": "tick", "ebene": "fusion", "bild": "Wert 'Gehostet in Deutschland' rastet ein" },
-      { "id": "calendar_ticks", "anker": { "vo": "v06", "wort": "gesichert" }, "offset_s": -0.3, "sfx": "tick", "ebene": "fusion", "bild": "Kalenderraster 1–30 hakt im Zeitraffer ab" },
-      { "id": "month_carousel", "anker": { "vo": "v07", "wort": "monatlich" }, "offset_s": -0.1, "sfx": "whoosh", "ebene": "fusion", "bild": "Monatskarten Jan–Dez gleiten als Karussell durch, darauf 'Ein fester Betrag'" },
-      { "id": "key_turn",       "anker": { "vo": "v08", "wort": "Ihnen" }, "offset_s": 0.0, "sfx": "lock", "ebene": "blender", "bild": "3D-Schlüssel dreht sich ins Schloss; Label git clone — Ihr Repository" }
+      {
+        "id": "window_reveal",
+        "anker": {
+          "vo": "v04",
+          "wort": "Website"
+        },
+        "offset_s": -0.15,
+        "sfx": "whoosh",
+        "ebene": "blender",
+        "bild": "Kamera dreht in eine dunkle Straße; die echte nomissuccess.de-Seite steht als beleuchtetes Schaufenster, Spiegelung am Boden"
+      },
+      {
+        "id": "window_land",
+        "anker": {
+          "vo": "v04",
+          "wort": "Schaufenster"
+        },
+        "offset_s": 0.0,
+        "sfx": "hit",
+        "ebene": "blender",
+        "bild": "Kamera kommt frontal vor dem Schaufenster zur Ruhe"
+      },
+      {
+        "id": "layers_explode",
+        "anker": {
+          "vo": "v05",
+          "wort": "programmiert"
+        },
+        "offset_s": -0.2,
+        "sfx": "shimmer",
+        "ebene": "beide",
+        "bild": "Die Seite zerlegt sich in Schichten (Raster, Typo, Bilder, echter Quellcode), die mit Tiefenunschärfe auseinanderfliegen"
+      },
+      {
+        "id": "layers_snap",
+        "anker": {
+          "vo": "v05",
+          "wort": "Kein"
+        },
+        "offset_s": -0.15,
+        "sfx": "hit",
+        "ebene": "blender",
+        "bild": "Schichten rasten satt wieder ein"
+      },
+      {
+        "id": "tower_fall",
+        "anker": {
+          "vo": "v05",
+          "wort": "Baukasten"
+        },
+        "offset_s": 0.0,
+        "sfx": "clatter",
+        "ebene": "blender",
+        "bild": "Turm aus Bausteinen ('Plugin', 'Theme', 'Tracking') kippt und fällt mit Physik aus dem Bild"
+      },
+      {
+        "id": "speed_line",
+        "anker": {
+          "vo": "v06",
+          "wort": "Sekunde"
+        },
+        "offset_s": -0.25,
+        "sfx": "riser",
+        "ebene": "fusion",
+        "bild": "Eine Linie rast quer durchs Bild, '< 1 s' stoppt hart"
+      },
+      {
+        "id": "de_pin",
+        "anker": {
+          "vo": "v06",
+          "wort": "Deutschland"
+        },
+        "offset_s": 0.0,
+        "sfx": "tick",
+        "ebene": "fusion",
+        "bild": "Wert 'Gehostet in Deutschland' rastet ein"
+      },
+      {
+        "id": "calendar_ticks",
+        "anker": {
+          "vo": "v06",
+          "wort": "gesichert"
+        },
+        "offset_s": -0.3,
+        "sfx": "tick",
+        "ebene": "fusion",
+        "bild": "Kalenderraster 1–30 hakt im Zeitraffer ab"
+      },
+      {
+        "id": "month_carousel",
+        "anker": {
+          "vo": "v07",
+          "wort": "monatlich"
+        },
+        "offset_s": -0.1,
+        "sfx": "whoosh",
+        "ebene": "fusion",
+        "bild": "Monatskarten Jan–Dez gleiten als Karussell durch, darauf 'Ein fester Betrag'"
+      },
+      {
+        "id": "key_turn",
+        "anker": {
+          "vo": "v08",
+          "wort": "Ihnen"
+        },
+        "offset_s": 0.0,
+        "sfx": "lock",
+        "ebene": "blender",
+        "bild": "3D-Schlüssel dreht sich ins Schloss; Label git clone — Ihr Repository"
+      }
     ],
     "s3_netz": [
-      { "id": "dive_into_pixels", "anker": { "vo": "v09", "wort": "Netzwerk" }, "offset_s": -0.4, "sfx": "riser", "ebene": "blender", "bild": "Kamera taucht durch die Website-Pixel; Bildpunkte werden zu Netzknoten" },
-      { "id": "attacker",         "anker": { "vo": "v09", "wort": "Angreifer" }, "offset_s": 0.0, "sfx": "subdrop", "ebene": "blender", "bild": "Am Rand des Netzes tauchen rote Pakete auf" },
-      { "id": "firewall_wall",    "anker": { "vo": "v10", "wort": "Firewall" }, "offset_s": -0.1, "sfx": "hit", "ebene": "beide", "bild": "Wand aus Lichtflächen fährt hoch; Text 'Firewall' + 'FortiGate · OPNsense'" },
-      { "id": "packets_bounce",   "anker": { "vo": "v10", "wort": "herstellerneutral" }, "offset_s": 0.0, "sfx": "tick", "ebene": "blender", "bild": "Rote Pakete prallen funkenschlagend ab, grüne gehen durch" },
-      { "id": "radar_sweep",      "anker": { "vo": "v11", "wort": "Zero" }, "offset_s": -0.2, "sfx": "riser", "ebene": "beide", "bild": "Radarstrahl sucht das Feld ab" },
-      { "id": "net_vanish",       "anker": { "vo": "v11", "wort": "unsichtbar" }, "offset_s": 0.0, "sfx": "shimmer", "ebene": "beide", "bild": "Firmennetz löst sich ins Dunkel auf, Radar findet nichts" },
-      { "id": "zero_ports",       "anker": { "vo": "v11", "wort": "Port" }, "offset_s": 0.0, "sfx": "hit", "ebene": "fusion", "bild": "Große '0' + 'offene Ports'" },
-      { "id": "mtls_lock",        "anker": { "vo": "v11", "wort": "könnte", "kante": "ende" }, "offset_s": 0.1, "sfx": "lock", "ebene": "blender", "bild": "Ein Laptop zieht ein feines Band zu genau einem Dienst; Schloss rastet" }
+      {
+        "id": "dive_into_pixels",
+        "anker": {
+          "vo": "v09",
+          "wort": "Netzwerk"
+        },
+        "offset_s": -0.4,
+        "sfx": "riser",
+        "ebene": "blender",
+        "bild": "Kamera taucht durch die Website-Pixel; Bildpunkte werden zu Netzknoten"
+      },
+      {
+        "id": "attacker",
+        "anker": {
+          "vo": "v09",
+          "wort": "Angreifer"
+        },
+        "offset_s": 0.0,
+        "sfx": "subdrop",
+        "ebene": "blender",
+        "bild": "Am Rand des Netzes tauchen rote Pakete auf"
+      },
+      {
+        "id": "firewall_wall",
+        "anker": {
+          "vo": "v10",
+          "wort": "Firewall"
+        },
+        "offset_s": -0.1,
+        "sfx": "hit",
+        "ebene": "beide",
+        "bild": "Wand aus Lichtflächen fährt hoch; Text 'Firewall' + 'FortiGate · OPNsense'"
+      },
+      {
+        "id": "packets_bounce",
+        "anker": {
+          "vo": "v10",
+          "wort": "herstellerneutral"
+        },
+        "offset_s": 0.0,
+        "sfx": "tick",
+        "ebene": "blender",
+        "bild": "Rote Pakete prallen funkenschlagend ab, grüne gehen durch"
+      },
+      {
+        "id": "radar_sweep",
+        "anker": {
+          "vo": "v11",
+          "wort": "Zero"
+        },
+        "offset_s": -0.2,
+        "sfx": "riser",
+        "ebene": "beide",
+        "bild": "Radarstrahl sucht das Feld ab"
+      },
+      {
+        "id": "net_vanish",
+        "anker": {
+          "vo": "v11",
+          "wort": "unsichtbar"
+        },
+        "offset_s": 0.0,
+        "sfx": "shimmer",
+        "ebene": "beide",
+        "bild": "Firmennetz löst sich ins Dunkel auf, Radar findet nichts"
+      },
+      {
+        "id": "zero_ports",
+        "anker": {
+          "vo": "v11",
+          "wort": "Port"
+        },
+        "offset_s": 0.0,
+        "sfx": "hit",
+        "ebene": "fusion",
+        "bild": "Große '0' + 'offene Ports'"
+      },
+      {
+        "id": "mtls_lock",
+        "anker": {
+          "vo": "v11",
+          "wort": "könnte",
+          "kante": "ende"
+        },
+        "offset_s": 0.1,
+        "sfx": "lock",
+        "ebene": "blender",
+        "bild": "Ein Laptop zieht ein feines Band zu genau einem Dienst; Schloss rastet"
+      }
     ],
     "s4_ernstfall": [
-      { "id": "red_tendrils",   "anker": { "vo": "v12", "wort": "Ransomware" }, "offset_s": -0.2, "sfx": "subdrop", "ebene": "blender", "bild": "Dunkelrote Rauch-Ranken kriechen auf drei Backup-Würfel zu" },
-      { "id": "immutable_lock", "anker": { "vo": "v13", "wort": "unveränderbare" }, "offset_s": 0.0, "sfx": "lock", "ebene": "beide", "bild": "Ein Würfel bekommt ein Schloss" },
-      { "id": "shockwave",      "anker": { "vo": "v13", "wort": "Kopien" }, "offset_s": 0.15, "sfx": "hit", "ebene": "blender", "bild": "Ranken schlagen ein, Brechungs-Schockwelle läuft durch den Würfel, Ranken weichen zurück" },
-      { "id": "rewind",         "anker": { "vo": "v13", "wort": "zurück" }, "offset_s": -0.3, "sfx": "rewind", "ebene": "beide", "bild": "Die ganze Szene spult mit Bewegungsunschärfe zurück, Würfel fliegen in den Server" },
-      { "id": "hope_fade",      "anker": { "vo": "v13", "wort": "Hoffnung" }, "offset_s": 0.0, "sfx": "downer", "ebene": "fusion", "bild": "'Hoffnung' dünn und blass, wird durch 'getestet ✓' ersetzt" }
+      {
+        "id": "red_tendrils",
+        "anker": {
+          "vo": "v12",
+          "wort": "Ransomware"
+        },
+        "offset_s": -0.2,
+        "sfx": "subdrop",
+        "ebene": "blender",
+        "bild": "Dunkelrote Rauch-Ranken kriechen auf drei Backup-Würfel zu"
+      },
+      {
+        "id": "immutable_lock",
+        "anker": {
+          "vo": "v13",
+          "wort": "unveränderbare"
+        },
+        "offset_s": 0.0,
+        "sfx": "lock",
+        "ebene": "beide",
+        "bild": "Ein Würfel bekommt ein Schloss"
+      },
+      {
+        "id": "shockwave",
+        "anker": {
+          "vo": "v13",
+          "wort": "Kopien"
+        },
+        "offset_s": 0.15,
+        "sfx": "hit",
+        "ebene": "blender",
+        "bild": "Ranken schlagen ein, Brechungs-Schockwelle läuft durch den Würfel, Ranken weichen zurück"
+      },
+      {
+        "id": "rewind",
+        "anker": {
+          "vo": "v13",
+          "wort": "zurück"
+        },
+        "offset_s": -0.3,
+        "sfx": "rewind",
+        "ebene": "beide",
+        "bild": "Die ganze Szene spult mit Bewegungsunschärfe zurück, Würfel fliegen in den Server"
+      },
+      {
+        "id": "hope_fade",
+        "anker": {
+          "vo": "v13",
+          "wort": "nur"
+        },
+        "offset_s": 0.0,
+        "sfx": "downer",
+        "ebene": "fusion",
+        "bild": "'Hoffnung' dünn und blass bei 'nur', 12 Frames später ersetzt durch 'getestet ✓' — steht damit über 'Hoffnung' bis Szenenende"
+      }
     ],
     "s5_betrieb": [
-      { "id": "invoice_spin",    "anker": { "vo": "v14", "wort": "Vielfaches" }, "offset_s": -0.5, "sfx": "riser", "ebene": "blender", "bild": "3D-Rechnung, Betrag dreht unkontrolliert hoch (verwischte Ziffern, keine echte Zahl)" },
-      { "id": "paper_plane",     "anker": { "vo": "v14", "wort": "Proxmox" }, "offset_s": -0.2, "sfx": "whoosh", "ebene": "beide", "bild": "Papier faltet sich zum Flieger und fliegt die Umzugsbahn zur Proxmox-Karte" },
-      { "id": "rollback_path",   "anker": { "vo": "v14", "wort": "Rückweg" }, "offset_s": 0.0, "sfx": "shimmer", "ebene": "beide", "bild": "Gestrichelte 'Rückweg'-Bahn zeichnet sich zurück" },
-      { "id": "rolling_update",  "anker": { "vo": "v15", "wort": "Betrieb" }, "offset_s": 0.0, "sfx": "tick", "ebene": "beide", "bild": "Container-Blöcke tauschen nacheinander, Statuslinie bleibt grün" },
-      { "id": "dashboards",      "anker": { "vo": "v15", "wort": "Dashboards" }, "offset_s": 0.0, "sfx": "hit", "ebene": "blender", "bild": "Dashboard-Kacheln setzen sich zusammen" }
+      {
+        "id": "invoice_spin",
+        "anker": {
+          "vo": "v14",
+          "wort": "Vielfaches"
+        },
+        "offset_s": -0.5,
+        "sfx": "riser",
+        "ebene": "blender",
+        "bild": "3D-Rechnung, Betrag dreht unkontrolliert hoch (verwischte Ziffern, keine echte Zahl)"
+      },
+      {
+        "id": "paper_plane",
+        "anker": {
+          "vo": "v14",
+          "wort": "Proxmox"
+        },
+        "offset_s": -0.2,
+        "sfx": "whoosh",
+        "ebene": "beide",
+        "bild": "Papier faltet sich zum Flieger und fliegt die Umzugsbahn zur Proxmox-Karte"
+      },
+      {
+        "id": "rollback_path",
+        "anker": {
+          "vo": "v14",
+          "wort": "Rückweg"
+        },
+        "offset_s": 0.0,
+        "sfx": "shimmer",
+        "ebene": "beide",
+        "bild": "Gestrichelte 'Rückweg'-Bahn zeichnet sich zurück"
+      },
+      {
+        "id": "rolling_update",
+        "anker": {
+          "vo": "v15",
+          "wort": "Betrieb"
+        },
+        "offset_s": 0.0,
+        "sfx": "tick",
+        "ebene": "beide",
+        "bild": "Container-Blöcke tauschen nacheinander, Statuslinie bleibt grün"
+      },
+      {
+        "id": "dashboards",
+        "anker": {
+          "vo": "v15",
+          "wort": "Dashboards"
+        },
+        "offset_s": 0.0,
+        "sfx": "hit",
+        "ebene": "blender",
+        "bild": "Dashboard-Kacheln setzen sich zusammen"
+      }
     ],
     "s6_beweis": [
-      { "id": "prospect_paper",  "anker": { "vo": "v16", "wort": "Prospekt" }, "offset_s": 0.0, "sfx": "paper", "ebene": "blender", "bild": "Ein Hochglanz-Prospekt flattert weg" },
-      { "id": "grafana_flyover", "anker": { "vo": "v16", "wort": "betreiben" }, "offset_s": -0.2, "sfx": "riser", "ebene": "beide", "bild": "Echter Grafana-Screenshot als Landschaft, Kamera fliegt tief darüber, Kurven zeichnen sich nach" },
-      { "id": "stamp",           "anker": { "vo": "v17", "wort": "Mockup" }, "offset_s": 0.0, "sfx": "hit", "ebene": "fusion", "bild": "Stempel KEIN MOCKUP · ECHTES MONITORING, um -3° gedreht" },
-      { "id": "fan_panels",      "anker": { "vo": "v17", "wort": "Monitoring" }, "offset_s": 0.0, "sfx": "whoosh", "ebene": "blender", "bild": "PBS- und Proxmox-Screenshots fächern daneben auf" }
+      {
+        "id": "prospect_paper",
+        "anker": {
+          "vo": "v16",
+          "wort": "Prospekt"
+        },
+        "offset_s": 0.0,
+        "sfx": "paper",
+        "ebene": "blender",
+        "bild": "Ein Hochglanz-Prospekt flattert weg"
+      },
+      {
+        "id": "grafana_flyover",
+        "anker": {
+          "vo": "v16",
+          "wort": "betreiben"
+        },
+        "offset_s": -0.2,
+        "sfx": "riser",
+        "ebene": "beide",
+        "bild": "Echter Grafana-Screenshot als Landschaft, Kamera fliegt tief darüber, Kurven zeichnen sich nach"
+      },
+      {
+        "id": "stamp",
+        "anker": {
+          "vo": "v17",
+          "wort": "Mockup"
+        },
+        "offset_s": 0.0,
+        "sfx": "hit",
+        "ebene": "fusion",
+        "bild": "Stempel KEIN MOCKUP · ECHTES MONITORING, um -3° gedreht"
+      },
+      {
+        "id": "fan_panels",
+        "anker": {
+          "vo": "v17",
+          "wort": "Monitoring"
+        },
+        "offset_s": 0.0,
+        "sfx": "whoosh",
+        "ebene": "blender",
+        "bild": "PBS- und Proxmox-Screenshots fächern daneben auf"
+      }
     ],
     "s7_team": [
-      { "id": "converge",        "anker": { "vo": "v18", "wort": "Team" }, "offset_s": 0.0, "sfx": "sting", "ebene": "beide", "bild": "Alle Objekte der Nacht treffen sich, Band schnürt sie zu einem Bündel" },
-      { "id": "converge_sub",    "anker": { "vo": "v18", "wort": "Website" }, "offset_s": 0.0, "sfx": "whoosh", "ebene": "fusion", "bild": "Unterzeile 'Von der Website bis zur Firewall.'" },
-      { "id": "tickets_fall",    "anker": { "vo": "v19", "wort": "Ticketstapel" }, "offset_s": 0.0, "sfx": "clatter", "ebene": "blender", "bild": "Turm aus Ticketzetteln bricht zusammen" },
-      { "id": "direct_line",     "anker": { "vo": "v19", "wort": "bauen" }, "offset_s": 0.0, "sfx": "whoosh", "ebene": "blender", "bild": "Eine direkte Linie (Band) zieht von 'Sie' zu den Leuten" },
-      { "id": "workday",         "anker": { "vo": "v19", "wort": "Werktags" }, "offset_s": 0.0, "sfx": "tick", "ebene": "fusion", "bild": "'Antwort innerhalb eines Werktags.'" },
-      { "id": "docs_fly",        "anker": { "vo": "v20", "wort": "Dokumentation" }, "offset_s": -0.2, "sfx": "paper", "ebene": "blender", "bild": "Doku-Seiten fliegen in einen Ordner" },
-      { "id": "blackbox_unfold", "anker": { "vo": "v20", "wort": "Box" }, "offset_s": 0.0, "sfx": "shimmer", "ebene": "beide", "bild": "Schwarzer Würfel klappt zu offenem Drahtgitter-Würfel auf" }
+      {
+        "id": "converge",
+        "anker": {
+          "vo": "v18",
+          "wort": "Team"
+        },
+        "offset_s": 0.0,
+        "sfx": "sting",
+        "ebene": "beide",
+        "bild": "Alle Objekte der Nacht treffen sich, Band schnürt sie zu einem Bündel"
+      },
+      {
+        "id": "converge_sub",
+        "anker": {
+          "vo": "v18",
+          "wort": "Website"
+        },
+        "offset_s": 0.0,
+        "sfx": "whoosh",
+        "ebene": "fusion",
+        "bild": "Unterzeile 'Von der Website bis zur Firewall.'"
+      },
+      {
+        "id": "tickets_fall",
+        "anker": {
+          "vo": "v19",
+          "wort": "Ticketstapel"
+        },
+        "offset_s": 0.0,
+        "sfx": "clatter",
+        "ebene": "blender",
+        "bild": "Turm aus Ticketzetteln bricht zusammen"
+      },
+      {
+        "id": "direct_line",
+        "anker": {
+          "vo": "v19",
+          "wort": "bauen"
+        },
+        "offset_s": 0.0,
+        "sfx": "whoosh",
+        "ebene": "blender",
+        "bild": "Eine direkte Linie (Band) zieht von 'Sie' zu den Leuten"
+      },
+      {
+        "id": "workday",
+        "anker": {
+          "vo": "v19",
+          "wort": "Werktags"
+        },
+        "offset_s": 0.0,
+        "sfx": "tick",
+        "ebene": "fusion",
+        "bild": "'Antwort innerhalb eines Werktags.'"
+      },
+      {
+        "id": "docs_fly",
+        "anker": {
+          "vo": "v20",
+          "wort": "Dokumentation"
+        },
+        "offset_s": -0.2,
+        "sfx": "paper",
+        "ebene": "blender",
+        "bild": "Doku-Seiten fliegen in einen Ordner"
+      },
+      {
+        "id": "blackbox_unfold",
+        "anker": {
+          "vo": "v20",
+          "wort": "Box"
+        },
+        "offset_s": 0.0,
+        "sfx": "shimmer",
+        "ebene": "beide",
+        "bild": "Schwarzer Würfel klappt zu offenem Drahtgitter-Würfel auf"
+      }
     ],
     "s8_morgen": [
-      { "id": "clock_roll_7",  "anker": { "vo": "v21", "wort": "Uhr", "kante": "ende" }, "offset_s": 0.0, "sfx": "hit", "ebene": "fusion", "bild": "Rollzähler 06:59:58 → 07:00:00" },
-      { "id": "dawn",          "anker": { "vo": "v21", "wort": "läuft" }, "offset_s": -0.3, "sfx": "swell", "ebene": "blender", "bild": "Morgenlicht steigt von unten auf: Nacht → Blau/Mint" },
-      { "id": "bell_sleep",    "anker": { "vo": "v21", "wort": "geweckt" }, "offset_s": 0.0, "sfx": "downer", "ebene": "fusion", "bild": "Weckerglocke aus Szene 1 schläft ein und löst sich auf; 'Niemand wurde geweckt.'" },
-      { "id": "logo_fold",     "anker": { "vo": "v22", "wort": "nomissuccess", "kante": "ende" }, "offset_s": 0.0, "sfx": "sting", "ebene": "beide", "bild": "Band faltet sich zum 3D-N und landet; Wortmarke schreibt sich aus" },
-      { "id": "claim",         "anker": { "vo": "v22", "wort": "Infrastruktur" }, "offset_s": 0.0, "sfx": "hit", "ebene": "fusion", "bild": "Claim erscheint unter der Wortmarke" },
-      { "id": "cta",           "anker": { "vo": "v23", "wort": "Erstgespräch" }, "offset_s": 0.0, "sfx": "whoosh", "ebene": "fusion", "bild": "Pill 'Erstgespräch · 30 Minuten · kostenlos'" },
-      { "id": "url",           "anker": { "vo": "v23", "wort": "punkt" }, "offset_s": 0.0, "sfx": "hit", "ebene": "fusion", "bild": "nomissuccess.de steht; Lockup bleibt bis zum letzten Bild" }
+      {
+        "id": "clock_roll_7",
+        "anker": {
+          "vo": "v21",
+          "wort": "Uhr",
+          "kante": "ende"
+        },
+        "offset_s": 0.0,
+        "sfx": "hit",
+        "ebene": "fusion",
+        "bild": "Rollzähler 06:59:58 → 07:00:00"
+      },
+      {
+        "id": "dawn",
+        "anker": {
+          "vo": "v21",
+          "wort": "läuft"
+        },
+        "offset_s": -0.3,
+        "sfx": "swell",
+        "ebene": "blender",
+        "bild": "Morgenlicht steigt von unten auf: Nacht → Blau/Mint"
+      },
+      {
+        "id": "bell_sleep",
+        "anker": {
+          "vo": "v21",
+          "wort": "geweckt"
+        },
+        "offset_s": 0.0,
+        "sfx": "downer",
+        "ebene": "fusion",
+        "bild": "Weckerglocke aus Szene 1 schläft ein und löst sich auf; 'Niemand wurde geweckt.'"
+      },
+      {
+        "id": "logo_fold",
+        "anker": {
+          "vo": "v22",
+          "wort": "nomissuccess",
+          "kante": "ende"
+        },
+        "offset_s": 0.0,
+        "sfx": "sting",
+        "ebene": "beide",
+        "bild": "Band faltet sich zum 3D-N und landet; Wortmarke schreibt sich aus"
+      },
+      {
+        "id": "claim",
+        "anker": {
+          "vo": "v22",
+          "wort": "Infrastruktur"
+        },
+        "offset_s": 0.0,
+        "sfx": "hit",
+        "ebene": "fusion",
+        "bild": "Claim erscheint unter der Wortmarke"
+      },
+      {
+        "id": "cta",
+        "anker": {
+          "vo": "v23",
+          "wort": "Erstgespräch"
+        },
+        "offset_s": 0.0,
+        "sfx": "whoosh",
+        "ebene": "fusion",
+        "bild": "Pill 'Erstgespräch · 30 Minuten · kostenlos'"
+      },
+      {
+        "id": "url",
+        "anker": {
+          "vo": "v23",
+          "wort": "punkt"
+        },
+        "offset_s": 0.0,
+        "sfx": "hit",
+        "ebene": "fusion",
+        "bild": "nomissuccess.de steht; Lockup bleibt bis zum letzten Bild"
+      }
     ],
     "abspann": [
-      { "id": "endcard_in", "anker": { "szenenstart": true }, "offset_s": 0.0, "sfx": "shimmer", "ebene": "fusion", "bild": "made by / nomissuccess, animiert; letzter Akkord klingt aus" }
+      {
+        "id": "endcard_in",
+        "anker": {
+          "szenenstart": true
+        },
+        "offset_s": 0.0,
+        "sfx": "shimmer",
+        "ebene": "fusion",
+        "bild": "made by / nomissuccess, animiert; letzter Akkord klingt aus"
+      }
     ]
   }
 }
