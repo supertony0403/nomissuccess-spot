@@ -86,6 +86,13 @@ JUSTIFY = {"left": (-1, 0), "center": (0, 1), "right": (1, 2)}
 ANCHOR_V = {"top": -1, "center": 0, "bottom": 1}
 
 GRID_16x9 = (120, 96)          # left/right and top/bottom margin of the text grid, px
+
+# Motion-blur samples per frame. Fusion renders a tool ``Quality`` times per frame while
+# MotionBlur is on, moving or not; 8–24 made the master render ~3 h. Cap at 4 (6 for
+# the fast rolling-counter drums, ``fast=True``); ``Comp.to_text`` additionally drops
+# blur on tools that never move and keys Quality to 1 outside their motion windows.
+MB_QUALITY_MAX = 4
+MB_QUALITY_FAST = 6
 SAFE_9x16 = (90, 215, 405)      # sides, top, bottom of the 9:16 safe area, px
 
 _NAME = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
@@ -499,7 +506,7 @@ class Comp:
         anchor_v: str = "top",
         line_spacing: float = 1.0,
         motion_blur: bool = False,
-        quality: int = 8,
+        quality: int = MB_QUALITY_MAX,
         shutter: float = 180.0,
     ) -> str:
         """Text+ tool. ``tracking`` is Fusion's CharacterSpacing (1.0 = font default).
@@ -524,7 +531,7 @@ class Comp:
             "Red1": r, "Green1": g, "Blue1": b, "Opacity1": a,
         }
         if motion_blur:
-            inputs.update(MotionBlur=1, Quality=int(quality), ShutterAngle=_finite(shutter))
+            inputs.update(MotionBlur=1, Quality=min(int(quality), MB_QUALITY_MAX), ShutterAngle=_finite(shutter))
         tool = self._add(name, "TextPlus", inputs)
         if follower is None:
             tool.inputs["StyledText"] = text
@@ -551,12 +558,14 @@ class Comp:
         size: float = 1.0,
         angle: float = 0.0,
         motion_blur: bool = True,
-        quality: int = 8,
+        quality: int = MB_QUALITY_MAX,
         shutter: float = 180.0,
         *,
         pivot: tuple[float, float] | None = None,
+        fast: bool = False,
     ) -> str:
-        """Transform with real motion blur (``Quality`` samples over ``shutter`` degrees)."""
+        """Transform with real motion blur (``Quality`` samples over ``shutter`` degrees,
+        capped at MB_QUALITY_MAX, or MB_QUALITY_FAST for ``fast`` counter drums)."""
         inputs: dict[str, Any] = {
             "Input": Link(input),
             "Center": (_finite(center[0]), _finite(center[1])),
@@ -566,7 +575,8 @@ class Comp:
         if pivot is not None:
             inputs["Pivot"] = (_finite(pivot[0]), _finite(pivot[1]))
         if motion_blur:
-            inputs.update(MotionBlur=1, Quality=int(quality), ShutterAngle=_finite(shutter))
+            cap = MB_QUALITY_FAST if fast else MB_QUALITY_MAX
+            inputs.update(MotionBlur=1, Quality=min(int(quality), cap), ShutterAngle=_finite(shutter))
         self._add(name, "Transform", inputs)
         return name
 
@@ -787,7 +797,69 @@ class Comp:
         pos["MediaOut1"] = (110.0 * out_col, 0.0)
         return pos
 
+    def _spline_keys(self, inp: Any) -> list[dict[int, float]]:
+        """Keyframe dicts behind an input link (an XYPath gives its X and Y splines)."""
+        if not isinstance(inp, Link) or inp.op not in self._tools:
+            return []
+        src = self._tools[inp.op]
+        if src.regid == "BezierSpline":
+            return [{f: kf[1] for f, kf in src.fields["KeyFrames"].items()}]
+        if src.regid == "XYPath":
+            return [k for axis in ("X", "Y") for k in self._spline_keys(src.inputs.get(axis))]
+        return []
+
+    def _motion_windows(self, tool: _Tool) -> list[tuple[int, int]]:
+        """Frame ranges in which ``tool`` (or its character follower) moves."""
+        splines = []
+        extend = 0.0
+        for inp in ("Center", "Size", "Angle", "Pivot", "CharacterSpacing"):
+            splines += self._spline_keys(tool.inputs.get(inp))
+        st = tool.inputs.get("StyledText")
+        if isinstance(st, Link) and st.op in self._tools:
+            fol = self._tools[st.op]
+            text = fol.inputs.get("Text")
+            n = len(text.body["Value"]) if isinstance(text, Ctor) else 1
+            extend = float(fol.inputs.get("Delay", 0.0)) * n
+            for k, v in fol.inputs.items():
+                if k.startswith("Character"):
+                    splines += self._spline_keys(v)
+        wins = []
+        for keys in splines:
+            frames = sorted(keys)
+            for a, b in zip(frames, frames[1:]):
+                if keys[a] != keys[b]:
+                    wins.append((a - 1, int(math.ceil(b + extend)) + 1))
+        wins.sort()
+        merged: list[list[int]] = []
+        for a, b in wins:
+            if merged and a <= merged[-1][1] + 2:
+                merged[-1][1] = max(merged[-1][1], b)
+            else:
+                merged.append([a, b])
+        return [(a, b) for a, b in merged]
+
+    def _optimise_motion_blur(self) -> None:
+        """No blur on tools that never move; Quality 1 outside their motion windows."""
+        for tool in list(self._tools.values()):
+            if tool.inputs.get("MotionBlur") != 1 or isinstance(tool.inputs.get("Quality"), Link):
+                continue
+            wins = self._motion_windows(tool)
+            if not wins:
+                tool.inputs["MotionBlur"] = 0
+                continue
+            q = tool.inputs["Quality"]
+            keys: dict[int, float] = {}
+            for a, b in wins:
+                keys[a] = q
+                keys[b] = 1
+            if min(keys) > 0:
+                keys[0] = 1
+            self.keyframes(tool.name, "Quality", dict(sorted(keys.items())), ease="step")
+
     def to_text(self) -> str:
+        if not getattr(self, "_mb_done", False):
+            self._mb_done = True
+            self._optimise_motion_blur()
         self._validate()
         last = self.frames - 1
         pos = self._layout()

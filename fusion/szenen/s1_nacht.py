@@ -153,7 +153,7 @@ def _counter(c: cw.Comp, lay: Layout, z: Zeiten, scene: _Stack, fmt: str) -> Non
         for j, d in enumerate(digits):
             strip.add(c.text(f"Z{idx}D{j}", d, font=fam, style=sty, size=size, color=WHITE,
                              center=c.px(cx, lay.counter_top + j * pitch), justify="center"))
-        xf = c.transform(f"Z{idx}Xf", strip.top, motion_blur=True, quality=16, shutter=300.0)
+        xf = c.transform(f"Z{idx}Xf", strip.top, motion_blur=True, quality=16, shutter=300.0, fast=True)
         keys = {0: (0.5, 0.5)}
         for j, k in enumerate(changes, start=1):
             land = z.ticks[k - 1]

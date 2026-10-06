@@ -213,8 +213,9 @@ def test_transform_has_motion_blur_settings_and_input_link():
     x = tools_of(comp.to_text())["Xf"]
     assert x.type_name == "Transform"
     assert link_of(x, "Input") == ("T", "Output")
-    assert input_value(x, "MotionBlur") == 1
-    assert input_value(x, "Quality") == 9
+    # a transform that never moves gets no motion blur (render time); quality is capped
+    assert input_value(x, "MotionBlur") == 0
+    assert input_value(x, "Quality") == cw.MB_QUALITY_MAX
     assert input_value(x, "ShutterAngle") == pytest.approx(270.0)
     assert as_list(input_value(x, "Center")) == pytest.approx([0.5, 0.4])
     assert input_value(x, "Size") == pytest.approx(1.1)

@@ -579,7 +579,7 @@ def rollzaehler(sz: Szene, prefix: str, states: list[str], ticks: list[int], lef
                         justify="center", motion_blur=False)
             sz.maskiert[tool] = window
             strip.add(tool)
-        xf = c.transform(f"{prefix}Z{idx}Xf", strip.top, motion_blur=True, quality=16, shutter=300.0)
+        xf = c.transform(f"{prefix}Z{idx}Xf", strip.top, motion_blur=True, quality=16, shutter=300.0, fast=True)
         keys = {0: (0.5, 0.5)}
         for j, k in enumerate(changes, start=1):
             land = ticks[k - 1]

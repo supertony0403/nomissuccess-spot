@@ -156,6 +156,47 @@ def test_comp_is_valid_and_spans_the_scene(gebaut, timeline, name, fmt):
                 assert node["SourceOp"] in tools, f"{tname}.{inp} → {node['SourceOp']}"
 
 
+def _quality_values(tools: dict, tool: str) -> list[float]:
+    node = tools[tool].get("Inputs", {}).get("Quality")
+    if node is None:
+        return []
+    if "Value" in node:
+        return [node["Value"]]
+    return list(_spline(tools, tool, "Quality").values())
+
+
+def test_no_comp_renders_more_than_6_motion_blur_samples(tmp_path, timeline):
+    """Render time: Quality ≤ 4, ≤ 6 only on the rolling-counter drums, 1 at rest, and
+    no blur on tools that never move (all 20 comps, HUD and scene 1 included)."""
+    from fusion import build_all
+
+    for path in build_all.build_all(tmp_path, FORMATE, timeline):
+        tools = parse_comp(path.read_text(encoding="utf-8"))["Tools"]
+        for name, tool in tools.items():
+            qs = _quality_values(tools, name)
+            if not qs:
+                continue
+            assert max(qs) <= cw.MB_QUALITY_FAST, f"{path.name}:{name} Quality {max(qs)}"
+            drum = "Z" in name and name.endswith("Xf") and "Rolle" not in name and name[-3:-2].isdigit()
+            if not drum:
+                assert max(qs) <= cw.MB_QUALITY_MAX, f"{path.name}:{name} Quality {max(qs)}"
+            if tool.get("Inputs", {}).get("MotionBlur", {}).get("Value") == 1:
+                keys = _spline(tools, name, "Quality")
+                assert keys is not None and min(keys.values()) == 1, f"{path.name}:{name} blurs at rest"
+
+
+def test_motion_blur_only_inside_motion_windows():
+    comp = cw.Comp(1920, 1080, frames=300)
+    comp.text("T", "x")
+    comp.transform("Ruhig", "T", quality=16)
+    comp.transform("Bewegt", "T", quality=16)
+    comp.keyframes("Bewegt", "Center", {100: (0.5, 0.4), 120: (0.5, 0.5), 200: (0.5, 0.5)})
+    tools = parse_comp(comp.to_text())["Tools"]
+    assert tools["Ruhig"]["Inputs"]["MotionBlur"]["Value"] == 0
+    q = _spline(tools, "Bewegt", "Quality")
+    assert q[0] == 1 and q[99] == cw.MB_QUALITY_MAX and q[121] == 1 and max(q.values()) == cw.MB_QUALITY_MAX
+
+
 def test_build_all_writes_every_comp_of_both_formats(tmp_path, timeline):
     from fusion import build_all
 
