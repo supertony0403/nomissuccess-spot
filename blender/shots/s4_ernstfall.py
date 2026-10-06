@@ -296,6 +296,33 @@ def tendril_paths(rng):
 # objects
 # ---------------------------------------------------------------------------
 
+def perforated_mat():
+    """Front grille: brushed dark metal with a fine hole grid (object space)."""
+    mat, nt = S.new_mat("S4Lochblech")
+    out = nt.nodes.new("ShaderNodeOutputMaterial")
+    b = nt.nodes.new("ShaderNodeBsdfPrincipled")
+    b.name = "BSDF"
+    tc = nt.nodes.new("ShaderNodeTexCoord")
+    sep = nt.nodes.new("ShaderNodeSeparateXYZ")
+    nt.links.new(tc.outputs["Object"], sep.inputs[0])
+    mm = S.math_node
+    pitch = 0.016
+    fx = mm(nt, "SUBTRACT", mm(nt, "FRACT", mm(nt, "DIVIDE", sep.outputs["X"], pitch)), 0.5)
+    fz = mm(nt, "SUBTRACT", mm(nt, "FRACT", mm(nt, "DIVIDE", sep.outputs["Z"], pitch)), 0.5)
+    r = mm(nt, "SQRT", mm(nt, "ADD", mm(nt, "MULTIPLY", fx, fx), mm(nt, "MULTIPLY", fz, fz)))
+    hole = mm(nt, "LESS_THAN", r, 0.30)
+    col = nt.nodes.new("ShaderNodeMix")
+    col.data_type = "RGBA"
+    nt.links.new(hole, col.inputs["Factor"])
+    col.inputs[6].default_value = S.lin("#24272f")
+    col.inputs[7].default_value = (0.002, 0.002, 0.003, 1.0)
+    nt.links.new(col.outputs[2], b.inputs["Base Color"])
+    nt.links.new(mm(nt, "SUBTRACT", 0.8, mm(nt, "MULTIPLY", hole, 0.8)), b.inputs["Metallic"])
+    b.inputs["Roughness"].default_value = 0.38
+    nt.links.new(b.outputs[0], out.inputs["Surface"])
+    return mat
+
+
 def build_server(coll):
     alu = S.principled("S4Gehaeuse", "#16181e", rough=0.34, metal=0.8, aniso=0.3)
     bay_dark = S.principled("S4Schacht", "#030305", rough=0.8)
@@ -303,9 +330,11 @@ def build_server(coll):
     root.rotation_euler = (0, 0, SERVER_YAW)
     body = S.box("Server_Gehaeuse", (1.0, 0.8, 1.55), (0, 0, 0.775), alu, bevel=0.02, segments=3, coll=coll)
     body.parent = root
+    front = S.box("Server_Front", (0.92, 0.012, 1.47), (0.0, -0.403, 0.775), perforated_mat(), bevel=0.004, segments=2, coll=coll)
+    front.parent = root
     bays, leds, led_mats = [], [], []
     for i, z in enumerate((1.18, 0.78, 0.38)):
-        bay = S.box(f"Server_Schacht_{i}", (0.66, 0.02, 0.32), (0.0, -0.405, z), bay_dark, coll=coll)
+        bay = S.box(f"Server_Schacht_{i}", (0.66, 0.02, 0.32), (0.0, -0.412, z), bay_dark, bevel=0.006, segments=2, coll=coll)
         bay.parent = root
         lm = S.principled(f"S4LED_{i}", "#000000", emission=S.lin(BLUE), estr=0.0)
         S.drive_input(lm, "Emission Strength", "Leuchten", 0.0)
@@ -316,14 +345,14 @@ def build_server(coll):
         mix.inputs[7].default_value = S.lin(MINT)
         lm.node_tree.links.new(S.value_node(lm.node_tree, "Gruen", 0.0), mix.inputs["Factor"])
         lm.node_tree.links.new(mix.outputs[2], lm.node_tree.nodes["BSDF"].inputs["Emission Color"])
-        led = S.box(f"Server_LED_{i}", (0.58, 0.012, 0.012), (0.0, -0.412, z - 0.19), lm, coll=coll)
+        led = S.box(f"Server_LED_{i}", (0.58, 0.012, 0.012), (0.0, -0.418, z - 0.19), lm, coll=coll)
         led.parent = root
         bays.append(bay)
         leds.append(led)
         led_mats.append(lm)
     strip_m = S.principled("S4Streifen", "#000000", emission=S.lin(BLUE), estr=0.0)
     S.drive_input(strip_m, "Emission Strength", "Leuchten", 0.0)
-    strip = S.box("Server_Streifen", (0.012, 0.012, 1.2), (0.44, -0.412, 0.78), strip_m, coll=coll)
+    strip = S.box("Server_Streifen", (0.012, 0.012, 1.2), (0.44, -0.418, 0.78), strip_m, coll=coll)
     strip.parent = root
     return root, [body] + bays + leds + [strip], led_mats, strip_m
 
