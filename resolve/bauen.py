@@ -32,6 +32,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import sys
@@ -95,9 +96,14 @@ class Pfade:
         return self.arbeit / f"traeger_{fmt}.mov"
 
     def eigen(self, path: Path | str) -> bool:
-        """Clips the builder may recognise as its own: inside the repo or ~/Videos/nomissuccess-spot."""
-        p = Path(str(path))
-        return any(p == root or root in p.parents for root in (self.repo, VIDEOS_DIR))
+        """Clips the builder may recognise as its own: inside the repo or ~/Videos/nomissuccess-spot,
+        also when Resolve reports the resolved path behind a symlink (renders/ and ~/Videos/
+        nomissuccess-spot live on /mnt/steam-library since 06.10.)."""
+        if not str(path):
+            return False
+        roots = {self.repo, VIDEOS_DIR, *(Path(os.path.realpath(r)) for r in (self.repo, self.renders, VIDEOS_DIR))}
+        candidates = {Path(str(path)), Path(os.path.realpath(str(path)))}
+        return any(c == root or root in c.parents for c in candidates for root in roots)
 
 
 @dataclass(frozen=True)
@@ -307,6 +313,11 @@ def alle_ordner(folder: Any) -> list[Any]:
     return found
 
 
+def norm(path: Path | str) -> str:
+    """Comparable form of a media path (symlinks resolved): Resolve may store either."""
+    return os.path.realpath(str(path)) if str(path) else ""
+
+
 def clip_pfad(clip: Any) -> str:
     return str(clip.GetClipProperty("File Path") or "")
 
@@ -429,11 +440,11 @@ class Bauer:
         for p in plaene:
             for clip in p.clips:
                 wanted.setdefault(clip.medium, clip.bin)
-        by_str = {str(path): path for path in wanted}
+        by_str = {norm(path): path for path in wanted}
         found: dict[Path, list[tuple[Any, Any]]] = {}
         for folder, clip in eigene_clips(self.pool, self.pfade):
-            if clip_pfad(clip) in by_str:
-                found.setdefault(by_str[clip_pfad(clip)], []).append((folder, clip))
+            if norm(clip_pfad(clip)) in by_str:
+                found.setdefault(by_str[norm(clip_pfad(clip))], []).append((folder, clip))
         stale: list[Any] = []
         reuse: dict[Path, tuple[Any, Any]] = {}
         for path, entries in found.items():
@@ -466,9 +477,9 @@ class Bauer:
                 self.pool.SetCurrentFolder(folder)
                 items = self.pool.ImportMedia([str(path) for path in fresh]) or []
                 ra._guard(f"ImportMedia {bin_name}")
-                imported = {clip_pfad(item): item for item in items}
+                imported = {norm(clip_pfad(item)): item for item in items}
                 for path in fresh:
-                    item = imported.get(str(path))
+                    item = imported.get(norm(path))
                     if item is None:
                         raise BauFehler(f"ImportMedia did not import {path}")
                     self.media[path] = item

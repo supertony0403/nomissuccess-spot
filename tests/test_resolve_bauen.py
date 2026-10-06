@@ -6,6 +6,7 @@ never touches foreign media or timelines)."""
 from __future__ import annotations
 
 import json
+import os
 import shutil
 import sys
 from pathlib import Path
@@ -210,6 +211,7 @@ class FakePool:
         self.root = FakeFolder("Master")
         self.current = self.root
         self.imports = 0
+        self.resolve_symlinks = False
 
     def folders(self, folder=None):
         folder = folder or self.root
@@ -242,6 +244,8 @@ class FakePool:
     def ImportMedia(self, paths):
         out = []
         for path in paths:
+            if self.resolve_symlinks:  # Resolve may store the path behind a symlink
+                path = os.path.realpath(path)
             clip = FakeClip(self, path, self.frames_of(path))
             self.current.clips.append(clip)
             out.append(clip)
@@ -915,3 +919,63 @@ def test_truncated_png_in_the_middle_blocks_the_shot(tmp_path):
     (folder / "0003.png").write_bytes(data[: len(data) // 2])
     st = sk.status("s9_test", 5, tmp_path, running=set())
     assert st.letztes_lesbar and st.kaputt == [3] and not st.fertig
+
+
+def test_encoder_refuses_when_the_disk_is_nearly_full(tmp_path, monkeypatch):
+    """06.10.: the system disk ran full and Blender wrote truncated PNGs — never start a
+    multi-GB encode without room."""
+    import shutil as _shutil
+    folder = tmp_path / "s1_nacht"
+    folder.mkdir()
+    tl = json.loads(json.dumps(TL))
+    tl["szenen"] = [dict(TL["szenen"][0], ende_f=2)]  # 2 + 60 frames
+    for index in range(1, 63):
+        _png(folder / f"{index:04d}.png")
+    monkeypatch.setattr(sk, "blender_shots_running", lambda proc=None: set())
+    monkeypatch.setattr(_shutil, "disk_usage", lambda path: _shutil._ntuple_diskusage(100, 99, 10 ** 9))
+    monkeypatch.setattr(sk, "png_decodes", lambda path: True)
+    calls = []
+    monkeypatch.setattr(sk.subprocess, "run", lambda *a, **k: calls.append(a))
+    result = sk.kodieren("s1_nacht", tl, tmp_path)
+    assert result.startswith("offen: zu wenig Platz") and calls == []
+
+
+def test_render_refuses_without_room_for_the_masters(tmp_path, monkeypatch):
+    import shutil as _shutil
+    from resolve import rendern as r
+    monkeypatch.setattr(_shutil, "disk_usage", lambda path: _shutil._ntuple_diskusage(100, 99, 10 * 10 ** 9))
+    with pytest.raises(RuntimeError, match="zu wenig Platz"):
+        r.platz_pruefen(2, tmp_path)
+    r.platz_pruefen(0, tmp_path)  # 3 GB reserve fits
+
+
+
+def test_symlinked_renders_are_still_our_own_clips(tmp_path):
+    """06.10.: renders/ became a symlink to another disk. If Resolve stores the resolved
+    path, the builder must still recognise (not duplicate, not orphan) its clips."""
+    (tmp_path / "repo").mkdir()
+    pfade = fake_repo(tmp_path / "repo")
+    elsewhere = tmp_path / "andere_platte" / "renders"
+    elsewhere.parent.mkdir()
+    shutil.move(str(pfade.renders), str(elsewhere))
+    pfade.renders.symlink_to(elsewhere)
+    def frames_of(path):
+        return frames_of_factory(pfade)(str(pfade.renders / Path(path).name) if str(elsewhere) in path else path)
+    project = FakeProject(frames_of)
+    project.pool.resolve_symlinks = True
+    build(pfade, project)
+    first = snapshot(project)
+    assert all(str(elsewhere) in c.path for c in project.pool.all_clips() if c.path.endswith(".mov")
+               and "traeger" not in c.path)
+    assert all(pfade.eigen(c.path) for c in project.pool.all_clips())
+    build(pfade, project)
+    assert snapshot(project) == first
+
+
+
+def test_alpha_verdict_needs_transparency_and_visible_type():
+    """Measured 06.10. on the real master at clock_roll: 98.6 % equal, 1.2 % type."""
+    from resolve import rendern as r
+    assert r.alpha_urteil(0.986, 0.0117)      # real master: transparent layers + counter + HUD
+    assert not r.alpha_urteil(0.999, 0.0001)  # no comps at all
+    assert not r.alpha_urteil(0.20, 0.30)     # opaque layers cover the shot

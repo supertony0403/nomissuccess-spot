@@ -33,6 +33,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shutil
 import subprocess
 import sys
 import time
@@ -45,6 +46,8 @@ TIMELINE = REPO / "timeline.json"
 HANDLE_F = 30
 SIZE = 1440
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+BYTES_PRO_FRAME = 1_000_000  # ProRes 422 HQ 1440²: ~0.86 MB/frame measured (s2: 1.56 GB / 1823)
+RESERVE_BYTES = 2_000_000_000  # never fill the system disk (06.10.: Blender wrote truncated PNGs)
 PNG_IEND = b"\x00\x00\x00\x00IEND\xaeB`\x82"  # a complete PNG ends with this chunk
 
 # RGB -> Y'CbCr with the BT.709 matrix and tagged as such (ffmpeg's untagged default is
@@ -222,6 +225,10 @@ def kodieren(shot: str, timeline: dict, renders: Path = RENDERS, force: bool = F
         return "offen: " + st.zeile().split("offen: ", 1)[-1]
     mov = renders / f"{shot}.mov"
     tmp = renders / f".{shot}.tmp.mov"
+    noetig = soll * BYTES_PRO_FRAME + RESERVE_BYTES
+    frei = shutil.disk_usage(renders).free
+    if frei < noetig:
+        return f"offen: zu wenig Platz ({frei / 1e9:.1f} GB frei, {noetig / 1e9:.1f} GB nötig)"
     # -xerror: any decode error aborts with rc != 0 instead of duplicating the previous frame
     cmd = ["nice", "-n", "10", "ffmpeg", "-v", "error", "-xerror", "-y", "-framerate", "60", "-start_number", "1",
            "-i", str(renders / shot / "%04d.png"), "-frames:v", str(soll),

@@ -33,6 +33,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import shutil
 import subprocess
 import sys
 import time
@@ -54,7 +55,11 @@ LUFS_ZIEL, LUFS_TOL = -14.0, 0.5
 TP_MAX = -1.05
 TP_KORREKTUR_DB = -0.3  # gain on the reference mix when the AAC true peak breaks the ceiling
 MIX_TOL_LUFS, MIX_TOL_TP = 0.2, 0.3  # Resolve master vs. reference mix
-ALPHA_MIN, ALPHA_MAX = 0.6, 0.98
+# alpha check: >= 60 % of the picture equals the Blender frame (layers transparent) and
+# >= 0.2 % differs strongly (type on screen; the scene-1 counter + HUD measured 1.2 %)
+ALPHA_GLEICH_MIN, ALPHA_TYPO_MIN = 0.6, 0.002
+MASTER_BYTES = 9_000_000_000  # ProRes 422 HQ, 2.07 Mpx at 60 fps for 148.7 s ~ 8.2 GB
+RESERVE_BYTES = 3_000_000_000
 BT709 = ["-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-color_range", "tv"]
 X264 = ["-c:v", "libx264", "-crf", "16", "-preset", "slow", "-pix_fmt", "yuv420p", "-r", "60", *BT709]
 AAC = ["-c:a", "aac", "-b:a", "320k", "-ar", "48000"]
@@ -131,7 +136,7 @@ def ton_neu_muxen(mp4: Path, gain_db: float = 0.0) -> None:
     tmp = mp4.with_name(f".{mp4.name}")
     af = ["-af", f"volume={gain_db:.2f}dB"] if gain_db else []
     run(["ffmpeg", "-v", "error", "-y", "-i", str(mp4), "-i", str(REFERENZ), "-map", "0:v:0", "-map", "1:a:0",
-         "-c:v", "copy", *af, *AAC, "-movflags", "+faststart", str(tmp)])
+         "-c:v", "copy", *af, *AAC, "-write_tmcd", "0", "-movflags", "+faststart", str(tmp)])
     tmp.replace(mp4)
 
 
@@ -200,11 +205,11 @@ def mp4_machen(master: Path, fmt: str, dauer_f: int) -> dict:
     mp4, stumm = mp4_pfad(fmt), mp4_pfad(fmt, stumm=True)
     tmp = mp4.with_name(f".{mp4.name}")
     run(["nice", "-n", "5", "ffmpeg", "-v", "error", "-y", "-i", str(master), "-map", "0:v:0", "-map", "0:a:0",
-         *X264, *AAC, "-movflags", "+faststart", str(tmp)])
+         *X264, *AAC, "-write_tmcd", "0", "-movflags", "+faststart", str(tmp)])
     tmp.replace(mp4)
     loud = lautheit_sichern(mp4)
     run(["ffmpeg", "-v", "error", "-y", "-i", str(mp4), "-map", "0:v:0", "-c:v", "copy", "-an",
-         "-movflags", "+faststart", str(stumm)])
+         "-write_tmcd", "0", "-movflags", "+faststart", str(stumm)])
     info, info_stumm = probe(mp4), probe(stumm)
     problems = [f"{p.name}: {video_frames(i)} frames, expected {dauer_f}"
                 for p, i in ((mp4, info), (stumm, info_stumm)) if video_frames(i) != dauer_f]
@@ -235,8 +240,8 @@ def alpha_frames(timeline: dict, event_id: str = "clock_roll") -> tuple[dict, in
 
 
 def alpha_pruefung(master: Path, fmt: str, timeline: dict) -> dict:
-    """Share of pixels where the master equals the Blender frame (within 16 code values).
-    Opaque Fusion layers give ~0; no type at all gives ~1."""
+    """Compare the master with the Blender frame at the same spot frame. Opaque Fusion
+    layers make little of it equal; missing type leaves almost nothing strongly different."""
     import numpy as np
     w, h = bauen.FORMATE[fmt]
     szene, frame, quelle = alpha_frames(timeline)
@@ -246,9 +251,15 @@ def alpha_pruefung(master: Path, fmt: str, timeline: dict) -> dict:
     if a.size != b.size or a.size == 0:
         return {"frame": frame, "ok": False, "fehler": f"sizes {a.size} vs {b.size}"}
     diff = np.abs(a - b).reshape(-1, 3).max(axis=1)
-    share = float((diff <= 16).mean())
-    return {"frame": frame, "gleich_anteil": round(share, 3), "ok": ALPHA_MIN <= share <= ALPHA_MAX,
+    gleich, typo = float((diff <= 16).mean()), float((diff > 48).mean())
+    return {"frame": frame, "gleich_anteil": round(gleich, 4), "typo_anteil": round(typo, 4),
+            "ok": alpha_urteil(gleich, typo),
             "master_mittel": round(float(a.mean()), 1), "shot_mittel": round(float(b.mean()), 1)}
+
+
+def alpha_urteil(gleich: float, typo: float) -> bool:
+    """Transparent layers (most of the picture is the shot) and type actually on screen."""
+    return gleich >= ALPHA_GLEICH_MIN and typo >= ALPHA_TYPO_MIN
 
 
 # --------------------------------------------------------------------------------------
@@ -263,7 +274,17 @@ def prores_hq_codec(project: Any) -> str:
     raise RuntimeError(f"no ProRes 422 HQ in {codecs}")
 
 
+def platz_pruefen(anzahl_master: int, ziel: Path = VIDEOS_DIR) -> None:
+    """Refuse to start when the disk cannot take the masters (the system disk ran full on 06.10.)."""
+    ziel.mkdir(parents=True, exist_ok=True)
+    frei = shutil.disk_usage(ziel).free
+    noetig = anzahl_master * MASTER_BYTES + RESERVE_BYTES
+    if frei < noetig:
+        raise RuntimeError(f"zu wenig Platz in {ziel}: {frei / 1e9:.1f} GB frei, {noetig / 1e9:.1f} GB nötig")
+
+
 def resolve_rendern(formate: list[str], timeout_s: int = 3 * 3600) -> dict[str, Path]:
+    platz_pruefen(len(formate))
     resolve = ra.connect()
     project = ra.current_project(resolve)
     if project.IsRenderingInProgress():
@@ -290,8 +311,8 @@ def resolve_rendern(formate: list[str], timeout_s: int = 3 * 3600) -> dict[str, 
                 raise RuntimeError(f"SetCurrentRenderFormatAndCodec(mov, {codec}) failed")
             project.SetCurrentRenderMode(1)  # single clip
             base = {"SelectAllFrames": True, "TargetDir": str(VIDEOS_DIR), "CustomName": kandidat.stem,
-                    "UseUniqueFilenames": False, "ExportVideo": True, "ExportAudio": True, "ExportAlpha": False,
-                    "FormatWidth": w, "FormatHeight": h}
+                    "UseUniqueFilenames": False, "ExportVideo": True, "ExportAudio": True,
+                    "FormatWidth": w, "FormatHeight": h}  # no ExportAlpha: refused for ProRes 422 HQ (21.1.1)
             ok = project.SetRenderSettings({**base, "AudioCodec": "lpcm", "AudioBitDepth": 24,
                                             "AudioSampleRate": 48000})
             if not ok:  # one refused key fails the whole call; the master's audio is checked by ffprobe
@@ -311,8 +332,13 @@ def resolve_rendern(formate: list[str], timeout_s: int = 3 * 3600) -> dict[str, 
                 raise RuntimeError("render timed out — stopped")
             if time.time() - last > 60:
                 state = {f: project.GetRenderJobStatus(j) for f, j in jobs.items()}
+                written = sum(kandidat_pfad(f).stat().st_size for f in jobs if kandidat_pfad(f).exists())
+                minutes = max(1e-6, (time.time() - started) / 60)
+                # ~55 MB of ProRes 422 HQ per second of 1080p60 video
                 print(time.strftime("%H:%M:%S"), {f: (s.get("JobStatus"), s.get("CompletionPercentage"))
-                                                  for f, s in state.items()}, flush=True)
+                                                  for f, s in state.items()},
+                      f"{written / 1e6:.0f} MB, {written / 1e6 / minutes:.0f} MB/min "
+                      f"(~{written / 55e6 / minutes:.1f} s Video/min)", flush=True)
                 last = time.time()
             time.sleep(2)
     if previous is not None:
@@ -374,7 +400,7 @@ def fallback(fmt: str, timeline: dict) -> tuple[Path, bool]:
     audio_index = len(timeline["szenen"]) + (1 if overlay is not None else 0)
     inputs += ["-i", str(REFERENZ)]
     out = fallback_pfad(fmt)
-    VIDEOS_DIR.mkdir(parents=True, exist_ok=True)
+    platz_pruefen(1)
     run(["nice", "-n", "5", "ffmpeg", "-v", "error", "-y", *inputs,
          "-filter_complex", fallback_filter(fmt, timeline, overlay),
          "-map", "[vout]", "-map", f"{audio_index}:a:0", "-frames:v", str(timeline["dauer_f"]),

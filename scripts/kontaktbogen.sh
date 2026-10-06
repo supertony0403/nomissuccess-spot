@@ -15,7 +15,7 @@ bogen() {
     9x16) scale=216:384; tile=15x5 ;;
     *) echo "unbekanntes Format: $fmt" >&2; return 1 ;;
   esac
-  ffmpeg -v error -y -i "$mp4" -an -vf \
+  nice -n 5 ffmpeg -v error -y -i "$mp4" -an -vf \
     "fps=1/2:round=down,scale=${scale}:flags=lanczos,drawtext=font=JetBrains Mono:fontsize=15:fontcolor=white:box=1:boxcolor=black@0.6:boxborderw=3:x=6:y=h-th-8:text='%{pts\:hms}',tile=${tile}:padding=4:margin=4:color=0x202020" \
     -frames:v 1 -q:v 3 "out/kontakt-${fmt}.jpg"
   echo "out/kontakt-${fmt}.jpg"
